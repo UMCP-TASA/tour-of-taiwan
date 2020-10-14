@@ -6,19 +6,25 @@
   "author": "UMCP TASA <umcptasa@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "firebase": "^7.23.0",
     "gatsby": "^2.24.67",
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-image": "^2.4.20",
+    "gatsby-plugin-firebase": "^0.2.0-beta.4",
+    "gatsby-plugin-graphql-codegen": "^2.7.1",
     "gatsby-plugin-manifest": "^2.4.33",
     "gatsby-plugin-material-ui": "^2.1.10",
     "gatsby-plugin-offline": "^3.2.30",
     "gatsby-plugin-react-helmet": "^3.3.12",
     "gatsby-plugin-sharp": "^2.6.38",
+    "gatsby-plugin-transition-link": "^1.20.2",
     "gatsby-source-filesystem": "^2.3.32",
     "gatsby-transformer-sharp": "^2.5.16",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-helmet": "^6.1.0"
+    "react-globe": "^5.0.2",
+    "react-helmet": "^6.1.0",
+    "three": "^0.121.1"
   },
   "devDependencies": {
     "@types/node": "^14.11.8",

@@ -1,45 +1,51 @@
 module.exports = {
-  siteMetadata: {
-    title: `Tour of Taiwan`,
-    description: `UMCP TASA Tour of Taiwan 2020`,
-    author: `UMCP TASA`,
-  },
-  plugins: [
-    `gatsby-plugin-typescript`,
-    `gatsby-plugin-react-helmet`,
-    {
-      resolve: `gatsby-source-filesystem`,
-      options: {
-        name: `images`,
-        path: `${__dirname}/src/images`,
-      },
+    siteMetadata: {
+        title: `Tour of Taiwan`,
+        description: `UMCP TASA Tour of Taiwan 2020`,
+        author: `UMCP TASA`,
     },
-    {
-      resolve: `gatsby-alias-imports`,
-      options: {
-        aliases: {
-          root: `/`,
+    plugins: [
+        `gatsby-plugin-typescript`,
+        `gatsby-plugin-react-helmet`,
+        {
+            resolve: `gatsby-source-filesystem`,
+            options: {
+                name: `images`,
+                path: `${__dirname}/src/images`,
+            },
         },
-      },
-    },
-    `gatsby-plugin-material-ui`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
-    `gatsby-plugin-graphql-codegen`,
-    {
-      resolve: `gatsby-plugin-manifest`,
-      options: {
-        name: `Tour of Taiwan 2020`,
-        short_name: `ToT`,
-        start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
-        display: `minimal-ui`,
-        icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
-      },
-    },
-    // this (optional) plugin enables Progressive Web App + Offline functionality
-    // To learn more, visit: https://gatsby.dev/offline
-    `gatsby-plugin-offline`,
-  ],
+        {
+            resolve: `gatsby-alias-imports`,
+            options: {
+                aliases: {
+                    root: `/`,
+                },
+            },
+        },
+        `gatsby-plugin-material-ui`,
+        `gatsby-transformer-sharp`,
+        `gatsby-plugin-sharp`,
+        `gatsby-plugin-graphql-codegen`,
+        {
+            resolve: "gatsby-plugin-transition-link",
+            options: {
+                layout: require.resolve(`./src/components/Layout/Layout.tsx`),
+            },
+        },
+        {
+            resolve: `gatsby-plugin-manifest`,
+            options: {
+                name: `Tour of Taiwan 2020`,
+                short_name: `ToT`,
+                start_url: `/`,
+                background_color: `#663399`,
+                theme_color: `#663399`,
+                display: `minimal-ui`,
+                icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
+            },
+        },
+        // this (optional) plugin enables Progressive Web App + Offline functionality
+        // To learn more, visit: https://gatsby.dev/offline
+        `gatsby-plugin-offline`,
+    ],
 }
