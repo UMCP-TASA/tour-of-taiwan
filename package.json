@@ -1,32 +1,42 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "tour-of-taiwan-20",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "UMCP TASA Tour of Taiwan 2020",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "author": "UMCP TASA <umcptasa@gmail.com>",
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
     "gatsby": "^2.24.67",
+    "gatsby-alias-imports": "^1.0.4",
     "gatsby-image": "^2.4.20",
     "gatsby-plugin-manifest": "^2.4.33",
+    "gatsby-plugin-material-ui": "^2.1.10",
     "gatsby-plugin-offline": "^3.2.30",
     "gatsby-plugin-react-helmet": "^3.3.12",
     "gatsby-plugin-sharp": "^2.6.38",
     "gatsby-source-filesystem": "^2.3.32",
     "gatsby-transformer-sharp": "^2.5.16",
-    "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^6.1.0"
   },
   "devDependencies": {
-    "prettier": "2.1.2"
+    "@types/node": "^14.11.8",
+    "@types/react": "^16.9.52",
+    "@types/react-dom": "^16.9.8",
+    "@types/react-helmet": "^6.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.4.1",
+    "@typescript-eslint/parser": "^4.4.1",
+    "eslint": "^7.11.0",
+    "prettier": "2.1.2",
+    "typescript": "^4.0.3"
   },
   "keywords": [
     "gatsby"
   ],
   "license": "0BSD",
   "scripts": {
-    "build": "gatsby build",
+    "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --log-pages",
     "develop": "gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "npm run develop",
