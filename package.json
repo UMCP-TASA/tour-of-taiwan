@@ -22,6 +22,7 @@
     "gatsby-transformer-sharp": "^2.5.16",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-firebase-hooks": "^2.2.0",
     "react-globe": "^5.0.2",
     "react-helmet": "^6.1.0",
     "three": "^0.121.1"

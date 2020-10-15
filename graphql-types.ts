@@ -2067,6 +2067,13 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___name'
   | 'pluginCreator___pluginOptions___path'
   | 'pluginCreator___pluginOptions___aliases___root'
+  | 'pluginCreator___pluginOptions___credentials___apiKey'
+  | 'pluginCreator___pluginOptions___credentials___authDomain'
+  | 'pluginCreator___pluginOptions___credentials___databaseURL'
+  | 'pluginCreator___pluginOptions___credentials___projectId'
+  | 'pluginCreator___pluginOptions___credentials___storageBucket'
+  | 'pluginCreator___pluginOptions___credentials___messagingSenderId'
+  | 'pluginCreator___pluginOptions___credentials___appId'
   | 'pluginCreator___pluginOptions___layout'
   | 'pluginCreator___pluginOptions___short_name'
   | 'pluginCreator___pluginOptions___start_url'
@@ -2268,6 +2275,13 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___name'
   | 'pluginOptions___path'
   | 'pluginOptions___aliases___root'
+  | 'pluginOptions___credentials___apiKey'
+  | 'pluginOptions___credentials___authDomain'
+  | 'pluginOptions___credentials___databaseURL'
+  | 'pluginOptions___credentials___projectId'
+  | 'pluginOptions___credentials___storageBucket'
+  | 'pluginOptions___credentials___messagingSenderId'
+  | 'pluginOptions___credentials___appId'
   | 'pluginOptions___layout'
   | 'pluginOptions___short_name'
   | 'pluginOptions___start_url'
@@ -2396,6 +2410,7 @@ export type SitePluginPluginOptions = {
   name?: Maybe<Scalars['String']>;
   path?: Maybe<Scalars['String']>;
   aliases?: Maybe<SitePluginPluginOptionsAliases>;
+  credentials?: Maybe<SitePluginPluginOptionsCredentials>;
   layout?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
@@ -2419,10 +2434,31 @@ export type SitePluginPluginOptionsAliasesFilterInput = {
   root?: Maybe<StringQueryOperatorInput>;
 };
 
+export type SitePluginPluginOptionsCredentials = {
+  apiKey?: Maybe<Scalars['String']>;
+  authDomain?: Maybe<Scalars['String']>;
+  databaseURL?: Maybe<Scalars['String']>;
+  projectId?: Maybe<Scalars['String']>;
+  storageBucket?: Maybe<Scalars['String']>;
+  messagingSenderId?: Maybe<Scalars['String']>;
+  appId?: Maybe<Scalars['String']>;
+};
+
+export type SitePluginPluginOptionsCredentialsFilterInput = {
+  apiKey?: Maybe<StringQueryOperatorInput>;
+  authDomain?: Maybe<StringQueryOperatorInput>;
+  databaseURL?: Maybe<StringQueryOperatorInput>;
+  projectId?: Maybe<StringQueryOperatorInput>;
+  storageBucket?: Maybe<StringQueryOperatorInput>;
+  messagingSenderId?: Maybe<StringQueryOperatorInput>;
+  appId?: Maybe<StringQueryOperatorInput>;
+};
+
 export type SitePluginPluginOptionsFilterInput = {
   name?: Maybe<StringQueryOperatorInput>;
   path?: Maybe<StringQueryOperatorInput>;
   aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>;
+  credentials?: Maybe<SitePluginPluginOptionsCredentialsFilterInput>;
   layout?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
