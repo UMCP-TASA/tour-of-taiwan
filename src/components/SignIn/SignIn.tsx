@@ -1,13 +1,20 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
-import { StyledFirebaseAuth } from "react-firebaseui"
-import { Button, Typography } from "@material-ui/core"
+import { Button, Typography, makeStyles } from "@material-ui/core"
+import { Menu, PersonOutline } from "@material-ui/icons"
+
 import ClientOnly from "components/ClientOnly"
+import SignInPopup from "./SignInPopup"
+
+const useStyles = makeStyles(theme => ({
+    
+}))
 
 type Props = {}
 
 const SignIn = ({}: Props) => {
     const [isSignedIn, setSignedIn] = React.useState(false)
+    const [ dialogOpen, setDialogOpen] = React.useState(false)
 
     React.useEffect(() => {
         function handleStateChange(user: firebase.User | null) {
@@ -22,6 +29,10 @@ const SignIn = ({}: Props) => {
 
     return (
         <ClientOnly>
+            <Button variant="contained">
+                <Menu />
+                <PersonOutline />
+            </Button>
             {isSignedIn ? (
                 <>
                     <Typography>{`Welcome ${
@@ -34,19 +45,10 @@ const SignIn = ({}: Props) => {
             ) : (
                 <>
                     <Typography>Please sign in</Typography>
-                    <StyledFirebaseAuth
-                        firebaseAuth={firebase.auth()}
-                        uiConfig={{
-                            signInFlow: "popup",
-                            signInOptions: [
-                                firebase.auth.EmailAuthProvider.PROVIDER_ID,
-                                firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-                            ],
-                            callbacks: {
-                                signInSuccessWithAuthResult: () => false,
-                            },
-                        }}
-                    />
+                    <Button onClick={() => setDialogOpen(true)}>
+                        Sign In
+                    </Button>
+                    <SignInPopup open={dialogOpen} handleClose={() => setDialogOpen(false)} />
                 </>
             )}
         </ClientOnly>
