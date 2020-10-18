@@ -6,6 +6,7 @@
   "author": "UMCP TASA <umcptasa@gmail.com>",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "firebase": "^7.23.0",
     "gatsby": "^2.24.67",
     "gatsby-alias-imports": "^1.0.4",
