@@ -2,6 +2,17 @@
 
 Our application for our Tour of Taiwan event. Utilizes Gatsby, React, Netlify, and Firebase
 
+# Table of Contents
+
+1. [Installation](#installation)
+    1. [Gatsby](#gatsby)
+    2. [Environment Variables](#environment-variables)
+    3. [Typescript](#typescript)
+2. [File Structure](#file-structure)
+3. [Customizing Theme and Styling](#customizing-theme-and-styling)
+4. [Page Transitions](#page-transitions)
+5. [Firebase](#firebase)
+
 # Installation
 
 Everything is already set-up in the [package.json](package.json) so all you have to do is
@@ -32,13 +43,29 @@ In order for the [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsb
 
 Tbh I don't know if we actually had to store these in an environment variable, since it doesn't look like these are secret keys. But this is a way to prevent anyone on the Internet from accessing our config information.
 
+## Typescript
+
+Types are cool. I hope I can convert you to Typescript (or Flow) too. Here are some resources for Typescript and Typescript with React
+
+-   https://github.com/typescript-cheatsheets/react
+-   https://ts.chibicode.com/todo/
+-   https://2ality.com/2018/04/type-notation-typescript.html
+
+# File Structure
+
+-   [src/components](src/components): Holds all of the components for our site. Each sub-folder has an `index.ts` file that re-exports components so we can have a nice `import {} from "components/.."`
+-   [src/hooks](src/hooks): Holds the custom hooks for our project. Take a look at [React's documentation for hooks](https://reactjs.org/docs/hooks-intro.html) for a nice introduction to hooks
+-   [src/assets](src/assets): Our assets folder that'll contain any images, videos, or json files we end up using
+-   [src/pages](src/pages): Each file in this folder correspond to a page on the site. The path for the page matches the filename
+-   [src/types](src/types): Our custom Typescript types
+
 # Customizing Theme and Styling
 
 This site uses [Material-UI](https://material-ui.com/) components for styling. The theme can be modified in [`theme.tsx`](/src/Layout/theme.tsx) to change the primary and secondary colors, the spacing used throughout the site, and typography. More info about customizing theme can be found on the [official Material-UI cutomization guide](https://material-ui.com/customization/theming/). The theme is provided to all the pages in [`gatsby-browser.js`](gatsby-browser.js) via the [ThemeProvider](/src/Layout/Layout.tsx) component.
 
 The Material-UI framework relies on the idea of [css-in-js](https://css-tricks.com/bridging-the-gap-between-css-and-javascript-css-in-js/). In particular, we use Material-UI's [Hook API](https://material-ui.com/styles/basics/) method of adding styles.
 
-We can add styles to components by defining CSS in the `styles` object. There's a slight difference in naming between usual CSS fields and CSS-in-JS fields, but that's usually replacing - with camelCase. We can also use media queries to use different styles depending on the size of the screen!
+We can add styles to components by defining CSS in the `styles` object. There's a slight difference in naming between usual CSS fields and CSS-in-JS fields, but that's usually replacing '-' with camelCase. We can also use media queries to use different styles depending on the size of the screen!
 
 All h1, h2, h3, etc elements can be customized across the site in themes as well. Here's the example from the [Material-UI documentation](https://material-ui.com/customization/typography/)
 
@@ -60,7 +87,9 @@ const theme = createMuiTheme({
 
 # Page Transitions
 
-Smooth page transitions make everything look polished. We'll be using [gatsby-plugin-transition-link](https://transitionlink.tylerbarnes.ca/docs/transitionlink/) to handle the transitions. I'm still not entirely sure how this works, so if anyone has a better solution please let me know!
+Smooth page transitions make everything look polished. We'll be using [gatsby-plugin-transition-link](https://transitionlink.tylerbarnes.ca/docs/transitionlink/) to handle the transitions. I'm still not entirely sure how this works, so if anyone has a better solution please let me know! Right now, our footer and header components use AniLink, the plugin's default transition component, to create a swipe like effect like how apps transition between pages.
+
+I had to add a custom ".d.ts" file in [src/types](src/types) in order to add types to this plugin. I followed this [Medium article](https://medium.com/@chris_72272/migrating-to-typescript-write-a-declaration-file-for-a-third-party-npm-module-b1f75808ed2) to create a declarations file.
 
 # Firebase
 

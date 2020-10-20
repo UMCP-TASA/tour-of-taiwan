@@ -20,7 +20,7 @@
         // "checkJs": true,
         "jsx": "react",
         "strict": true,
-        "resolveJsonModule": true, // allows us to load in familyTree.json
+        "resolveJsonModule": true,
         "esModuleInterop": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
