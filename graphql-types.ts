@@ -2509,10 +2509,7 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
-export type ImageQueryQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ImageQueryQuery = { placeholderImage?: Maybe<{ childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluidFragment> }> }> };
+export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
 
 export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
