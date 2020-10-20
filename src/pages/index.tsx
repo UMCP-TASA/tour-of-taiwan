@@ -12,7 +12,7 @@ const IndexPage = ({}: PageProps) => {
             <Typography variant="h1" align="center">
                 Tour of Taiwan
             </Typography>
-            <ReactGlobe height="10vh" globeBackgroundTexture={null} />
+            <ReactGlobe height="50vh" globeBackgroundTexture={null} />
         </>
     )
 }

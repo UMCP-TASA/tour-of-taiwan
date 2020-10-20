@@ -13,7 +13,7 @@ import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
     grid: {
-        margin: theme.spacing(1),
+        padding: theme.spacing(1),
     },
 }))
 

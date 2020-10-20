@@ -16,7 +16,7 @@ import { FirebaseAuth } from "components/SignIn"
 
 const useStyles = makeStyles(theme => ({
     root: {
-        margin: theme.spacing(1),
+        padding: theme.spacing(1),
     },
 }))
 
