@@ -101,6 +101,8 @@ We utilize [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plug
 
 We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks/tree/master/firestore) for that sweet hook abstraction on querying our Cloud Firestore.
 
+Our Firebase Function that we use to auto-generate tickets when an account is created and to create tickets is located in our private repo tour-of-taiwan-admin
+
 # Animations
 
 This site use [react-spring](https://www.react-spring.io/) for animations. In order to fix some issues with typing, I upgraded to the 9.0.0-rc.3 version of react-spring. This means that some of the docs on the main page are outdated. Instead, refer to the [react-spring v9 docs](https://aleclarson.github.io/react-spring/v9/).
