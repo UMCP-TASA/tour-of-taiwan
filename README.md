@@ -13,6 +13,7 @@ Our application for our Tour of Taiwan event. Utilizes Gatsby, React, Netlify, a
 4. [Page Transitions](#page-transitions)
 5. [Firebase](#firebase)
 6. [Animations](#animations)
+7. [Netlify](#netlify)
 
 # Installation
 
@@ -103,3 +104,6 @@ We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase
 # Animations
 
 This site use [react-spring](https://www.react-spring.io/) for animations. In order to fix some issues with typing, I upgraded to the 9.0.0-rc.3 version of react-spring. This means that some of the docs on the main page are outdated. Instead, refer to the [react-spring v9 docs](https://aleclarson.github.io/react-spring/v9/).
+
+# Netlify
+We're using Netlify to host our site! You can access our control panel by signing into [app.netlify.com]([app.netlify.com]) with our UMCP TASA email. All of the environment variables are set up already.
