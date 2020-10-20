@@ -67,7 +67,7 @@ const Footer = ({}: Props) => {
 
                         <Grid item xs={2}>
                             <FooterLinkButton
-                                to="/signin"
+                                to="/profile"
                                 Icon={PersonOutline}
                                 name="Profile"
                             />

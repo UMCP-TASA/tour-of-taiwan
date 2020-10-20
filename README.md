@@ -12,6 +12,7 @@ Our application for our Tour of Taiwan event. Utilizes Gatsby, React, Netlify, a
 3. [Customizing Theme and Styling](#customizing-theme-and-styling)
 4. [Page Transitions](#page-transitions)
 5. [Firebase](#firebase)
+6. [Animations](#animations)
 
 # Installation
 
@@ -21,7 +22,7 @@ Everything is already set-up in the [package.json](package.json) so all you have
 npm install
 ```
 
-Also notice how we have a [patches](patches) folder. Because we're using a preview version of [react-spring](https://www.react-spring.io/) and there are some issues with it, we use the [patch-package](https://www.npmjs.com/package/patch-package) to repair it. This is all already handled for you in the `postinstall` command in our package.json. Just wanted to mention it in case you were curious!
+Note that because of [this issue](https://github.com/pmndrs/react-spring/issues/1078) with react-spring, we currently have to manually patch the react-spring packages. Luckily with the use of the `patch-packages` package, this has already been done for you via the `postinstall` command.
 
 ## Gatsby
 
@@ -98,3 +99,7 @@ I had to add a custom ".d.ts" file in [src/types](src/types) in order to add typ
 We utilize [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) to handle importing and utilizing our firebase instance. Due to how Gatsby uses server side rendering to pre-render some of the sites, we have to have a different way of using firebase. The [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) plugin handles all of that for us.
 
 We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks/tree/master/firestore) for that sweet hook abstraction on querying our Cloud Firestore.
+
+# Animations
+
+This site use [react-spring](https://www.react-spring.io/) for animations. In order to fix some issues with typing, I upgraded to the 9.0.0-rc.3 version of react-spring. This means that some of the docs on the main page are outdated. Instead, refer to the [react-spring v9 docs](https://aleclarson.github.io/react-spring/v9/).

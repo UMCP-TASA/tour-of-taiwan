@@ -24,7 +24,7 @@ const FooterLinkButton = ({ to, Icon, name }: Props) => {
         <AniLink
             to={to}
             swipe
-            direction="down"
+            direction="left"
             className={classes.link}
         >
             <Grid
