@@ -9,7 +9,7 @@ const Header = ({}: Props) => {
         <Hidden smDown>
             <AppBar component="header" position="fixed" color="default">
                 <Toolbar>
-                    <Logo fill="black" size={50}/>
+                    <Logo fill="black" size="50px" />
                     <Typography>Tour of Taiwan</Typography>
                 </Toolbar>
             </AppBar>

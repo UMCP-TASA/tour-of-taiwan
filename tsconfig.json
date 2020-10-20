@@ -3,7 +3,7 @@
     "compilerOptions": {
         "target": "esnext",
         "module": "commonjs",
-        "lib": ["dom", "es2017"],
+        "lib": ["dom", "ESNext"],
         "baseUrl": "./",
         "paths": {
             "components/*": ["src/components/*"],
@@ -15,7 +15,7 @@
             "@assets": ["src/assets"],
             "root/*": ["*"]
         },
-        "typeRoots": ["./node_modules/@types", "./src/types"],
+        "typeRoots": ["./src/types", "./node_modules/@types"],
         // "allowJs": true,
         // "checkJs": true,
         "jsx": "react",

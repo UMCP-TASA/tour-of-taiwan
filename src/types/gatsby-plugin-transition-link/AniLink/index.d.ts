@@ -1,7 +1,7 @@
-import { GatsbyLinkProps } from "gatsby"
-
-declare module 'gatsby-plugin-transition-link/AniLink' {
-    export interface AniLinkProps extends GatsbyLinkProps {
+declare module "gatsby-plugin-transition-link/AniLink" {
+    import React from "react"
+    import { GatsbyLinkProps } from "gatsby"
+    export interface AniLinkProps extends GatsbyLinkProps<{}> {
         duration?: number
 
         fade?: boolean
