@@ -15,10 +15,10 @@ const SignIn = ({}: Props) => {
 
     return (
         <>
-            <Button variant="contained">
+            {/* <Button variant="contained">
                 <Menu />
                 <PersonOutline />
-            </Button>
+            </Button> */}
             <SignInContent
                 signedOut={
                     <>

@@ -3,9 +3,9 @@ import firebase from "gatsby-plugin-firebase"
 import ClientOnly from "components/ClientOnly"
 
 type Props = {
-    signedOut: React.ReactNode
+    signedOut?: React.ReactNode
     signedIn?: React.ReactNode
-    children?: React.ReactNode
+    children?: React.ReactNode | ((isSignedIn: boolean) => React.ReactNode)
 }
 
 const SignInContent = ({ signedOut, signedIn, children }: Props) => {
@@ -21,6 +21,10 @@ const SignInContent = ({ signedOut, signedIn, children }: Props) => {
             firebase.auth().onAuthStateChanged(handleStateChange)
         }
     }, [setSignedIn])
+
+    if (typeof children === "function") {
+        return <ClientOnly>{children(isSignedIn)}</ClientOnly>
+    }
 
     return (
         <ClientOnly>
