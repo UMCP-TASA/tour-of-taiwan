@@ -2,16 +2,14 @@ import React from "react"
 import { PageProps } from "gatsby"
 import {
     Grid,
-    Card,
-    CardContent,
     Typography,
     makeStyles,
 } from "@material-ui/core"
 
 import SEO from "components/seo"
-import { SignInContent } from "components/SignIn"
-import LinkButton from "components/Buttons/LinkButton"
+import ClientOnly from "components/ClientOnly"
 import { RaffleCard } from "components/Raffle"
+import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
     grid: {
@@ -21,6 +19,8 @@ const useStyles = makeStyles(theme => ({
 
 const RafflePage = ({}: PageProps) => {
     const classes = useStyles()
+    const isSignedIn = useIsSignedIn()
+
     return (
         <>
             <SEO title="Raffle" />
@@ -31,31 +31,9 @@ const RafflePage = ({}: PageProps) => {
                 className={classes.grid}
             >
                 <Grid item xs={12} md={6}>
-                    <Card>
-                        <CardContent>
-                            <Typography>
-                                Hey this is the card content
-                            </Typography>
-                        </CardContent>
-                    </Card>
+                    <RaffleCard isSignedIn={isSignedIn} />
                 </Grid>
             </Grid>
-
-            {/* <SignInContent
-                signedOut={
-                    <Card raised>
-                        <CardContent>
-                        <Typography>Please sign in to see this page</Typography>
-                        <LinkButton to="/signin">Sign In</LinkButton>
-                        </CardContent>
-                    </Card>
-                }
-                signedIn={
-                    <>
-                        <RaffleCard />
-                    </>
-                }
-            /> */}
         </>
     )
 }

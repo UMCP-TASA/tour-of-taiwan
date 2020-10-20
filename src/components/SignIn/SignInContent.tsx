@@ -1,6 +1,7 @@
 import React from "react"
-import firebase from "gatsby-plugin-firebase"
 import ClientOnly from "components/ClientOnly"
+
+import useIsSignedIn from "hooks/useIsSignedIn"
 
 type Props = {
     signedOut?: React.ReactNode
@@ -9,18 +10,7 @@ type Props = {
 }
 
 const SignInContent = ({ signedOut, signedIn, children }: Props) => {
-    const [isSignedIn, setSignedIn] = React.useState(false)
-
-    React.useEffect(() => {
-        function handleStateChange(user: firebase.User | null) {
-            setSignedIn(!!user)
-        }
-        firebase.auth().onAuthStateChanged(handleStateChange)
-
-        return function cleanup() {
-            firebase.auth().onAuthStateChanged(handleStateChange)
-        }
-    }, [setSignedIn])
+    const isSignedIn = useIsSignedIn()
 
     if (typeof children === "function") {
         return <ClientOnly>{children(isSignedIn)}</ClientOnly>

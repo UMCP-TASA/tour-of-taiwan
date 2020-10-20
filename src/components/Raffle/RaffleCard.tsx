@@ -3,47 +3,63 @@ import firebase from "gatsby-plugin-firebase"
 import { useCollection } from "react-firebase-hooks/firestore"
 import {
     Card,
+    CardHeader,
     CardContent,
     CircularProgress,
     Typography,
+    List,
+    makeStyles,
 } from "@material-ui/core"
 
-type Props = {}
+import ClientOnly from "components/ClientOnly"
+import useIsSignedIn from "hooks/useIsSignedIn"
+import { LinkButton } from "components/Buttons"
+import RaffleTicket from "./RaffleTicket"
 
-/**
- * Should only be called when authenticated
- * @param param0
- */
-const RaffleCard = ({}: Props) => {
-    if (firebase.auth().currentUser === null) {
-        console.warn("Firebase not authenticated")
-        return <></>
-    }
+type Props = {
+    isSignedIn?: boolean
+}
 
+const RaffleCard = ({ isSignedIn = useIsSignedIn() }: Props) => {
     const [value, loading, error] = useCollection(
-        firebase
-            .firestore()
-            .collection("raffle")
-            .where("person", "==", firebase.auth().currentUser?.uid)
+        isSignedIn
+            ? firebase
+                  .firestore()
+                  .collection("raffle")
+                  .where("person", "==", firebase.auth().currentUser?.uid)
+            : undefined
     )
     return (
-        <Card raised>
+        <Card>
+            <CardHeader title="Tickets" />
             <CardContent>
-                {error && (
-                    <Typography>Error: {JSON.stringify(error)}</Typography>
-                )}
-                {loading && <CircularProgress />}
-                {value && (
-                    <>
-                        Collection:{" "}
-                        {value.docs.map(doc => (
-                            <div key={doc.id}>
-                                <Typography>{doc.id}</Typography>
-                                <Typography>{doc.get("category")}</Typography>
-                            </div>
-                        ))}
-                    </>
-                )}
+                <ClientOnly>
+                    {isSignedIn ? (
+                        <>
+                            {error && (
+                                <Typography>
+                                    Error: {JSON.stringify(error)}
+                                </Typography>
+                            )}
+                            {loading && <CircularProgress />}
+
+                            {value && (
+                                <List>
+                                    {value.docs.map(doc => (
+                                        <RaffleTicket doc={doc} key={doc.id} />
+                                    ))}
+                                </List>
+                            )}
+                        </>
+                    ) : (
+                        <>
+                            <Typography align="center">
+                                Please sign in to see your tickets
+                            </Typography>
+                            <LinkButton to="/signin">Sign In</LinkButton>
+                        </>
+                    )}
+                </ClientOnly>
             </CardContent>
         </Card>
     )

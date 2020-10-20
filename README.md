@@ -21,6 +21,8 @@ Everything is already set-up in the [package.json](package.json) so all you have
 npm install
 ```
 
+Also notice how we have a [patches](patches) folder. Because we're using a preview version of [react-spring](https://www.react-spring.io/) and there are some issues with it, we use the [patch-package](https://www.npmjs.com/package/patch-package) to repair it. This is all already handled for you in the `postinstall` command in our package.json. Just wanted to mention it in case you were curious!
+
 ## Gatsby
 
 You will have to install gatsby-cli which you can do with `npm install -g gatsby-cli`
@@ -96,5 +98,3 @@ I had to add a custom ".d.ts" file in [src/types](src/types) in order to add typ
 We utilize [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) to handle importing and utilizing our firebase instance. Due to how Gatsby uses server side rendering to pre-render some of the sites, we have to have a different way of using firebase. The [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) plugin handles all of that for us.
 
 We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks/tree/master/firestore) for that sweet hook abstraction on querying our Cloud Firestore.
-
-Currently there's no separate sign-up flow. If a user tries to sign in with a new account, our app auto-generates the account and a raffle ticket for them. If anyone knows how to separate this out, please fix it
