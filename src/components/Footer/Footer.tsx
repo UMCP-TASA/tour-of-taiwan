@@ -1,3 +1,6 @@
+/**
+ * Our footer component. Currently hides content unless the screen size is mobile sized
+ */
 import React from "react"
 import { AppBar, Toolbar, Grid, Hidden, makeStyles } from "@material-ui/core"
 import {

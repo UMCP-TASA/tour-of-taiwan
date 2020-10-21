@@ -14,7 +14,7 @@ const IndexPage = ({}: PageProps) => {
                 Tour of Taiwan
             </Typography>
 
-            {/* Because ReactGlobe */}
+            {/* Because ReactGlobe can't be rendered on the server, we have this to hide it. See the README for more*/}
             {typeof window === undefined ? (
                 <div style={{ height: "50vh" }} />
             ) : (

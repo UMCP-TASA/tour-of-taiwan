@@ -1,3 +1,7 @@
+/**
+ * Our theme component
+ * https://material-ui.com/customization/theming/
+ */
 import { createMuiTheme, responsiveFontSizes } from "@material-ui/core"
 
 const theme = createMuiTheme({
