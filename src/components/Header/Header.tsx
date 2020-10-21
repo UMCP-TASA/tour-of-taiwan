@@ -1,14 +1,17 @@
 import React from "react"
 import {
     AppBar,
+    Button,
     Toolbar,
     Hidden,
     Typography,
     Grid,
     makeStyles,
 } from "@material-ui/core"
+
 import Logo from "components/Logo"
 import HeaderLink from "./HeaderLink"
+import HeaderProfileMenu from "./HeaderProfileMenu"
 
 const useStyles = makeStyles(theme => ({}))
 
@@ -36,7 +39,9 @@ const Header = ({}: Props) => {
                             <HeaderLink to="/profile" text="Profile" />
                         </Grid>
 
-                        <Grid item></Grid>
+                        <Grid item>
+                            <HeaderProfileMenu />
+                        </Grid>
                     </Grid>
                 </Toolbar>
             </AppBar>
