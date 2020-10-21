@@ -13,9 +13,11 @@ const IndexPage = ({}: PageProps) => {
             <Typography variant="h1" align="center">
                 Tour of Taiwan
             </Typography>
-            <ClientOnly>
+            {typeof window === undefined ? (
+                <div style={{ height: "50vh" }} />
+            ) : (
                 <ReactGlobe height="50vh" globeBackgroundTexture={null} />
-            </ClientOnly>
+            )}
         </>
     )
 }
