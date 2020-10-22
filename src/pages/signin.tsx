@@ -71,7 +71,7 @@ const SignInPage = ({}: PageProps) => {
                     className={classes.grid}
                     alignItems="center"
                     direction="column"
-                    justify="space-between"
+                    spacing={4}
                 >
                     <Grid item>
                         <Typography variant="h3" align="center">
@@ -150,16 +150,26 @@ const SignInPage = ({}: PageProps) => {
                                 question="What data do you store?"
                             >
                                 <Typography>
-                                    We use Google's Firebase authenticate and
+                                    We use Google's Firebase to authenticate and
                                     store user information. The only two pieces
                                     of identifiable information we store are
                                     your email address and display name. You
                                     either provide us with a display name when
                                     creating an account through email or
                                     Firebase grabs it from whatever service you
-                                    signed in with. When you
+                                    signed in with. You can delete your account
+                                    at any time!
                                 </Typography>
                             </FAQuestion>
+
+                            <FAQuestion
+                                id="faq-question-delete"
+                                question="What happens when I delete my account?"
+                                answer="Your user account and profile will be deleted from our Firebase Firestore 
+                                to the extent that Firebase deletes it. All raffle tickets 
+                                associated with your account will also be deleted 
+                                and re-enter the pool of potential tickets"
+                            />
                         </Card>
                     </Grid>
                 </Grid>
