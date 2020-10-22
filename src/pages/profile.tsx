@@ -1,5 +1,5 @@
 import React from "react"
-import { PageProps } from "gatsby"
+import { PageProps, navigate } from "gatsby"
 import firebase from "gatsby-plugin-firebase"
 import {
     Button,
@@ -20,12 +20,19 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-const SignInPage = ({}: PageProps) => {
+const ProfilePage = ({}: PageProps) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
+
+    if (!isSignedIn) {
+        // Not signed in so go sign in
+        navigate("/signin")
+        return <></>
+    }
+
     return (
         <>
-            <SEO title="Sign In" />
+            <SEO title="Profile" />
             <Container maxWidth="md" className={classes.root}>
                 <Grid
                     container
@@ -57,4 +64,4 @@ const SignInPage = ({}: PageProps) => {
     )
 }
 
-export default SignInPage
+export default ProfilePage

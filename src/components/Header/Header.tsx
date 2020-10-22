@@ -36,7 +36,6 @@ const Header = ({}: Props) => {
                             <HeaderLink to="/cities" text="Cities" />
                             <HeaderLink to="/food" text="Food" />
                             <HeaderLink to="/raffle" text="Raffle" />
-                            <HeaderLink to="/profile" text="Profile" />
                         </Grid>
 
                         <Grid item>

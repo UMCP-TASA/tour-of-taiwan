@@ -56,7 +56,7 @@ const RaffleCard = ({ isSignedIn = useIsSignedIn() }: Props) => {
                             <Typography align="center">
                                 Please sign in to see your tickets
                             </Typography>
-                            <LinkButton to="/profile">Sign In</LinkButton>
+                            <LinkButton to="/signin">Sign In</LinkButton>
                         </>
                     )}
                 </ClientOnly>

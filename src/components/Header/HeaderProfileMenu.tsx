@@ -76,7 +76,7 @@ const HeaderProfileMenu = () => {
                         Account Settings
                     </MenuItem>
                 ) : (
-                    <MenuItem onClick={navigateAndClose("/profile")} divider>
+                    <MenuItem onClick={navigateAndClose("/signin")} divider>
                         Sign In
                     </MenuItem>
                 )}
