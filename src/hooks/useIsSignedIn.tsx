@@ -8,10 +8,12 @@ export default function useIsSignedIn() {
         function handleStateChange(user: firebase.User | null) {
             setSignedIn(!!user)
         }
-        firebase.auth().onAuthStateChanged(handleStateChange)
+        // firebase.auth().onAuthStateChanged returns the unsubscribe function
+        // So this line subscribes us to the listener, then we can call unsubscribe() on cleanup
+        const unsubscribe = firebase.auth().onAuthStateChanged(handleStateChange)
 
         return function cleanup() {
-            firebase.auth().onAuthStateChanged(handleStateChange)
+            unsubscribe()
         }
     }, [setSignedIn])
 

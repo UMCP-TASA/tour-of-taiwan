@@ -41,22 +41,14 @@ const ProfilePage = ({}: PageProps) => {
                     direction="column"
                 >
                     <ClientOnly>
-                        {isSignedIn ? (
-                            <>
-                                <Typography align="center">{`Welcome ${
-                                    firebase.auth().currentUser?.displayName
-                                }`}</Typography>
-                                <Button
-                                    onClick={() => firebase.auth().signOut()}
-                                >
-                                    Sign out
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <FirebaseAuth />
-                            </>
-                        )}
+                        <>
+                            <Typography align="center">{`Welcome ${
+                                firebase.auth().currentUser?.displayName
+                            }`}</Typography>
+                            <Button onClick={() => firebase.auth().signOut()}>
+                                Sign out
+                            </Button>
+                        </>
                     </ClientOnly>
                 </Grid>
             </Container>
