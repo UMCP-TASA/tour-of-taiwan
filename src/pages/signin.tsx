@@ -6,6 +6,7 @@ import SEO from "components/seo"
 import useIsSignedIn from "hooks/useIsSignedIn"
 import FAQ from "components/FAQ"
 import { FirebaseAuth } from "components/SignIn"
+import ClientOnly from "components/ClientOnly"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -20,11 +21,9 @@ const useStyles = makeStyles(theme => ({
 const SignInPage = ({}: PageProps) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
-
     if (isSignedIn) {
-        // Already signed in so no need to sign in
         navigate("/profile")
-        return <></>
+        return <SEO title="Sign In" />
     }
 
     return (
@@ -44,7 +43,9 @@ const SignInPage = ({}: PageProps) => {
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <FirebaseAuth />
+                        <ClientOnly>
+                            <FirebaseAuth />
+                        </ClientOnly>
                     </Grid>
 
                     <Grid item>

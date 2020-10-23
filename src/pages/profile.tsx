@@ -1,5 +1,6 @@
 import React from "react"
-import { PageProps, navigate } from "gatsby"
+import { PageProps } from "gatsby"
+import { navigate } from "@reach/router"
 import firebase from "gatsby-plugin-firebase"
 import {
     Button,
@@ -27,11 +28,9 @@ const ProfilePage = ({}: PageProps) => {
     const isSignedIn = useIsSignedIn()
 
     if (!isSignedIn) {
-        // Not signed in so go sign in
         navigate("/signin")
         return <SEO title="Profile" />
     }
-
 
     return (
         <>
@@ -62,13 +61,15 @@ const ProfilePage = ({}: PageProps) => {
                     </Grid>
 
                     <Grid item>
-                        <Button
-                            onClick={() => firebase.auth().signOut()}
-                            variant="contained"
-                            color="primary"
-                        >
-                            Sign out
-                        </Button>
+                        <ClientOnly>
+                            <Button
+                                onClick={() => firebase.auth().signOut()}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Sign out
+                            </Button>
+                        </ClientOnly>
                     </Grid>
 
                     <Grid item>
