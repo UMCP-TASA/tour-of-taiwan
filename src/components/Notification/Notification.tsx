@@ -30,6 +30,7 @@ const Notification = ({
     >
         <Alert severity={severity} onClose={handleClose} {...alertProps}>
             {message}
+                {console.log("Notification rendered ", open)}
         </Alert>
     </Snackbar>
 )

@@ -21,6 +21,7 @@ import ClientOnly from "components/ClientOnly"
 import useIsSignedIn from "hooks/useIsSignedIn"
 import FAQ from "components/FAQ"
 import { SignInPopup } from "components/SignIn"
+import { NotificationContext } from "components/Notification"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -41,6 +42,8 @@ const ProfilePage = ({}: PageProps) => {
     const [snackbarOpen, setSnackbarOpen] = React.useState(false)
     const [snackbarContent, setSnackbarContent] = React.useState(<></>)
 
+    const { setNotification } = React.useContext(NotificationContext)
+
     if (!isSignedIn) {
         // Not signed in so go sign in
         navigate("/signin")
@@ -53,27 +56,17 @@ const ProfilePage = ({}: PageProps) => {
             .currentUser?.delete()
             .then(() => {
                 setSignInOpen(false)
-                setSnackbarContent(
-                    <Alert
-                        severity="success"
-                        onClose={() => setSnackbarOpen(false)}
-                    >
-                        Successfully deleted account!
-                    </Alert>
-                )
-                setSnackbarOpen(true)
+                setNotification({
+                    severity: "success",
+                    message: "Successfully deleted account!",
+                })
             })
             .catch(error => {
                 setSignInOpen(false)
-                setSnackbarContent(
-                    <Alert
-                        severity="error"
-                        onClose={() => setSnackbarOpen(false)}
-                    >
-                        Something went wrong! {error}
-                    </Alert>
-                )
-                setSnackbarOpen(true)
+                setNotification({
+                    severity: "error",
+                    message: `Something went wrong! ${error}`,
+                })
             })
 
         // No redirect

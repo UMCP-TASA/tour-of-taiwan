@@ -23,7 +23,7 @@ const SignInPopup = ({
     ...rest
 }: Props) => (
     <Dialog {...rest} onClose={handleClose} aria-labelledby="sign-in-title">
-        <DialogTitle id="sign-in-title">Sign-In</DialogTitle>
+        <DialogTitle id="sign-in-title">{title}</DialogTitle>
 
         <FirebaseAuth
             signInSuccessWithAuthResult={signInSuccessWithAuthResult}
