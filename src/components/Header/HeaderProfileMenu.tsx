@@ -18,6 +18,11 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+const getPhotoURL = ({ providerData }: firebase.User) =>
+    providerData.length > 0 && providerData[0] && providerData[0].photoURL
+        ? providerData[0].photoURL
+        : ""
+
 const getFirstLetterFromWords = (name: string) =>
     name
         .split(" ")
@@ -38,6 +43,8 @@ const HeaderProfileMenu = () => {
         navigate(to)
         setMenuOpen(false)
     }
+
+    console.log(firebase.auth().currentUser)
     return (
         <>
             <Button
@@ -51,6 +58,13 @@ const HeaderProfileMenu = () => {
                 <MenuIcon />
                 <Avatar
                     alt={`Avatar image for ${displayName}`}
+                    src={
+                        isSignedIn
+                            ? getPhotoURL(
+                                  firebase.auth().currentUser as firebase.User
+                              )
+                            : ""
+                    }
                     className={classes.avatar}
                 >
                     {isSignedIn ? (
