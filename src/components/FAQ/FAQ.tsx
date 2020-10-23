@@ -6,13 +6,7 @@ const FAQ = () => (
     <Card>
         <CardHeader title="FAQ" titleTypographyProps={{ align: "center" }} />
 
-        <FAQItem
-            id="faq-question-sign-up"
-            question="How do I sign up?"
-            answer="If you sign in with an email that doesn't yet have an
-        account associated with it, an account will be generated
-        for you"
-        >
+        <FAQItem id="faq-question-sign-up" question="How do I sign up?">
             <Typography>
                 You can sign up by signing in with your gmail account or by
                 creating an account with us. If you sign in with an email that

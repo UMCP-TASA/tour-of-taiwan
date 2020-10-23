@@ -44,7 +44,6 @@ const HeaderProfileMenu = () => {
         setMenuOpen(false)
     }
 
-    console.log(firebase.auth().currentUser)
     return (
         <>
             <Button
