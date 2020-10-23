@@ -12,7 +12,17 @@ const FAQ = () => (
             answer="If you sign in with an email that doesn't yet have an
         account associated with it, an account will be generated
         for you"
-        />
+        >
+            <Typography>
+                You can sign up by signing in with your gmail account or by
+                creating an account with us. If you sign in with an email that
+                doesn't yet have an account associated with it, and account will
+                be generated for you. Signing in through gmail is preferred!
+                Then they can handle password resets and the such for you. We
+                won't have access to your account other than your display name
+                and profile picture.
+            </Typography>
+        </FAQItem>
 
         <FAQItem id="faq-question-benefits" question="Why should I sign up?">
             <Typography>
