@@ -1,8 +1,16 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { StyledFirebaseAuth } from "react-firebaseui"
+import ClientOnly from "components/ClientOnly"
 
-const FirebaseAuth = () => (
+export type FirebaseAuthProps = {
+    signInSuccessWithAuthResult?: (
+        authResult?: any,
+        redirectUrl?: string
+    ) => boolean
+}
+
+const FirebaseAuth = ({ signInSuccessWithAuthResult = () => false }) => (
     <StyledFirebaseAuth
         firebaseAuth={firebase.auth()}
         uiConfig={{
@@ -15,7 +23,7 @@ const FirebaseAuth = () => (
                 },
             ],
             callbacks: {
-                signInSuccessWithAuthResult: () => false,
+                signInSuccessWithAuthResult,
             },
         }}
     />

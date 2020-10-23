@@ -1,10 +1,10 @@
 /**
- * Our component that wraps the entire application. 
+ * Our component that wraps the entire application.
  * It handles globals, provides theme, and holds the header and footer components
  * Normally we would use it in a wrapRootElement or wrapPageElement in gatsby-browser.js and gatsby-ssr.js
  * But because we're using gatsby-plugin-transition-link for those sweet transitions, we're
  * calling this component in the gatsby-config.js under the gatsby-plugin-transition-link plugin
- * 
+ *
  * See: https://www.gatsbyjs.com/docs/browser-apis/
  * See: https://transitionlink.tylerbarnes.ca/docs/installation/
  */
@@ -13,6 +13,10 @@ import React from "react"
 import { ThemeProvider, CssBaseline } from "@material-ui/core"
 import { Globals } from "react-spring"
 
+import {
+    NotificationProvider,
+    NotificationConsumer,
+} from "components/Notification"
 import usePrefersReducedMotion from "hooks/usePrefersReducedMotion"
 import theme from "./theme"
 import Header from "components/Header"
@@ -36,9 +40,20 @@ const App = ({ children }: Props) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Header />
-            <main>{children}</main>
-            <Footer />
+            <NotificationProvider>
+                <Header />
+
+                <main>{children}</main>
+                {/* <NotificationConsumer>
+                    {({ notification }) => (
+                        <>
+                            {notification}
+                        </>
+                    )}
+                </NotificationConsumer> */}
+
+                <Footer />
+            </NotificationProvider>
         </ThemeProvider>
     )
 }

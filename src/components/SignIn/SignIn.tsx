@@ -1,7 +1,7 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { Button, Typography, makeStyles } from "@material-ui/core"
-import { Menu, PersonOutline } from "@material-ui/icons"
+
 
 import SignInContent from "./SignInContent"
 import SignInPopup from "./SignInPopup"

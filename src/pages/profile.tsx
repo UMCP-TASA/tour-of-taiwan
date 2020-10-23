@@ -1,5 +1,6 @@
 import React from "react"
 import { PageProps } from "gatsby"
+import { navigate } from "@reach/router"
 import firebase from "gatsby-plugin-firebase"
 import {
     Button,
@@ -11,50 +12,77 @@ import {
 
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
+import FAQ from "components/FAQ"
+import { DeleteAccountButton } from "components/Buttons"
+
 import useIsSignedIn from "hooks/useIsSignedIn"
-import { FirebaseAuth } from "components/SignIn"
 
 const useStyles = makeStyles(theme => ({
     root: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(4),
     },
 }))
 
-const SignInPage = ({}: PageProps) => {
+const ProfilePage = ({}: PageProps) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
+
+    if (!isSignedIn) {
+        navigate("/signin")
+        return <SEO title="Profile" />
+    }
+
     return (
         <>
-            <SEO title="Sign In" />
+            <SEO title="Profile" />
             <Container maxWidth="md" className={classes.root}>
                 <Grid
                     container
                     alignItems="center"
                     justify="center"
                     direction="column"
+                    spacing={4}
                 >
-                    <ClientOnly>
-                        {isSignedIn ? (
-                            <>
-                                <Typography align="center">{`Welcome ${
-                                    firebase.auth().currentUser?.displayName
-                                }`}</Typography>
-                                <Button
-                                    onClick={() => firebase.auth().signOut()}
-                                >
-                                    Sign out
-                                </Button>
-                            </>
-                        ) : (
-                            <>
-                                <FirebaseAuth />
-                            </>
-                        )}
-                    </ClientOnly>
+                    <Grid item>
+                        <Typography variant="h3" align="center">
+                            Account
+                        </Typography>
+                    </Grid>
+
+                    <Grid item>
+                        <ClientOnly>
+                            <Typography align="center">
+                                Welcome,{" "}
+                                <b>
+                                    {firebase.auth().currentUser?.displayName}
+                                </b>
+                            </Typography>
+                        </ClientOnly>
+                    </Grid>
+
+                    <Grid item>
+                        <ClientOnly>
+                            <Button
+                                onClick={() => firebase.auth().signOut()}
+                                variant="contained"
+                                color="primary"
+                            >
+                                Sign out
+                            </Button>
+                        </ClientOnly>
+                    </Grid>
+
+                    <Grid item>
+                        <FAQ />
+                    </Grid>
+
+                    <Grid item>
+                        <DeleteAccountButton />
+                    </Grid>
                 </Grid>
             </Container>
         </>
     )
 }
 
-export default SignInPage
+export default ProfilePage
