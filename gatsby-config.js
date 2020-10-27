@@ -38,6 +38,14 @@ module.exports = {
                 },
             },
         },
+        {
+            resolve: `gatsby-source-stripe`,
+            options: {
+                objects: ["Price"],
+                secretKey: process.env.STRIPE_READ_PLUGIN_SECRET,
+                downloadFiles: true,
+            },
+        },
         `gatsby-plugin-material-ui`,
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
