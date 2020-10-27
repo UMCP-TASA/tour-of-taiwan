@@ -158,3 +158,6 @@ The code for the component as well as a better explanation about this issue can 
 ## Fixing React Globe
 
 Because React Globe uses three.js which requires the window object, we can't render React Globe during Server Side Rendering. To fix this, we wrap the React Globe call in [index.tsx](src/pages/index.tsx) with a `typeof window === undefined` which means it won't get rendered during server side rendering. We also have to replace the three.js module with a dummy module during SSR. That's what our `exports.onCreateWebpackConfig` in [gatsby-node.js](gatsby-node.js) does. The Gatsby docs on [debugging HTML builds](https://www.gatsbyjs.com/docs/debugging-html-builds/) has more information about this.
+
+# Patches
+Patching `gatsby-source-stripe` per [this open issue](https://github.com/njosefbeck/gatsby-source-stripe/issues/62) about how images aren't downloaded for Price objects
