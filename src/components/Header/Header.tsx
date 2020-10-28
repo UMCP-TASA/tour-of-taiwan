@@ -12,6 +12,7 @@ import {
 import Logo from "components/Logo"
 import HeaderLink from "./HeaderLink"
 import HeaderProfileMenu from "./HeaderProfileMenu"
+import Cart from "components/Cart"
 
 const useStyles = makeStyles(theme => ({}))
 
@@ -39,6 +40,7 @@ const Header = ({}: Props) => {
                         </Grid>
 
                         <Grid item>
+                            <Cart />
                             <HeaderProfileMenu />
                         </Grid>
                     </Grid>

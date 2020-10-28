@@ -9,6 +9,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@stripe/stripe-js": "^1.10.0",
+    "dotenv": "^8.2.0",
     "firebase": "^7.23.0",
     "gatsby": "^2.24.67",
     "gatsby-alias-imports": "^1.0.4",
@@ -33,7 +34,8 @@
     "react-globe": "^5.0.2",
     "react-helmet": "^6.1.0",
     "react-spring": "9.0.0-rc.3",
-    "three": "^0.121.1"
+    "three": "^0.121.1",
+    "use-shopping-cart": "^2.1.0"
   },
   "devDependencies": {
     "@types/node": "^14.11.8",

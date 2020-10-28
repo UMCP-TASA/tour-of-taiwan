@@ -10,13 +10,13 @@
 
 import { loadStripe, Stripe } from "@stripe/stripe-js"
 
-const PUBLISHABLE_KEY =
+const PUBLIC_KEY =
     "pk_test_51HgZMoI2gbJ3CgDUd3CAdpNV3gBitKroNg848YgaO56GpDR9v5ZaR8DxQTRujRZtVdmORwMOHFzShrCK6mEm1tDO00tpzNYAVr"
 
 let stripePromise: Promise<Stripe | null>
 export const getStripe = () => {
     if (!stripePromise) {
-        stripePromise = loadStripe(PUBLISHABLE_KEY)
+        stripePromise = loadStripe(PUBLIC_KEY)
     }
     return stripePromise
 }

@@ -2821,10 +2821,23 @@ export type StripePriceSortInput = {
 
 export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
 
+export type StripeItemFragment = (
+  Pick<StripePrice, 'id' | 'active' | 'unit_amount' | 'currency'>
+  & { product?: Maybe<(
+    Pick<StripePriceProduct, 'id' | 'description' | 'name' | 'images'>
+    & { localFiles?: Maybe<Array<Maybe<ImageFragment>>> }
+  )> }
+);
+
 export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>> }> };
+
+export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RafflePageQuery = { prices: { edges: Array<{ node: StripeItemFragment }> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
