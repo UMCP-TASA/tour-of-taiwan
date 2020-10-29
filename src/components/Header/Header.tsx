@@ -14,14 +14,18 @@ import HeaderLink from "./HeaderLink"
 import HeaderProfileMenu from "./HeaderProfileMenu"
 import Cart from "components/Cart"
 
-const useStyles = makeStyles(theme => ({}))
+const useStyles = makeStyles(theme => ({
+    headerProfile: {
+        marginLeft: theme.spacing(2),
+    },
+}))
 
 type Props = {}
 
 const Header = ({}: Props) => {
     const classes = useStyles()
     return (
-        <Hidden smDown>
+        <>
             <AppBar component="header" position="fixed" color="default">
                 <Toolbar>
                     <Grid container alignItems="center" justify="space-between">
@@ -32,16 +36,22 @@ const Header = ({}: Props) => {
                             </Grid>
                         </Grid>
 
-                        <Grid item>
-                            <HeaderLink to="/" text="Home" />
-                            <HeaderLink to="/cities" text="Cities" />
-                            <HeaderLink to="/food" text="Food" />
-                            <HeaderLink to="/raffle" text="Raffle" />
-                        </Grid>
+                        <Hidden smDown>
+                            <Grid item>
+                                <HeaderLink to="/" text="Home" />
+                                <HeaderLink to="/cities" text="Cities" />
+                                <HeaderLink to="/food" text="Food" />
+                                <HeaderLink to="/raffle" text="Raffle" />
+                            </Grid>
+                        </Hidden>
 
                         <Grid item>
                             <Cart />
-                            <HeaderProfileMenu />
+                            <Hidden smDown>
+                                <HeaderProfileMenu
+                                    className={classes.headerProfile}
+                                />
+                            </Hidden>
                         </Grid>
                     </Grid>
                 </Toolbar>
@@ -49,7 +59,7 @@ const Header = ({}: Props) => {
 
             {/* Additional toolbar here to make sure content doesn't get hidden behind it */}
             <Toolbar />
-        </Hidden>
+        </>
     )
 }
 
