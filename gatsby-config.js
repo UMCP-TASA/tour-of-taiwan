@@ -50,6 +50,25 @@ module.exports = {
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
         `gatsby-plugin-graphql-codegen`,
+        `gatsby-plugin-netlify-cms`,
+        {
+            resolve: "gatsby-transformer-remark",
+            options: {
+                plugins: [
+                    {
+                        resolve: "gatsby-remark-relative-images",
+                    },
+                    {
+                        resolve: "gatsby-remark-images",
+                        options: {
+                            maxWidth: 672,
+                        },
+                    },
+                    "gatsby-remark-copy-linked-files",
+                    "gatsby-remark-autolink-headers",
+                ],
+            },
+        },
         {
             resolve: "gatsby-plugin-transition-link",
             options: {
