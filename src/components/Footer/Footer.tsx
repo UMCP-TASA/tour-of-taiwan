@@ -11,6 +11,7 @@ import {
     PersonOutline,
 } from "@material-ui/icons"
 import FooterLinkButton from "./FooterLinkButton"
+import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -26,6 +27,7 @@ type Props = {}
 
 const Footer = ({}: Props) => {
     const classes = useStyles()
+    const isSignedIn = useIsSignedIn()
     return (
         <Hidden mdUp>
             <Toolbar />
@@ -70,7 +72,7 @@ const Footer = ({}: Props) => {
 
                         <Grid item xs={2}>
                             <FooterLinkButton
-                                to="/profile"
+                                to={isSignedIn ? "/profile" : "/signin"}
                                 Icon={PersonOutline}
                                 name="Profile"
                             />
