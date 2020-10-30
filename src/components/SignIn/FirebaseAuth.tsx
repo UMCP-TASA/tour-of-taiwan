@@ -1,7 +1,6 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { StyledFirebaseAuth } from "react-firebaseui"
-import ClientOnly from "components/ClientOnly"
 
 export type FirebaseAuthProps = {
     signInSuccessWithAuthResult?: (
