@@ -2399,6 +2399,7 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___staticFolderName'
   | 'pluginCreator___pluginOptions___maxWidth'
   | 'pluginCreator___pluginOptions___layout'
+  | 'pluginCreator___pluginOptions___injectPageProps'
   | 'pluginCreator___pluginOptions___short_name'
   | 'pluginCreator___pluginOptions___start_url'
   | 'pluginCreator___pluginOptions___background_color'
@@ -2623,6 +2624,7 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___staticFolderName'
   | 'pluginOptions___maxWidth'
   | 'pluginOptions___layout'
+  | 'pluginOptions___injectPageProps'
   | 'pluginOptions___short_name'
   | 'pluginOptions___start_url'
   | 'pluginOptions___background_color'
@@ -2758,6 +2760,7 @@ export type SitePluginPluginOptions = {
   staticFolderName?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
   layout?: Maybe<Scalars['String']>;
+  injectPageProps?: Maybe<Scalars['Boolean']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -2812,6 +2815,7 @@ export type SitePluginPluginOptionsFilterInput = {
   staticFolderName?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
   layout?: Maybe<StringQueryOperatorInput>;
+  injectPageProps?: Maybe<BooleanQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
