@@ -40,10 +40,8 @@ const App = ({ children }: Props) => {
         <ThemeProvider theme={theme}>
             <CssBaseline />
             <CartProvider
-                mode="client-only"
+                mode="checkout-session"
                 stripe={getStripe()}
-                successUrl="http://localhost:8000/success"
-                cancelUrl="https://localhost:8000/raffle"
                 currency="USD"
                 language="EN"
             >
