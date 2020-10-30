@@ -2,6 +2,7 @@ import React from "react"
 import { makeStyles, Typography, useTheme } from "@material-ui/core"
 import AniLink, { AniLinkProps } from "gatsby-plugin-transition-link/AniLink"
 import { useTransition, animated } from "react-spring"
+import { Link } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
     link: {
