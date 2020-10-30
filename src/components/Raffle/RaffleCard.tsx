@@ -26,7 +26,7 @@ const RaffleCard = ({ isSignedIn = useIsSignedIn() }: Props) => {
             ? firebase
                   .firestore()
                   .collection("raffle")
-                  .where("person", "==", firebase.auth().currentUser?.uid)
+                  .where("person", "==", firebase.auth().currentUser?.email)
             : undefined
     )
     return (

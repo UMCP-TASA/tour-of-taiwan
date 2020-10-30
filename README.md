@@ -12,9 +12,11 @@ Our application for our Tour of Taiwan event. Utilizes Gatsby, React, Netlify, a
 3. [Customizing Theme and Styling](#customizing-theme-and-styling)
 4. [Page Transitions](#page-transitions)
 5. [Firebase](#firebase)
-6. [Animations](#animations)
-7. [Netlify](#netlify)
-8. [React Rehydration](#react-rehydration)
+6. [Stripe](#stripe)
+    1. [Use-Shopping-Cart](#use-shopping-cart)
+7. [Animations](#animations)
+8. [Netlify](#netlify)
+9. [React Rehydration](#react-rehydration)
 
 # Installation
 
@@ -133,9 +135,17 @@ I had to add a custom ".d.ts" file in [src/types](src/types) in order to add typ
 
 We utilize [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) to handle importing and utilizing our firebase instance. Due to how Gatsby uses server side rendering to pre-render some of the sites, we have to have a different way of using firebase. The [gatsby-plugin-firebase](https://www.gatsbyjs.com/plugins/gatsby-plugin-firebase/?=firebase) plugin handles all of that for us.
 
-We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks/tree/master/firestore) for that sweet hook abstraction on querying our Cloud Firestore.
+We then use [react-firebase-hooks](https://github.com/CSFrequency/react-firebase-hooks/tree/master/firestore) for that sweet hook abstraction on querying our Cloud Firestore. We also use our own Firebase cloud function to generate the session ID for stripe.
 
 Our Firebase Function that we use to auto-generate tickets when an account is created and to create tickets is located in our private repo tour-of-taiwan-admin
+
+# Stripe
+
+We use Stripe for payment! When the user clicks on the Checkout button, we call our Firebase Cloud Function that generates the Stripe Checkout Session ID for us. Then we pass that ID to `redirectToCheckout` which brings us to a Stripe hosted checkout page. By doing this, we can prevent malicious users from manipulating prices and listening in on credit card info. Once stripe processes the order, it sends a webhook to another Firebase Cloud Function that then generates the raffle tickets for the user. Our checkout session contains metadata of who to associate the ticket with and how many of each ticket to generate. Stripe passes this metadata to our Firebase function which then uses it to generate the right amount of tickets.
+
+## Use-Shopping-Cart
+
+[use-shopping-cart](https://useshoppingcart.com/) is a wonderful plugin that helps us manage cart state. It's a provider, so it sits in our [App.tsx](src/components/App/App.tsx)
 
 # Animations
 
@@ -158,3 +168,7 @@ The code for the component as well as a better explanation about this issue can 
 ## Fixing React Globe
 
 Because React Globe uses three.js which requires the window object, we can't render React Globe during Server Side Rendering. To fix this, we wrap the React Globe call in [index.tsx](src/pages/index.tsx) with a `typeof window === undefined` which means it won't get rendered during server side rendering. We also have to replace the three.js module with a dummy module during SSR. That's what our `exports.onCreateWebpackConfig` in [gatsby-node.js](gatsby-node.js) does. The Gatsby docs on [debugging HTML builds](https://www.gatsbyjs.com/docs/debugging-html-builds/) has more information about this.
+
+# Patches
+
+Patching `gatsby-source-stripe` per [this open issue](https://github.com/njosefbeck/gatsby-source-stripe/issues/62) about how images aren't downloaded for Price objects

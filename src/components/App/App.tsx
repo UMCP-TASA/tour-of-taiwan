@@ -12,15 +12,14 @@
 import React from "react"
 import { ThemeProvider, CssBaseline } from "@material-ui/core"
 import { Globals } from "react-spring"
+import { CartProvider } from "use-shopping-cart"
 
-import {
-    NotificationProvider,
-    NotificationConsumer,
-} from "components/Notification"
+import { NotificationProvider } from "components/Notification"
 import usePrefersReducedMotion from "hooks/usePrefersReducedMotion"
 import theme from "./theme"
 import Header from "components/Header"
 import Footer from "components/Footer"
+import { getStripe } from "utils/stripe"
 
 type Props = {
     children: React.ReactNode
@@ -40,20 +39,20 @@ const App = ({ children }: Props) => {
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <NotificationProvider>
-                <Header />
+            <CartProvider
+                mode="checkout-session"
+                stripe={getStripe()}
+                currency="USD"
+                language="EN"
+            >
+                <NotificationProvider>
+                    <Header />
 
-                <main>{children}</main>
-                {/* <NotificationConsumer>
-                    {({ notification }) => (
-                        <>
-                            {notification}
-                        </>
-                    )}
-                </NotificationConsumer> */}
+                    <main>{children}</main>
 
-                <Footer />
-            </NotificationProvider>
+                    <Footer />
+                </NotificationProvider>
+            </CartProvider>
         </ThemeProvider>
     )
 }

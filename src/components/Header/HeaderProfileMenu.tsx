@@ -3,6 +3,7 @@ import firebase from "gatsby-plugin-firebase"
 import { navigate } from "gatsby"
 import { Menu, MenuItem, Avatar, Button, makeStyles } from "@material-ui/core"
 import { Menu as MenuIcon, PersonOutline } from "@material-ui/icons"
+import clsx from "clsx"
 
 import useIsSignedIn from "hooks/useIsSignedIn"
 
@@ -29,7 +30,11 @@ const getFirstLetterFromWords = (name: string) =>
         .map(word => word.charAt(0))
         .join("")
 
-const HeaderProfileMenu = () => {
+type Props = {
+    className?: string
+}
+
+const HeaderProfileMenu = ({ className }: Props) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
     const displayName = isSignedIn
@@ -47,7 +52,7 @@ const HeaderProfileMenu = () => {
     return (
         <>
             <Button
-                className={classes.root}
+                className={clsx(className, classes.root)}
                 aria-controls="profile-menu"
                 aria-haspopup="true"
                 ref={anchorRef}

@@ -387,6 +387,7 @@ export type File = Node & {
   birthtimeMs?: Maybe<Scalars['Float']>;
   blksize?: Maybe<Scalars['Int']>;
   blocks?: Maybe<Scalars['Int']>;
+  url?: Maybe<Scalars['String']>;
   /** Copy file to static directory and return public url to it */
   publicURL?: Maybe<Scalars['String']>;
   childImageSharp?: Maybe<ImageSharp>;
@@ -513,6 +514,7 @@ export type FileFieldsEnum =
   | 'birthtimeMs'
   | 'blksize'
   | 'blocks'
+  | 'url'
   | 'publicURL'
   | 'childImageSharp___fixed___base64'
   | 'childImageSharp___fixed___tracedSVG'
@@ -726,12 +728,17 @@ export type FileFilterInput = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+};
+
+export type FileFilterListInput = {
+  elemMatch?: Maybe<FileFilterInput>;
 };
 
 export type FileGroupConnection = {
@@ -1350,6 +1357,8 @@ export type Query = {
   allSitePage: SitePageConnection;
   imageSharp?: Maybe<ImageSharp>;
   allImageSharp: ImageSharpConnection;
+  stripePrice?: Maybe<StripePrice>;
+  allStripePrice: StripePriceConnection;
   siteBuildMetadata?: Maybe<SiteBuildMetadata>;
   allSiteBuildMetadata: SiteBuildMetadataConnection;
   sitePlugin?: Maybe<SitePlugin>;
@@ -1391,6 +1400,7 @@ export type QueryFileArgs = {
   birthtimeMs?: Maybe<FloatQueryOperatorInput>;
   blksize?: Maybe<IntQueryOperatorInput>;
   blocks?: Maybe<IntQueryOperatorInput>;
+  url?: Maybe<StringQueryOperatorInput>;
   publicURL?: Maybe<StringQueryOperatorInput>;
   childImageSharp?: Maybe<ImageSharpFilterInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -1519,6 +1529,32 @@ export type QueryImageSharpArgs = {
 export type QueryAllImageSharpArgs = {
   filter?: Maybe<ImageSharpFilterInput>;
   sort?: Maybe<ImageSharpSortInput>;
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+};
+
+
+export type QueryStripePriceArgs = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  object?: Maybe<StringQueryOperatorInput>;
+  active?: Maybe<BooleanQueryOperatorInput>;
+  billing_scheme?: Maybe<StringQueryOperatorInput>;
+  created?: Maybe<IntQueryOperatorInput>;
+  currency?: Maybe<StringQueryOperatorInput>;
+  livemode?: Maybe<BooleanQueryOperatorInput>;
+  product?: Maybe<StripePriceProductFilterInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  unit_amount?: Maybe<IntQueryOperatorInput>;
+  unit_amount_decimal?: Maybe<StringQueryOperatorInput>;
+};
+
+
+export type QueryAllStripePriceArgs = {
+  filter?: Maybe<StripePriceFilterInput>;
+  sort?: Maybe<StripePriceSortInput>;
   skip?: Maybe<Scalars['Int']>;
   limit?: Maybe<Scalars['Int']>;
 };
@@ -2066,6 +2102,9 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___credentials___storageBucket'
   | 'pluginCreator___pluginOptions___credentials___messagingSenderId'
   | 'pluginCreator___pluginOptions___credentials___appId'
+  | 'pluginCreator___pluginOptions___objects'
+  | 'pluginCreator___pluginOptions___secretKey'
+  | 'pluginCreator___pluginOptions___downloadFiles'
   | 'pluginCreator___pluginOptions___layout'
   | 'pluginCreator___pluginOptions___short_name'
   | 'pluginCreator___pluginOptions___start_url'
@@ -2274,6 +2313,9 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___credentials___storageBucket'
   | 'pluginOptions___credentials___messagingSenderId'
   | 'pluginOptions___credentials___appId'
+  | 'pluginOptions___objects'
+  | 'pluginOptions___secretKey'
+  | 'pluginOptions___downloadFiles'
   | 'pluginOptions___layout'
   | 'pluginOptions___short_name'
   | 'pluginOptions___start_url'
@@ -2403,6 +2445,9 @@ export type SitePluginPluginOptions = {
   path?: Maybe<Scalars['String']>;
   aliases?: Maybe<SitePluginPluginOptionsAliases>;
   credentials?: Maybe<SitePluginPluginOptionsCredentials>;
+  objects?: Maybe<Array<Maybe<Scalars['String']>>>;
+  secretKey?: Maybe<Scalars['String']>;
+  downloadFiles?: Maybe<Scalars['Boolean']>;
   layout?: Maybe<Scalars['String']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
@@ -2451,6 +2496,9 @@ export type SitePluginPluginOptionsFilterInput = {
   path?: Maybe<StringQueryOperatorInput>;
   aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>;
   credentials?: Maybe<SitePluginPluginOptionsCredentialsFilterInput>;
+  objects?: Maybe<StringQueryOperatorInput>;
+  secretKey?: Maybe<StringQueryOperatorInput>;
+  downloadFiles?: Maybe<BooleanQueryOperatorInput>;
   layout?: Maybe<StringQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
@@ -2501,12 +2549,287 @@ export type StringQueryOperatorInput = {
   glob?: Maybe<Scalars['String']>;
 };
 
+export type StripePrice = Node & {
+  id: Scalars['ID'];
+  parent?: Maybe<Node>;
+  children: Array<Node>;
+  internal: Internal;
+  object?: Maybe<Scalars['String']>;
+  active?: Maybe<Scalars['Boolean']>;
+  billing_scheme?: Maybe<Scalars['String']>;
+  created?: Maybe<Scalars['Int']>;
+  currency?: Maybe<Scalars['String']>;
+  livemode?: Maybe<Scalars['Boolean']>;
+  product?: Maybe<StripePriceProduct>;
+  type?: Maybe<Scalars['String']>;
+  unit_amount?: Maybe<Scalars['Int']>;
+  unit_amount_decimal?: Maybe<Scalars['String']>;
+};
+
+export type StripePriceConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StripePriceEdge>;
+  nodes: Array<StripePrice>;
+  pageInfo: PageInfo;
+  distinct: Array<Scalars['String']>;
+  group: Array<StripePriceGroupConnection>;
+};
+
+
+export type StripePriceConnectionDistinctArgs = {
+  field: StripePriceFieldsEnum;
+};
+
+
+export type StripePriceConnectionGroupArgs = {
+  skip?: Maybe<Scalars['Int']>;
+  limit?: Maybe<Scalars['Int']>;
+  field: StripePriceFieldsEnum;
+};
+
+export type StripePriceEdge = {
+  next?: Maybe<StripePrice>;
+  node: StripePrice;
+  previous?: Maybe<StripePrice>;
+};
+
+export type StripePriceFieldsEnum = 
+  | 'id'
+  | 'parent___id'
+  | 'parent___parent___id'
+  | 'parent___parent___parent___id'
+  | 'parent___parent___parent___children'
+  | 'parent___parent___children'
+  | 'parent___parent___children___id'
+  | 'parent___parent___children___children'
+  | 'parent___parent___internal___content'
+  | 'parent___parent___internal___contentDigest'
+  | 'parent___parent___internal___description'
+  | 'parent___parent___internal___fieldOwners'
+  | 'parent___parent___internal___ignoreType'
+  | 'parent___parent___internal___mediaType'
+  | 'parent___parent___internal___owner'
+  | 'parent___parent___internal___type'
+  | 'parent___children'
+  | 'parent___children___id'
+  | 'parent___children___parent___id'
+  | 'parent___children___parent___children'
+  | 'parent___children___children'
+  | 'parent___children___children___id'
+  | 'parent___children___children___children'
+  | 'parent___children___internal___content'
+  | 'parent___children___internal___contentDigest'
+  | 'parent___children___internal___description'
+  | 'parent___children___internal___fieldOwners'
+  | 'parent___children___internal___ignoreType'
+  | 'parent___children___internal___mediaType'
+  | 'parent___children___internal___owner'
+  | 'parent___children___internal___type'
+  | 'parent___internal___content'
+  | 'parent___internal___contentDigest'
+  | 'parent___internal___description'
+  | 'parent___internal___fieldOwners'
+  | 'parent___internal___ignoreType'
+  | 'parent___internal___mediaType'
+  | 'parent___internal___owner'
+  | 'parent___internal___type'
+  | 'children'
+  | 'children___id'
+  | 'children___parent___id'
+  | 'children___parent___parent___id'
+  | 'children___parent___parent___children'
+  | 'children___parent___children'
+  | 'children___parent___children___id'
+  | 'children___parent___children___children'
+  | 'children___parent___internal___content'
+  | 'children___parent___internal___contentDigest'
+  | 'children___parent___internal___description'
+  | 'children___parent___internal___fieldOwners'
+  | 'children___parent___internal___ignoreType'
+  | 'children___parent___internal___mediaType'
+  | 'children___parent___internal___owner'
+  | 'children___parent___internal___type'
+  | 'children___children'
+  | 'children___children___id'
+  | 'children___children___parent___id'
+  | 'children___children___parent___children'
+  | 'children___children___children'
+  | 'children___children___children___id'
+  | 'children___children___children___children'
+  | 'children___children___internal___content'
+  | 'children___children___internal___contentDigest'
+  | 'children___children___internal___description'
+  | 'children___children___internal___fieldOwners'
+  | 'children___children___internal___ignoreType'
+  | 'children___children___internal___mediaType'
+  | 'children___children___internal___owner'
+  | 'children___children___internal___type'
+  | 'children___internal___content'
+  | 'children___internal___contentDigest'
+  | 'children___internal___description'
+  | 'children___internal___fieldOwners'
+  | 'children___internal___ignoreType'
+  | 'children___internal___mediaType'
+  | 'children___internal___owner'
+  | 'children___internal___type'
+  | 'internal___content'
+  | 'internal___contentDigest'
+  | 'internal___description'
+  | 'internal___fieldOwners'
+  | 'internal___ignoreType'
+  | 'internal___mediaType'
+  | 'internal___owner'
+  | 'internal___type'
+  | 'object'
+  | 'active'
+  | 'billing_scheme'
+  | 'created'
+  | 'currency'
+  | 'livemode'
+  | 'product___id'
+  | 'product___object'
+  | 'product___active'
+  | 'product___created'
+  | 'product___description'
+  | 'product___images'
+  | 'product___livemode'
+  | 'product___name'
+  | 'product___type'
+  | 'product___updated'
+  | 'product___localFiles'
+  | 'product___localFiles___sourceInstanceName'
+  | 'product___localFiles___absolutePath'
+  | 'product___localFiles___relativePath'
+  | 'product___localFiles___extension'
+  | 'product___localFiles___size'
+  | 'product___localFiles___prettySize'
+  | 'product___localFiles___modifiedTime'
+  | 'product___localFiles___accessTime'
+  | 'product___localFiles___changeTime'
+  | 'product___localFiles___birthTime'
+  | 'product___localFiles___root'
+  | 'product___localFiles___dir'
+  | 'product___localFiles___base'
+  | 'product___localFiles___ext'
+  | 'product___localFiles___name'
+  | 'product___localFiles___relativeDirectory'
+  | 'product___localFiles___dev'
+  | 'product___localFiles___mode'
+  | 'product___localFiles___nlink'
+  | 'product___localFiles___uid'
+  | 'product___localFiles___gid'
+  | 'product___localFiles___rdev'
+  | 'product___localFiles___ino'
+  | 'product___localFiles___atimeMs'
+  | 'product___localFiles___mtimeMs'
+  | 'product___localFiles___ctimeMs'
+  | 'product___localFiles___atime'
+  | 'product___localFiles___mtime'
+  | 'product___localFiles___ctime'
+  | 'product___localFiles___birthtime'
+  | 'product___localFiles___birthtimeMs'
+  | 'product___localFiles___blksize'
+  | 'product___localFiles___blocks'
+  | 'product___localFiles___url'
+  | 'product___localFiles___publicURL'
+  | 'product___localFiles___childImageSharp___id'
+  | 'product___localFiles___childImageSharp___children'
+  | 'product___localFiles___id'
+  | 'product___localFiles___parent___id'
+  | 'product___localFiles___parent___children'
+  | 'product___localFiles___children'
+  | 'product___localFiles___children___id'
+  | 'product___localFiles___children___children'
+  | 'product___localFiles___internal___content'
+  | 'product___localFiles___internal___contentDigest'
+  | 'product___localFiles___internal___description'
+  | 'product___localFiles___internal___fieldOwners'
+  | 'product___localFiles___internal___ignoreType'
+  | 'product___localFiles___internal___mediaType'
+  | 'product___localFiles___internal___owner'
+  | 'product___localFiles___internal___type'
+  | 'type'
+  | 'unit_amount'
+  | 'unit_amount_decimal';
+
+export type StripePriceFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  parent?: Maybe<NodeFilterInput>;
+  children?: Maybe<NodeFilterListInput>;
+  internal?: Maybe<InternalFilterInput>;
+  object?: Maybe<StringQueryOperatorInput>;
+  active?: Maybe<BooleanQueryOperatorInput>;
+  billing_scheme?: Maybe<StringQueryOperatorInput>;
+  created?: Maybe<IntQueryOperatorInput>;
+  currency?: Maybe<StringQueryOperatorInput>;
+  livemode?: Maybe<BooleanQueryOperatorInput>;
+  product?: Maybe<StripePriceProductFilterInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  unit_amount?: Maybe<IntQueryOperatorInput>;
+  unit_amount_decimal?: Maybe<StringQueryOperatorInput>;
+};
+
+export type StripePriceGroupConnection = {
+  totalCount: Scalars['Int'];
+  edges: Array<StripePriceEdge>;
+  nodes: Array<StripePrice>;
+  pageInfo: PageInfo;
+  field: Scalars['String'];
+  fieldValue?: Maybe<Scalars['String']>;
+};
+
+export type StripePriceProduct = {
+  id?: Maybe<Scalars['String']>;
+  object?: Maybe<Scalars['String']>;
+  active?: Maybe<Scalars['Boolean']>;
+  created?: Maybe<Scalars['Int']>;
+  description?: Maybe<Scalars['String']>;
+  images?: Maybe<Array<Maybe<Scalars['String']>>>;
+  livemode?: Maybe<Scalars['Boolean']>;
+  name?: Maybe<Scalars['String']>;
+  type?: Maybe<Scalars['String']>;
+  updated?: Maybe<Scalars['Int']>;
+  localFiles?: Maybe<Array<Maybe<File>>>;
+};
+
+export type StripePriceProductFilterInput = {
+  id?: Maybe<StringQueryOperatorInput>;
+  object?: Maybe<StringQueryOperatorInput>;
+  active?: Maybe<BooleanQueryOperatorInput>;
+  created?: Maybe<IntQueryOperatorInput>;
+  description?: Maybe<StringQueryOperatorInput>;
+  images?: Maybe<StringQueryOperatorInput>;
+  livemode?: Maybe<BooleanQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  type?: Maybe<StringQueryOperatorInput>;
+  updated?: Maybe<IntQueryOperatorInput>;
+  localFiles?: Maybe<FileFilterListInput>;
+};
+
+export type StripePriceSortInput = {
+  fields?: Maybe<Array<Maybe<StripePriceFieldsEnum>>>;
+  order?: Maybe<Array<Maybe<SortOrderEnum>>>;
+};
+
 export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
+
+export type StripeItemFragment = (
+  Pick<StripePrice, 'id' | 'active' | 'unit_amount' | 'currency'>
+  & { product?: Maybe<(
+    Pick<StripePriceProduct, 'id' | 'description' | 'name' | 'images'>
+    & { localFiles?: Maybe<Array<Maybe<ImageFragment>>> }
+  )> }
+);
 
 export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>> }> };
+
+export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type RafflePageQuery = { prices: { edges: Array<{ node: StripeItemFragment }> } };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 
