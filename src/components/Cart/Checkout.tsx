@@ -12,7 +12,11 @@ type Item = {
     quantity: number
 }
 
-const Checkout = () => {
+type Props = {
+    handleClose: () => void
+}
+
+const Checkout = ({ handleClose }: Props) => {
     const { cartDetails } = useShoppingCart()
     const isSignedIn = useIsSignedIn()
     const [disabled, setDisabled] = React.useState(false)
@@ -21,9 +25,12 @@ const Checkout = () => {
     )
     const [errorMessage, setErrorMessage] = React.useState("")
 
-    const handleClick = async () => {
-        if (!isSignedIn) navigate("/signin")
+    const handleNotSignedIn = () => {
+        handleClose()
+        if (window.location.pathname !== "/signin/") navigate("/signin")
+    }
 
+    const handleClick = async () => {
         setErrorMessage("")
         setDisabled(true)
         setButtonText(<CircularProgress />)
@@ -37,17 +44,33 @@ const Checkout = () => {
                 quantity: value.quantity,
             })
         )
-        const { error } = await stripe.redirectToCheckout({
-            lineItems: items,
-            mode: "payment",
+
+        const email = firebase.auth().currentUser?.email as string
+
+        const createCheckoutSession = firebase
+            .app()
+            .functions("us-east4")
+            .httpsCallable("createCheckoutSession")
+
+        const response = await createCheckoutSession({
+            person: email,
+            items,
             successUrl: `${window.location.origin}/success`,
             cancelUrl: `${window.location.origin}/raffle`,
-            clientReferenceId: firebase.auth().currentUser?.uid,
-            customerEmail: "example@example.com",
         })
 
-        if (error) {
-            setErrorMessage("An error occured. Please try again")
+        if (response.data.status == "error") {
+            setErrorMessage(
+                "An error occured with creating a checkout session. Please try again"
+            )
+        } else {
+            const { error } = await stripe.redirectToCheckout({
+                sessionId: response.data.sessionId as string,
+            })
+
+            if (error) {
+                setErrorMessage("An error occured. Please try again")
+            }
         }
 
         setDisabled(false)
@@ -60,7 +83,7 @@ const Checkout = () => {
                 <Typography align="center">{errorMessage}</Typography>
             )}
             <Button
-                onClick={handleClick}
+                onClick={isSignedIn ? handleClick : handleNotSignedIn}
                 disabled={disabled}
                 fullWidth
                 color="primary"

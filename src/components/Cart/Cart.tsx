@@ -30,6 +30,18 @@ const useStyles = makeStyles(theme => ({
         height: theme.spacing(2),
         borderWidth: "0px",
     },
+    headerGrid: {
+        display: "grid",
+        gridTemplateColumns: "50px 1fr 50px",
+    },
+    headerIcon: {
+        gridColumns: "1 / 2",
+    },
+    headerText: {
+        gridColumns: "2 / 3",
+        textAlign: "center",
+        margin: "auto",
+    },
 }))
 
 type Props = {
@@ -59,14 +71,22 @@ const Cart = ({ className }: Props) => {
                     spacing={1}
                 >
                     <Grid item container direction="column" spacing={1}>
-                        <Grid item>
+                        <Grid item className={classes.headerGrid}>
                             <AnimatedIconButton
+                                className={classes.headerIcon}
                                 onClick={handleClose}
                                 from="translate(0px)"
                                 to="translate(10px"
                             >
                                 <ArrowForward />
                             </AnimatedIconButton>
+
+                            <Typography
+                                variant="h6"
+                                className={classes.headerText}
+                            >
+                                Cart
+                            </Typography>
                         </Grid>
 
                         <Grid item>
@@ -74,6 +94,11 @@ const Cart = ({ className }: Props) => {
                         </Grid>
 
                         <Grid item>
+                            {cartCount == 0 && (
+                                <Typography variant="h6" align="center">
+                                    Your Cart is Empty
+                                </Typography>
+                            )}
                             <List component="div">
                                 {Object.entries(cartDetails).map(
                                     ([id, item]) => (
@@ -90,33 +115,35 @@ const Cart = ({ className }: Props) => {
                         </Grid>
                     </Grid>
 
-                    <Grid
-                        item
-                        container
-                        direction="column"
-                        spacing={2}
-                        alignItems="stretch"
-                    >
-                        <Grid item>
-                            <Divider />
-                        </Grid>
-                        <Grid item container justify="space-between">
+                    {cartCount > 0 && (
+                        <Grid
+                            item
+                            container
+                            direction="column"
+                            spacing={2}
+                            alignItems="stretch"
+                        >
                             <Grid item>
-                                <Typography>
-                                    <b>Subtotal</b>
-                                </Typography>
+                                <Divider />
                             </Grid>
+                            <Grid item container justify="space-between">
+                                <Grid item>
+                                    <Typography>
+                                        <b>Subtotal</b>
+                                    </Typography>
+                                </Grid>
 
+                                <Grid item>
+                                    <Typography align="right">
+                                        {formattedTotalPrice}
+                                    </Typography>
+                                </Grid>
+                            </Grid>
                             <Grid item>
-                                <Typography align="right">
-                                    {formattedTotalPrice}
-                                </Typography>
+                                <Checkout handleClose={handleClose} />
                             </Grid>
                         </Grid>
-                        <Grid item>
-                            <Checkout />
-                        </Grid>
-                    </Grid>
+                    )}
                 </Grid>
             </Drawer>
         </>
