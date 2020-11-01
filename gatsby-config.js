@@ -17,6 +17,20 @@ module.exports = {
             },
         },
         {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "cities",
+                path: `${__dirname}/content/cities/`,
+            },
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "food",
+                path: `${__dirname}/content/food/`,
+            },
+        },
+        {
             resolve: `gatsby-alias-imports`,
             options: {
                 aliases: {

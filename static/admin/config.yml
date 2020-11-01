@@ -9,12 +9,12 @@ public_folder: assets
 collections:
     - name: cities
       label: "Cities"
-      identifier_field: city
+      identifier_field: name
       folder: "content/cities"
       create: true # whether or not new cities can be added
       slug: "{{slug}}" # unique URL for the created city
       fields:
-          - { label: "City", name: "city", widget: "string" }
+          - { label: "Name", name: "name", widget: "string" }
           - { label: "Cover Image", name: "imgsrc", widget: "image" }
           - {
                 label: "Category",
@@ -31,12 +31,12 @@ collections:
             }
           - { label: "Description", name: "body", widget: "markdown" }
     - name: Food
-      identifier_field: food
+      identifier_field: name
       label: "Food"
       folder: "content/food"
       create: true
       fields:
-          - { label: "Food", name: "food", widget: "string" }
+          - { label: "Name", name: "name", widget: "string" }
           - {
                 label: "Category",
                 name: "category",
@@ -61,5 +61,5 @@ collections:
                 name: "body",
                 widget: "markdown",
                 required: false,
-                default: "No bio",
+                default: "No description",
             }

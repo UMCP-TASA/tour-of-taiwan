@@ -1,5 +1,5 @@
 ---
-food: Tanghulu
+name: Tanghulu
 category: food
 imgsrc: assets/tanghulu.jpg
 video: https://youtu.be/IwzVETrgdm8

@@ -1,5 +1,5 @@
 ---
-city: Taichung
+name: Taichung
 imgsrc: assets/taichung.jpg
 category: city
 video: https://youtu.be/0uBM3kXt-dY

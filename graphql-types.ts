@@ -395,6 +395,7 @@ export type File = Node & {
   parent?: Maybe<Node>;
   children: Array<Node>;
   internal: Internal;
+  childMarkdownRemark?: Maybe<MarkdownRemark>;
 };
 
 
@@ -692,7 +693,65 @@ export type FileFieldsEnum =
   | 'internal___ignoreType'
   | 'internal___mediaType'
   | 'internal___owner'
-  | 'internal___type';
+  | 'internal___type'
+  | 'childMarkdownRemark___id'
+  | 'childMarkdownRemark___frontmatter___title'
+  | 'childMarkdownRemark___frontmatter___name'
+  | 'childMarkdownRemark___frontmatter___imgsrc'
+  | 'childMarkdownRemark___frontmatter___category'
+  | 'childMarkdownRemark___frontmatter___video'
+  | 'childMarkdownRemark___excerpt'
+  | 'childMarkdownRemark___rawMarkdownBody'
+  | 'childMarkdownRemark___fileAbsolutePath'
+  | 'childMarkdownRemark___html'
+  | 'childMarkdownRemark___htmlAst'
+  | 'childMarkdownRemark___excerptAst'
+  | 'childMarkdownRemark___headings'
+  | 'childMarkdownRemark___headings___id'
+  | 'childMarkdownRemark___headings___value'
+  | 'childMarkdownRemark___headings___depth'
+  | 'childMarkdownRemark___timeToRead'
+  | 'childMarkdownRemark___tableOfContents'
+  | 'childMarkdownRemark___wordCount___paragraphs'
+  | 'childMarkdownRemark___wordCount___sentences'
+  | 'childMarkdownRemark___wordCount___words'
+  | 'childMarkdownRemark___parent___id'
+  | 'childMarkdownRemark___parent___parent___id'
+  | 'childMarkdownRemark___parent___parent___children'
+  | 'childMarkdownRemark___parent___children'
+  | 'childMarkdownRemark___parent___children___id'
+  | 'childMarkdownRemark___parent___children___children'
+  | 'childMarkdownRemark___parent___internal___content'
+  | 'childMarkdownRemark___parent___internal___contentDigest'
+  | 'childMarkdownRemark___parent___internal___description'
+  | 'childMarkdownRemark___parent___internal___fieldOwners'
+  | 'childMarkdownRemark___parent___internal___ignoreType'
+  | 'childMarkdownRemark___parent___internal___mediaType'
+  | 'childMarkdownRemark___parent___internal___owner'
+  | 'childMarkdownRemark___parent___internal___type'
+  | 'childMarkdownRemark___children'
+  | 'childMarkdownRemark___children___id'
+  | 'childMarkdownRemark___children___parent___id'
+  | 'childMarkdownRemark___children___parent___children'
+  | 'childMarkdownRemark___children___children'
+  | 'childMarkdownRemark___children___children___id'
+  | 'childMarkdownRemark___children___children___children'
+  | 'childMarkdownRemark___children___internal___content'
+  | 'childMarkdownRemark___children___internal___contentDigest'
+  | 'childMarkdownRemark___children___internal___description'
+  | 'childMarkdownRemark___children___internal___fieldOwners'
+  | 'childMarkdownRemark___children___internal___ignoreType'
+  | 'childMarkdownRemark___children___internal___mediaType'
+  | 'childMarkdownRemark___children___internal___owner'
+  | 'childMarkdownRemark___children___internal___type'
+  | 'childMarkdownRemark___internal___content'
+  | 'childMarkdownRemark___internal___contentDigest'
+  | 'childMarkdownRemark___internal___description'
+  | 'childMarkdownRemark___internal___fieldOwners'
+  | 'childMarkdownRemark___internal___ignoreType'
+  | 'childMarkdownRemark___internal___mediaType'
+  | 'childMarkdownRemark___internal___owner'
+  | 'childMarkdownRemark___internal___type';
 
 export type FileFilterInput = {
   sourceInstanceName?: Maybe<StringQueryOperatorInput>;
@@ -735,6 +794,7 @@ export type FileFilterInput = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
 
 export type FileFilterListInput = {
@@ -1337,9 +1397,12 @@ export type MarkdownHeadingLevels =
 
 export type MarkdownRemark = Node & {
   id: Scalars['ID'];
+  frontmatter?: Maybe<MarkdownRemarkFrontmatter>;
+  excerpt?: Maybe<Scalars['String']>;
+  rawMarkdownBody?: Maybe<Scalars['String']>;
+  fileAbsolutePath?: Maybe<Scalars['String']>;
   html?: Maybe<Scalars['String']>;
   htmlAst?: Maybe<Scalars['JSON']>;
-  excerpt?: Maybe<Scalars['String']>;
   excerptAst?: Maybe<Scalars['JSON']>;
   headings?: Maybe<Array<Maybe<MarkdownHeading>>>;
   timeToRead?: Maybe<Scalars['Int']>;
@@ -1405,9 +1468,16 @@ export type MarkdownRemarkEdge = {
 
 export type MarkdownRemarkFieldsEnum = 
   | 'id'
+  | 'frontmatter___title'
+  | 'frontmatter___name'
+  | 'frontmatter___imgsrc'
+  | 'frontmatter___category'
+  | 'frontmatter___video'
+  | 'excerpt'
+  | 'rawMarkdownBody'
+  | 'fileAbsolutePath'
   | 'html'
   | 'htmlAst'
-  | 'excerpt'
   | 'excerptAst'
   | 'headings'
   | 'headings___id'
@@ -1506,9 +1576,12 @@ export type MarkdownRemarkFieldsEnum =
 
 export type MarkdownRemarkFilterInput = {
   id?: Maybe<StringQueryOperatorInput>;
+  frontmatter?: Maybe<MarkdownRemarkFrontmatterFilterInput>;
+  excerpt?: Maybe<StringQueryOperatorInput>;
+  rawMarkdownBody?: Maybe<StringQueryOperatorInput>;
+  fileAbsolutePath?: Maybe<StringQueryOperatorInput>;
   html?: Maybe<StringQueryOperatorInput>;
   htmlAst?: Maybe<JsonQueryOperatorInput>;
-  excerpt?: Maybe<StringQueryOperatorInput>;
   excerptAst?: Maybe<JsonQueryOperatorInput>;
   headings?: Maybe<MarkdownHeadingFilterListInput>;
   timeToRead?: Maybe<IntQueryOperatorInput>;
@@ -1517,6 +1590,22 @@ export type MarkdownRemarkFilterInput = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+};
+
+export type MarkdownRemarkFrontmatter = {
+  title?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  imgsrc?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
+  video?: Maybe<Scalars['String']>;
+};
+
+export type MarkdownRemarkFrontmatterFilterInput = {
+  title?: Maybe<StringQueryOperatorInput>;
+  name?: Maybe<StringQueryOperatorInput>;
+  imgsrc?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
+  video?: Maybe<StringQueryOperatorInput>;
 };
 
 export type MarkdownRemarkGroupConnection = {
@@ -1657,6 +1746,7 @@ export type QueryFileArgs = {
   parent?: Maybe<NodeFilterInput>;
   children?: Maybe<NodeFilterListInput>;
   internal?: Maybe<InternalFilterInput>;
+  childMarkdownRemark?: Maybe<MarkdownRemarkFilterInput>;
 };
 
 
@@ -1720,8 +1810,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -1788,9 +1876,12 @@ export type QueryAllImageSharpArgs = {
 
 export type QueryMarkdownRemarkArgs = {
   id?: Maybe<StringQueryOperatorInput>;
+  frontmatter?: Maybe<MarkdownRemarkFrontmatterFilterInput>;
+  excerpt?: Maybe<StringQueryOperatorInput>;
+  rawMarkdownBody?: Maybe<StringQueryOperatorInput>;
+  fileAbsolutePath?: Maybe<StringQueryOperatorInput>;
   html?: Maybe<StringQueryOperatorInput>;
   htmlAst?: Maybe<JsonQueryOperatorInput>;
-  excerpt?: Maybe<StringQueryOperatorInput>;
   excerptAst?: Maybe<JsonQueryOperatorInput>;
   headings?: Maybe<MarkdownHeadingFilterListInput>;
   timeToRead?: Maybe<IntQueryOperatorInput>;
@@ -1880,8 +1971,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2084,8 +2173,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2178,8 +2265,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2398,8 +2483,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___downloadFiles'
   | 'pluginCreator___pluginOptions___staticFolderName'
   | 'pluginCreator___pluginOptions___maxWidth'
-  | 'pluginCreator___pluginOptions___layout'
-  | 'pluginCreator___pluginOptions___injectPageProps'
   | 'pluginCreator___pluginOptions___short_name'
   | 'pluginCreator___pluginOptions___start_url'
   | 'pluginCreator___pluginOptions___background_color'
@@ -2623,8 +2706,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___downloadFiles'
   | 'pluginOptions___staticFolderName'
   | 'pluginOptions___maxWidth'
-  | 'pluginOptions___layout'
-  | 'pluginOptions___injectPageProps'
   | 'pluginOptions___short_name'
   | 'pluginOptions___start_url'
   | 'pluginOptions___background_color'
@@ -2759,8 +2840,6 @@ export type SitePluginPluginOptions = {
   downloadFiles?: Maybe<Scalars['Boolean']>;
   staticFolderName?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
-  layout?: Maybe<Scalars['String']>;
-  injectPageProps?: Maybe<Scalars['Boolean']>;
   short_name?: Maybe<Scalars['String']>;
   start_url?: Maybe<Scalars['String']>;
   background_color?: Maybe<Scalars['String']>;
@@ -2814,8 +2893,6 @@ export type SitePluginPluginOptionsFilterInput = {
   downloadFiles?: Maybe<BooleanQueryOperatorInput>;
   staticFolderName?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
-  layout?: Maybe<StringQueryOperatorInput>;
-  injectPageProps?: Maybe<BooleanQueryOperatorInput>;
   short_name?: Maybe<StringQueryOperatorInput>;
   start_url?: Maybe<StringQueryOperatorInput>;
   background_color?: Maybe<StringQueryOperatorInput>;
@@ -3102,6 +3179,17 @@ export type StripePriceFieldsEnum =
   | 'product___localFiles___internal___mediaType'
   | 'product___localFiles___internal___owner'
   | 'product___localFiles___internal___type'
+  | 'product___localFiles___childMarkdownRemark___id'
+  | 'product___localFiles___childMarkdownRemark___excerpt'
+  | 'product___localFiles___childMarkdownRemark___rawMarkdownBody'
+  | 'product___localFiles___childMarkdownRemark___fileAbsolutePath'
+  | 'product___localFiles___childMarkdownRemark___html'
+  | 'product___localFiles___childMarkdownRemark___htmlAst'
+  | 'product___localFiles___childMarkdownRemark___excerptAst'
+  | 'product___localFiles___childMarkdownRemark___headings'
+  | 'product___localFiles___childMarkdownRemark___timeToRead'
+  | 'product___localFiles___childMarkdownRemark___tableOfContents'
+  | 'product___localFiles___childMarkdownRemark___children'
   | 'type'
   | 'unit_amount'
   | 'unit_amount_decimal';
@@ -3179,6 +3267,22 @@ export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>> }> };
+
+export type CitiesPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type CitiesPageQuery = { cities: { nodes: Array<(
+      Pick<MarkdownRemark, 'id' | 'html'>
+      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+    )> } };
+
+export type FoodPageQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FoodPageQuery = { food: { nodes: Array<(
+      Pick<MarkdownRemark, 'id' | 'html'>
+      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+    )> } };
 
 export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
 

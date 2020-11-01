@@ -1,5 +1,5 @@
 ---
-city: Shifen
+name: Shifen
 imgsrc: assets/shifen.jpg
 category: city
 video: https://youtu.be/4UmXs24Cnvs
