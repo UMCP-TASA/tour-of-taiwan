@@ -2,7 +2,7 @@ import React from "react"
 import { Grid, Typography, SvgIconTypeMap, makeStyles } from "@material-ui/core"
 import { OverridableComponent } from "@material-ui/core/OverridableComponent"
 import { globalHistory } from "@reach/router"
-import AniLink from "gatsby-plugin-transition-link/AniLink"
+import { Link } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -21,10 +21,10 @@ const FooterLinkButton = ({ to, Icon, name }: Props) => {
     const classes = useStyles()
     const isActive = globalHistory.location.pathname === to
     return (
-        <AniLink
+        <Link
             to={to}
-            swipe
-            direction="left"
+            // swipe
+            // direction="left"
             className={classes.link}
         >
             <Grid
@@ -42,7 +42,7 @@ const FooterLinkButton = ({ to, Icon, name }: Props) => {
                     {name}
                 </Typography>
             </Grid>
-        </AniLink>
+        </Link>
     )
 }
 
