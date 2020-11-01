@@ -17,6 +17,20 @@ module.exports = {
             },
         },
         {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "cities",
+                path: `${__dirname}/content/cities/`,
+            },
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
+                name: "food",
+                path: `${__dirname}/content/food/`,
+            },
+        },
+        {
             resolve: `gatsby-alias-imports`,
             options: {
                 aliases: {
@@ -50,11 +64,30 @@ module.exports = {
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
         `gatsby-plugin-graphql-codegen`,
+        `gatsby-plugin-netlify-cms`,
+        {
+            resolve: "gatsby-transformer-remark",
+            options: {
+                plugins: [
+                    {
+                        resolve: "gatsby-remark-relative-images",
+                    },
+                    {
+                        resolve: "gatsby-remark-images",
+                        options: {
+                            maxWidth: 672,
+                        },
+                    },
+                    "gatsby-remark-copy-linked-files",
+                    "gatsby-remark-autolink-headers",
+                ],
+            },
+        },
         // {
         //     resolve: "gatsby-plugin-transition-link",
         //     options: {
-        //         layout: require.resolve(`./src/components/App/Layout.tsx`),
-        //         injectPageProps: false,
+        //         layout: require.resolve(`./src/components/App/App.tsx`),
+        //         injectPageProps: false
         //     },
         // },
         {
