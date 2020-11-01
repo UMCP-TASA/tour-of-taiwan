@@ -1,24 +1,22 @@
 import React from "react"
-import AniLink, { AniLinkProps } from "gatsby-plugin-transition-link/AniLink"
+//import AniLink, { AniLinkProps } from "gatsby-plugin-transition-link/AniLink"
+import { Link, GatsbyLinkProps } from "gatsby"
 import { Button, ButtonProps } from "@material-ui/core"
 
 type Props = ButtonProps & {
-    to: string
-    linkProps?: Omit<AniLinkProps, "to">
+    to: string,
+    linkProps: Omit<GatsbyLinkProps<{}>, "ref" | "to">
 }
 
 const LinkButton = ({
     to,
-    linkProps = {
-        swipe: true,
-        direction: "left",
-    },
+    linkProps,
     children,
     ...rest
 }: Props) => (
-    <AniLink to={to} {...linkProps} style={{ textDecoration: "none" }}>
+    <Link to={to} {...linkProps} style={{ textDecoration: "none" }}>
         <Button {...rest}>{children}</Button>
-    </AniLink>
+    </Link>
 )
 
 export default LinkButton

@@ -50,12 +50,13 @@ module.exports = {
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
         `gatsby-plugin-graphql-codegen`,
-        {
-            resolve: "gatsby-plugin-transition-link",
-            options: {
-                layout: require.resolve(`./src/components/App/App.tsx`),
-            },
-        },
+        // {
+        //     resolve: "gatsby-plugin-transition-link",
+        //     options: {
+        //         layout: require.resolve(`./src/components/App/Layout.tsx`),
+        //         injectPageProps: false,
+        //     },
+        // },
         {
             resolve: `gatsby-plugin-manifest`,
             options: {

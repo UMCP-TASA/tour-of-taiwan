@@ -2,11 +2,13 @@ import React from "react"
 import { PageProps } from "gatsby"
 import ReactGlobe from "react-globe"
 import { Typography } from "@material-ui/core"
+import { TransitionPageProps } from "gatsby-plugin-transition-link"
 
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 
-const IndexPage = ({}: PageProps) => {
+const IndexPage = ({transitionStatus}: PageProps & TransitionPageProps) => {
+    console.log(transitionStatus)
     return (
         <>
             <SEO title="Home" />

@@ -1,8 +1,7 @@
 import React from "react"
 import { makeStyles, Typography, useTheme } from "@material-ui/core"
-import AniLink, { AniLinkProps } from "gatsby-plugin-transition-link/AniLink"
 import { useTransition, animated } from "react-spring"
-import { Link } from "gatsby"
+import { Link, GatsbyLinkProps } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
     link: {
@@ -31,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-type Props = AniLinkProps & {
+type Props = Omit<GatsbyLinkProps<{}>, "ref"> & {
     text: string
 }
 
@@ -47,15 +46,15 @@ const HeaderLink = ({ to, text, ...rest }: Props) => {
     })
 
     return (
-        <AniLink
+        <Link
             className={classes.link}
             to={to}
             activeClassName={classes.active}
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}
-            cover
-            direction="down"
-            bg={theme.palette.primary.main}
+            // cover
+            // direction="down"
+            // bg={theme.palette.primary.main}
             {...rest}
         >
             <Typography>{text}</Typography>
@@ -67,7 +66,7 @@ const HeaderLink = ({ to, text, ...rest }: Props) => {
                 </>
             ))}
             <div id="link-highlight" />
-        </AniLink>
+        </Link>
     )
 }
 
