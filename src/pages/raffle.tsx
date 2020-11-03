@@ -2,10 +2,12 @@ import React from "react"
 import { PageProps, graphql } from "gatsby"
 import { Grid, Typography, makeStyles } from "@material-ui/core"
 import { RafflePageQuery } from "graphql-types"
+import firebase from "gatsby-plugin-firebase"
+import { useCollection } from "react-firebase-hooks/firestore"
 
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
-import { RaffleCard, StripeItemCard } from "components/Raffle"
+import { PremiumTickets, RaffleCard, StripeItemCard } from "components/Raffle"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
@@ -17,6 +19,14 @@ const useStyles = makeStyles(theme => ({
 const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
+    const [value, loading, error] = useCollection(
+        isSignedIn
+            ? firebase
+                  .firestore()
+                  .collection("raffle")
+                  .where("person", "==", firebase.auth().currentUser?.email)
+            : undefined
+    )
 
     return (
         <>
@@ -34,7 +44,25 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                 ))}
 
                 <Grid item xs={12} md={6}>
-                    <RaffleCard isSignedIn={isSignedIn} />
+                    <RaffleCard
+                        isSignedIn={isSignedIn}
+                        docs={value?.docs.filter(
+                            doc => doc.get("category") === "Basic"
+                        )}
+                        loading={loading}
+                        error={error}
+                    />
+                </Grid>
+
+                <Grid item xs={12} md={6}>
+                    <PremiumTickets
+                        isSignedIn={isSignedIn}
+                        docs={value?.docs.filter(
+                            doc => doc.get("category") === "Premium"
+                        )}
+                        loading={loading}
+                        error={error}
+                    />
                 </Grid>
             </Grid>
         </>

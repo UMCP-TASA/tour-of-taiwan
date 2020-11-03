@@ -15,20 +15,13 @@ import ClientOnly from "components/ClientOnly"
 import useIsSignedIn from "hooks/useIsSignedIn"
 import { LinkButton } from "components/Buttons"
 import RaffleTicket from "./RaffleTicket"
+import { CollectionQuery } from "./index"
 
-type Props = {
+type Props = CollectionQuery & {
     isSignedIn?: boolean
 }
 
-const RaffleCard = ({ isSignedIn = useIsSignedIn() }: Props) => {
-    const [value, loading, error] = useCollection(
-        isSignedIn
-            ? firebase
-                  .firestore()
-                  .collection("raffle")
-                  .where("person", "==", firebase.auth().currentUser?.email)
-            : undefined
-    )
+const RaffleCard = ({ isSignedIn = useIsSignedIn(), docs, loading, error }: Props) => {
     return (
         <Card>
             <CardHeader title="Tickets" />
@@ -43,9 +36,9 @@ const RaffleCard = ({ isSignedIn = useIsSignedIn() }: Props) => {
                             )}
                             {loading && <CircularProgress />}
 
-                            {value && (
+                            {docs && (
                                 <List>
-                                    {value.docs.map(doc => (
+                                    {docs.map(doc => (
                                         <RaffleTicket doc={doc} key={doc.id} />
                                     ))}
                                 </List>
