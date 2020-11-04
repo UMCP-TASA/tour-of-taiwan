@@ -4,6 +4,7 @@ export { default as StripeItemCard } from "./StripeItemCard"
 export { default as PremiumTickets} from "./PremiumTickets"
 
 export { default as RaffleTab } from "./RaffleTab"
+export { default as RaffleTicketList } from "./RaffleTicketList"
 
 export type DocType = firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>
 export type CollectionQuery = {

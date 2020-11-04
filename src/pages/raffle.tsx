@@ -1,13 +1,24 @@
 import React from "react"
 import { PageProps, graphql } from "gatsby"
-import { Grid, Typography, makeStyles } from "@material-ui/core"
+import {
+    Grid,
+    Typography,
+    makeStyles,
+    Paper,
+    Tabs,
+    Tab,
+} from "@material-ui/core"
 import { RafflePageQuery } from "graphql-types"
 import firebase from "gatsby-plugin-firebase"
 import { useCollection } from "react-firebase-hooks/firestore"
 
 import SEO from "components/seo"
-import ClientOnly from "components/ClientOnly"
-import { PremiumTickets, RaffleCard, StripeItemCard } from "components/Raffle"
+import {
+    PremiumTickets,
+    RaffleTicketList,
+    StripeItemCard,
+    RaffleTab,
+} from "components/Raffle"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
@@ -15,6 +26,11 @@ const useStyles = makeStyles(theme => ({
         padding: theme.spacing(1),
     },
 }))
+
+const a11yProps = (i: number) => ({
+    id: `raffle-tab-option-${i}`,
+    "aria-controls": `raffle-tabpanel-${i}`,
+})
 
 const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
     const classes = useStyles()
@@ -26,6 +42,19 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                   .collection("raffle")
                   .where("person", "==", firebase.auth().currentUser?.email)
             : undefined
+    )
+
+    const [curTab, setCurTab] = React.useState(0)
+    const handleChange = (__: any, newValue: number) => {
+        setCurTab(newValue)
+    }
+
+    const basicTickets = value?.docs.filter(
+        doc => doc.get("category") === "Basic"
+    )
+
+    const premiumTickets = value?.docs.filter(
+        doc => doc.get("category") === "Premium"
     )
 
     return (
@@ -43,27 +72,47 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                     </Grid>
                 ))}
 
-                <Grid item xs={12} md={6}>
-                    <RaffleCard
-                        isSignedIn={isSignedIn}
-                        docs={value?.docs.filter(
-                            doc => doc.get("category") === "Basic"
-                        )}
-                        loading={loading}
-                        error={error}
-                    />
+                <Grid item xs={12} md={8}>
+                    <Paper square>
+                        <Tabs
+                            value={curTab}
+                            indicatorColor="primary"
+                            textColor="primary"
+                            onChange={handleChange}
+                            aria-label="raffle tabs"
+                        >
+                            <Tab label="All" {...a11yProps(0)} />
+                            <Tab label="Basic" {...a11yProps(1)} />
+                            <Tab label="Premium" {...a11yProps(2)} />
+                        </Tabs>
+                    </Paper>
+                    <RaffleTab value={curTab} index={0}>
+                        <RaffleTicketList
+                            isSignedIn={isSignedIn}
+                            docs={value?.docs}
+                            loading={loading}
+                            error={error}
+                        />
+                    </RaffleTab>
+                    <RaffleTab value={curTab} index={1}>
+                        <RaffleTicketList
+                            isSignedIn={isSignedIn}
+                            docs={basicTickets}
+                            loading={loading}
+                            error={error}
+                        />
+                    </RaffleTab>
+                    <RaffleTab value={curTab} index={2}>
+                        <PremiumTickets
+                            isSignedIn={isSignedIn}
+                            docs={premiumTickets}
+                            loading={loading}
+                            error={error}
+                        />
+                    </RaffleTab>
                 </Grid>
 
-                <Grid item xs={12} md={6}>
-                    <PremiumTickets
-                        isSignedIn={isSignedIn}
-                        docs={value?.docs.filter(
-                            doc => doc.get("category") === "Premium"
-                        )}
-                        loading={loading}
-                        error={error}
-                    />
-                </Grid>
+                <Grid item xs={12} md={6}></Grid>
             </Grid>
         </>
     )
