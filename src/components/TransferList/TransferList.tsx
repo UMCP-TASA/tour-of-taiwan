@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
     button: {
         margin: theme.spacing(0.5, 0),
     },
+    grow: {
+        flexGrow: 1,
+    }
 }))
 
 type Props<T> = {
@@ -90,12 +93,13 @@ const TransferList = <T,>({
             className={classes.root}
             spacing={2}
             justify="center"
-            alignItems="center"
+            alignItems="stretch"
         >
-            <Grid item>
+            <Grid item xs={5}>
                 <ListCard
                     title={titleLeft}
                     list={left}
+                    className={classes.grow}
                     getID={getID}
                     handleToggle={handleToggle}
                     handleToggleAll={handleToggleAll(left)}
@@ -103,7 +107,7 @@ const TransferList = <T,>({
                     isItemChecked={isItemChecked}
                 />
             </Grid>
-            <Grid item container direction="column" alignItems="center">
+            <Grid item xs={1} container direction="column" justify="center">
                 <Button
                     variant="outlined"
                     size="small"
@@ -112,7 +116,7 @@ const TransferList = <T,>({
                     disabled={leftChecked.length === 0}
                     aria-label="move selected right"
                 >
-                    {'>'}
+                    {">"}
                 </Button>
                 <Button
                     variant="outlined"
@@ -122,13 +126,14 @@ const TransferList = <T,>({
                     disabled={rightChecked.length === 0}
                     aria-label="move selected left"
                 >
-                    {'<'}
+                    {"<"}
                 </Button>
             </Grid>
-            <Grid item>
+            <Grid item xs={5}>
                 <ListCard
                     title={titleRight}
                     list={right}
+                    className={classes.grow}
                     getID={getID}
                     handleToggle={handleToggle}
                     handleToggleAll={handleToggleAll(right)}

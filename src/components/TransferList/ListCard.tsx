@@ -1,6 +1,5 @@
 import React from "react"
 import {
-    Card,
     CardHeader,
     Checkbox,
     Divider,
@@ -11,6 +10,7 @@ import {
 } from "@material-ui/core"
 
 type Props<T> = {
+    className?: string,
     title: string
     list: T[]
     getID: (item: T) => string
@@ -21,6 +21,7 @@ type Props<T> = {
 }
 
 const ListCard = <T,>({
+    className,
     title,
     list,
     getID,
@@ -29,7 +30,7 @@ const ListCard = <T,>({
     numberOfChecked,
     isItemChecked,
 }: Props<T>) => (
-    <Card>
+    <>
         <CardHeader
             title={title}
             subheader={`${numberOfChecked}/${list.length} selected`}
@@ -75,7 +76,7 @@ const ListCard = <T,>({
                 )
             })}
         </List>
-    </Card>
+    </>
 )
 
 export default ListCard
