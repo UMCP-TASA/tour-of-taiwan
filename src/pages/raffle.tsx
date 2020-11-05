@@ -72,7 +72,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                     spacing={2}
                 >
                     {data.prices.edges.map(item => (
-                        <Grid item xs={8} md={4} key={item.node.id}>
+                        <Grid item xs={6} md={4} key={item.node.id}>
                             <StripeItemCard item={item.node} />
                         </Grid>
                     ))}

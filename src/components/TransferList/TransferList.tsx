@@ -1,5 +1,5 @@
 import React from "react"
-import { Grid, Button, makeStyles } from "@material-ui/core"
+import { Grid, Button, makeStyles, CircularProgress } from "@material-ui/core"
 
 import ListCard from "./ListCard"
 
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
     },
     grow: {
         flexGrow: 1,
-    }
+    },
 }))
 
 type Props<T> = {
@@ -21,6 +21,7 @@ type Props<T> = {
     titleLeft: string
     titleRight: string
     getID: (item: T) => string
+    handleConfirm?: (left: T[], right: T[]) => Promise<void>
 }
 
 type ListFunc<T> = (a: T[], b: T[]) => T[]
@@ -31,6 +32,7 @@ const TransferList = <T,>({
     titleLeft,
     titleRight,
     getID,
+    handleConfirm,
 }: Props<T>) => {
     const classes = useStyles()
 
@@ -87,6 +89,15 @@ const TransferList = <T,>({
 
     const isItemChecked = (item: T) => findItem(item, checked) !== -1
 
+    // This is inefficient but small datasets so uh... eh whatever
+    const hasChanges =
+        intersection(left, initialLeft).length !== initialLeft.length ||
+        intersection(right, initialRight).length !== initialRight.length
+
+    // State for when confirm was clicked
+    const [disabled, setDisabled] = React.useState(false)
+    const [buttonContent, setButtonContent] = React.useState<React.ReactNode>("Confirm Changes")
+
     return (
         <Grid
             container
@@ -141,6 +152,26 @@ const TransferList = <T,>({
                     isItemChecked={isItemChecked}
                 />
             </Grid>
+            {handleConfirm && (
+                <Grid item xs={12}>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        fullWidth
+                        disabled={disabled || !hasChanges}
+                        onClick={() => {
+                            setDisabled(true)
+                            setButtonContent(<CircularProgress />)
+                            handleConfirm(left, right).then(() => {
+                                setDisabled(false)
+                                setButtonContent("Confirm Changes")
+                            })
+                        }}
+                    >
+                        {buttonContent}
+                    </Button>
+                </Grid>
+            )}
         </Grid>
     )
 }

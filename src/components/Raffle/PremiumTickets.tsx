@@ -25,6 +25,9 @@ type TicketItem = {
     prevState: Prizes
 }
 
+const LEFT = "Switch"
+const RIGHT = "Airpods"
+
 const getID = (item: TicketItem) => item.id
 
 const PremiumTickets = ({
@@ -41,6 +44,27 @@ const PremiumTickets = ({
           }))
         : []
 
+    const handleConfirm = async (
+        leftList: TicketItem[],
+        rightList: TicketItem[]
+    ) => {
+        const batch = firebase.firestore().batch()
+
+        leftList.forEach((item) => {
+            if(item.prevState !== LEFT) {
+                batch.update(item.doc.ref, { prize: LEFT})
+            }
+        })
+
+        rightList.forEach((item) => {
+            if(item.prevState !== RIGHT) {
+                batch.update(item.doc.ref, { prize: RIGHT})
+            }
+        })
+
+        await batch.commit()
+    }
+
     return (
         <>
             {loading ? (
@@ -48,14 +72,15 @@ const PremiumTickets = ({
             ) : (
                 <TransferList
                     initialLeft={items.filter(
-                        item => item.prevState === "Switch"
+                        item => item.prevState === LEFT
                     )}
                     initialRight={items.filter(
-                        item => item.prevState === "Airpods"
+                        item => item.prevState === RIGHT
                     )}
-                    titleLeft={"Switch Tickets"}
-                    titleRight={"Airpods Tickets"}
+                    titleLeft={`${LEFT} Tickets`}
+                    titleRight={`${RIGHT} Tickets`}
                     getID={getID}
+                    handleConfirm={handleConfirm}
                 />
             )}
         </>
