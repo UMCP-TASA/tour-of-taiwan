@@ -36,7 +36,7 @@ const StripeItemCard = ({ item }: Props) => {
     })
 
     return (
-        <Card style={{maxWidth: "400px"}}>
+        <Card>
             <CardHeader title={name} />
             <CardContent>
                 {localFiles && localFiles[0] && <Image image={localFiles[0]} />}

@@ -1,6 +1,9 @@
 import React from "react"
 import { PageProps, graphql } from "gatsby"
 import {
+    Container,
+    Card,
+    CardContent,
     Grid,
     Typography,
     makeStyles,
@@ -22,8 +25,8 @@ import {
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
-    grid: {
-        padding: theme.spacing(1),
+    root: {
+        padding: theme.spacing(2),
     },
 }))
 
@@ -60,60 +63,66 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
     return (
         <>
             <SEO title="Raffle" />
-            <Grid
-                container
-                alignItems="center"
-                justify="center"
-                className={classes.grid}
-            >
-                {data.prices.edges.map(item => (
-                    <Grid item xs={12} md={6} key={item.node.id}>
-                        <StripeItemCard item={item.node} />
+            <Container maxWidth="xl" className={classes.root}>
+                <Grid
+                    container
+                    alignItems="stretch"
+                    justify="center"
+                    alignContent="center"
+                    spacing={2}
+                >
+                    {data.prices.edges.map(item => (
+                        <Grid item xs={8} md={4} key={item.node.id}>
+                            <StripeItemCard item={item.node} />
+                        </Grid>
+                    ))}
+
+                    <Grid item xs={12} md={12}>
+                        <Card>
+                            <CardContent>
+                                <Tabs
+                                    value={curTab}
+                                    variant="fullWidth"
+                                    indicatorColor="primary"
+                                    textColor="primary"
+                                    onChange={handleChange}
+                                    aria-label="raffle tabs"
+                                >
+                                    <Tab label="All" {...a11yProps(0)} />
+                                    <Tab label="Basic" {...a11yProps(1)} />
+                                    <Tab label="Premium" {...a11yProps(2)} />
+                                </Tabs>
+                                <RaffleTab value={curTab} index={0}>
+                                    <RaffleTicketList
+                                        isSignedIn={isSignedIn}
+                                        docs={value?.docs}
+                                        loading={loading}
+                                        error={error}
+                                    />
+                                </RaffleTab>
+                                <RaffleTab value={curTab} index={1}>
+                                    <RaffleTicketList
+                                        isSignedIn={isSignedIn}
+                                        docs={basicTickets}
+                                        loading={loading}
+                                        error={error}
+                                    />
+                                </RaffleTab>
+                                <RaffleTab value={curTab} index={2}>
+                                    <PremiumTickets
+                                        isSignedIn={isSignedIn}
+                                        docs={premiumTickets}
+                                        loading={loading}
+                                        error={error}
+                                    />
+                                </RaffleTab>
+                            </CardContent>
+                        </Card>
                     </Grid>
-                ))}
 
-                <Grid item xs={12} md={8}>
-                    <Paper square>
-                        <Tabs
-                            value={curTab}
-                            indicatorColor="primary"
-                            textColor="primary"
-                            onChange={handleChange}
-                            aria-label="raffle tabs"
-                        >
-                            <Tab label="All" {...a11yProps(0)} />
-                            <Tab label="Basic" {...a11yProps(1)} />
-                            <Tab label="Premium" {...a11yProps(2)} />
-                        </Tabs>
-                    </Paper>
-                    <RaffleTab value={curTab} index={0}>
-                        <RaffleTicketList
-                            isSignedIn={isSignedIn}
-                            docs={value?.docs}
-                            loading={loading}
-                            error={error}
-                        />
-                    </RaffleTab>
-                    <RaffleTab value={curTab} index={1}>
-                        <RaffleTicketList
-                            isSignedIn={isSignedIn}
-                            docs={basicTickets}
-                            loading={loading}
-                            error={error}
-                        />
-                    </RaffleTab>
-                    <RaffleTab value={curTab} index={2}>
-                        <PremiumTickets
-                            isSignedIn={isSignedIn}
-                            docs={premiumTickets}
-                            loading={loading}
-                            error={error}
-                        />
-                    </RaffleTab>
+                    <Grid item xs={12} md={6}></Grid>
                 </Grid>
-
-                <Grid item xs={12} md={6}></Grid>
-            </Grid>
+            </Container>
         </>
     )
 }
