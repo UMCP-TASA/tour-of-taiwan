@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core"
 
 type Props<T> = {
-    className?: string,
+    className?: string
     title: string
     list: T[]
     getID: (item: T) => string
@@ -18,6 +18,7 @@ type Props<T> = {
     handleToggleAll: () => void
     numberOfChecked: number
     isItemChecked: (item: T) => boolean
+    icon?: React.ReactNode
 }
 
 const ListCard = <T,>({
@@ -29,6 +30,7 @@ const ListCard = <T,>({
     handleToggleAll,
     numberOfChecked,
     isItemChecked,
+    icon,
 }: Props<T>) => (
     <>
         <CardHeader
@@ -71,6 +73,7 @@ const ListCard = <T,>({
                                 inputProps={{ "aria-labelledby": labelId }}
                             />
                         </ListItemIcon>
+                        {icon && <ListItemIcon>{icon}</ListItemIcon>}
                         <ListItemText id={labelId} primary={id} />
                     </ListItem>
                 )

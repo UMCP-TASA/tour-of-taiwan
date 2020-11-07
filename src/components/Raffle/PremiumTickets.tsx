@@ -10,6 +10,7 @@ import useIsSignedIn from "hooks/useIsSignedIn"
 
 import { CollectionQuery } from "./index"
 import TransferList from "components/TransferList"
+import { ConfirmationNumberSharp } from "@material-ui/icons"
 
 type Props = CollectionQuery & {
     isSignedIn?: boolean
@@ -81,6 +82,7 @@ const PremiumTickets = ({
                     titleRight={`${RIGHT} Tickets`}
                     getID={getID}
                     handleConfirm={handleConfirm}
+                    icon={<ConfirmationNumberSharp />}
                 />
             )}
         </>

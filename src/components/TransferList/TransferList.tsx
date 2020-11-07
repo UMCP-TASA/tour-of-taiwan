@@ -22,6 +22,7 @@ type Props<T> = {
     titleRight: string
     getID: (item: T) => string
     handleConfirm?: (left: T[], right: T[]) => Promise<void>
+    icon?: React.ReactNode,
 }
 
 type ListFunc<T> = (a: T[], b: T[]) => T[]
@@ -33,6 +34,7 @@ const TransferList = <T,>({
     titleRight,
     getID,
     handleConfirm,
+    icon,
 }: Props<T>) => {
     const classes = useStyles()
 
@@ -116,6 +118,7 @@ const TransferList = <T,>({
                     handleToggleAll={handleToggleAll(left)}
                     numberOfChecked={numberOfChecked(left)}
                     isItemChecked={isItemChecked}
+                    icon={icon}
                 />
             </Grid>
             <Grid item xs={1} container direction="column" justify="center">
@@ -150,6 +153,7 @@ const TransferList = <T,>({
                     handleToggleAll={handleToggleAll(right)}
                     numberOfChecked={numberOfChecked(right)}
                     isItemChecked={isItemChecked}
+                    icon={icon}
                 />
             </Grid>
             {handleConfirm && (
