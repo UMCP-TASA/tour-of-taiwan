@@ -1,6 +1,5 @@
 import React from "react"
 import { PageProps } from "gatsby"
-import { navigate } from "@reach/router"
 import firebase from "gatsby-plugin-firebase"
 import {
     Button,
@@ -14,6 +13,7 @@ import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 import FAQ from "components/FAQ"
 import { DeleteAccountButton } from "components/Buttons"
+import { isBrowser } from "@utils"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -42,14 +42,14 @@ const ProfilePage = ({}: PageProps) => {
                     </Grid>
 
                     <Grid item>
-                        <ClientOnly>
-                            <Typography align="center">
-                                Welcome,{" "}
-                                <b>
-                                    {firebase.auth().currentUser?.displayName}
-                                </b>
-                            </Typography>
-                        </ClientOnly>
+                        <Typography align="center">
+                            Welcome,{" "}
+                            <b>
+                                {isBrowser()
+                                    ? firebase.auth().currentUser?.displayName
+                                    : ""}
+                            </b>
+                        </Typography>
                     </Grid>
 
                     <Grid item>

@@ -39,6 +39,7 @@ module.exports = {
             options: {
                 aliases: {
                     root: `/`,
+                    "@utils": "src/utils"
                 },
             },
         },
