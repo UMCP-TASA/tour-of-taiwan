@@ -15,8 +15,6 @@ import ClientOnly from "components/ClientOnly"
 import FAQ from "components/FAQ"
 import { DeleteAccountButton } from "components/Buttons"
 
-import useIsSignedIn from "hooks/useIsSignedIn"
-
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(4),
@@ -25,12 +23,6 @@ const useStyles = makeStyles(theme => ({
 
 const ProfilePage = ({}: PageProps) => {
     const classes = useStyles()
-    const isSignedIn = useIsSignedIn()
-
-    if (!isSignedIn) {
-        navigate("/signin")
-        return <SEO title="Profile" />
-    }
 
     return (
         <>

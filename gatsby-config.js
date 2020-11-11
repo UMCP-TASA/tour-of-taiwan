@@ -10,6 +10,10 @@ module.exports = {
         `gatsby-plugin-typescript`,
         `gatsby-plugin-react-helmet`,
         {
+            resolve: `gatsby-plugin-create-client-paths`,
+            options: { prefixes: [`/app/*`] },
+        },
+        {
             resolve: `gatsby-source-filesystem`,
             options: {
                 name: `assets`,

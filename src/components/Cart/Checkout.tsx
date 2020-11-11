@@ -27,7 +27,7 @@ const Checkout = ({ handleClose }: Props) => {
 
     const handleNotSignedIn = () => {
         handleClose()
-        if (window.location.pathname !== "/signin/") navigate("/signin")
+        if (window.location.pathname !== "/app/signin/") navigate("/app/signin")
     }
 
     const handleClick = async () => {

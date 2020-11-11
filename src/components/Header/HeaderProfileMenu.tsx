@@ -90,11 +90,11 @@ const HeaderProfileMenu = ({ className }: Props) => {
                 }}
             >
                 {isSignedIn ? (
-                    <MenuItem onClick={navigateAndClose("/profile")} divider>
+                    <MenuItem onClick={navigateAndClose("/app/profile")} divider>
                         Account Settings
                     </MenuItem>
                 ) : (
-                    <MenuItem onClick={navigateAndClose("/signin")} divider>
+                    <MenuItem onClick={navigateAndClose("/app/signin")} divider>
                         Sign In
                     </MenuItem>
                 )}
