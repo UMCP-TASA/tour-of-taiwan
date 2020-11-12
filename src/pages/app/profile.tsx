@@ -12,8 +12,9 @@ import {
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 import FAQ from "components/FAQ"
-import { DeleteAccountButton } from "components/Buttons"
+import { DeleteAccountButton, LinkButton } from "components/Buttons"
 import { isBrowser } from "@utils"
+import useIsAdmin from "hooks/useIsAdmin"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -23,6 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const ProfilePage = ({}: PageProps) => {
     const classes = useStyles()
+    const isAdmin = useIsAdmin()
 
     return (
         <>
@@ -42,7 +44,7 @@ const ProfilePage = ({}: PageProps) => {
                     </Grid>
 
                     <Grid item>
-                        <Typography align="center">
+                        <Typography align="center" gutterBottom>
                             Welcome,{" "}
                             <b>
                                 {isBrowser()
@@ -50,7 +52,27 @@ const ProfilePage = ({}: PageProps) => {
                                     : ""}
                             </b>
                         </Typography>
+                        <Typography align="center">
+                            UID:{" "}
+                            {isBrowser()
+                                ? firebase.auth().currentUser?.uid
+                                : ""}
+                        </Typography>
                     </Grid>
+
+                    {isAdmin ? (
+                        <Grid item>
+                            <LinkButton
+                                to="/app/admin"
+                                variant="contained"
+                                color="secondary"
+                            >
+                                Go to Admin Panel
+                            </LinkButton>
+                        </Grid>
+                    ) : (
+                        <></>
+                    )}
 
                     <Grid item>
                         <ClientOnly>
