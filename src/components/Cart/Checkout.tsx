@@ -27,7 +27,7 @@ const Checkout = ({ handleClose }: Props) => {
 
     const handleClick = async () => {
         const stripe = await getStripe()
-        if (!stripe) return "Stripe couldn't be initialized"
+        if (!stripe) return { message: "Stripe couldn't be initialized" }
 
         const items: Item[] = []
         Object.entries(cartDetails).forEach(([key, value]) =>
@@ -51,19 +51,25 @@ const Checkout = ({ handleClose }: Props) => {
             cancelUrl: `${window.location.origin}/raffle`,
         })
 
+        let message = ""
+
         if (response.data.status == "error") {
-            return "An error occured with creating a checkout session. Please try again"
+            message =
+                "An error occured with creating a checkout session. Please try again"
         } else {
             const { error } = await stripe.redirectToCheckout({
                 sessionId: response.data.sessionId as string,
             })
 
             if (error) {
-                return "An error occured. Please try again"
+                message = "An error occured. Please try again"
             }
         }
 
-        return ""
+        return {
+            status: response.data.status,
+            message,
+        }
     }
 
     return (

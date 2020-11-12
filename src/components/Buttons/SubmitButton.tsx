@@ -8,23 +8,29 @@ import {
     TypographyProps,
 } from "@material-ui/core"
 
-type SubmitFunction = () => Promise<string>
+interface Response {
+    message: string
+}
 
-type Props = ButtonProps & {
+type SubmitFunction<T extends Response> = () => Promise<T>
+
+type Props<T extends Response> = ButtonProps & {
     initialText: string
-    handleClick: SubmitFunction
+    handleClick: SubmitFunction<T>,
+    setResponse?: (response: T) => void,
     progressProps?: CircularProgressProps
     typographyProps?: TypographyProps
 }
 
-const SubmitButton = ({
+const SubmitButton = <T extends Response,>({
     initialText,
     handleClick,
+    setResponse,
     progressProps,
     typographyProps,
     onClick,
     ...rest
-}: Props) => {
+}: Props<T>) => {
     const [disabled, setDisabled] = useState(false)
     const [buttonText, setButtonText] = useState<ReactNode>(initialText)
     const [errorMessage, setErrorMessage] = useState("")
@@ -36,9 +42,11 @@ const SubmitButton = ({
         setDisabled(true)
         setButtonText(<CircularProgress {...progressProps} />)
 
-        const errorMessage = await handleClick()
+        const response = await handleClick()
 
-        setErrorMessage(errorMessage)
+        if(setResponse) setResponse(response)
+
+        setErrorMessage(response.message)
         setDisabled(false)
         setButtonText(initialText)
     }
