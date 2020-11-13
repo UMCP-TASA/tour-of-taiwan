@@ -10,6 +10,7 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@stripe/stripe-js": "^1.11.0",
+    "@visx/responsive": "^1.1.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.24.0",
     "gatsby": "^2.24.91",

@@ -1,27 +1,11 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { useCollection } from "react-firebase-hooks/firestore"
-import { Typography, CircularProgress } from "@material-ui/core"
-import { DataGrid, RowsProp, ColDef } from "@material-ui/data-grid"
+import { Typography } from "@material-ui/core"
+import { DataGrid, RowsProp } from "@material-ui/data-grid"
+import { ParentSize } from "@visx/responsive"
 
-type Props = {}
-
-const columns: ColDef[] = [
-    { field: "ticketNum", headerName: "Ticket", sortable: true },
-    {
-        field: "category",
-        headerName: "Category",
-        sortable: true,
-    },
-    {
-        field: "prize",
-        headerName: "Prize",
-        sortable: true,
-    },
-    { field: "email", headerName: "Email", sortable: true },
-]
-
-const WinnerTable = ({}: Props) => {
+const WinnerTable = () => {
     const [value, loading, error] = useCollection(
         firebase.firestore().collection("winners")
     )
@@ -44,9 +28,50 @@ const WinnerTable = ({}: Props) => {
             <Typography align="center" variant="h6">
                 Winners
             </Typography>
-            {error && <Typography>Error: {JSON.stringify(error)}</Typography>}
-            {loading && <CircularProgress />}
-            {value && <DataGrid rows={rows} columns={columns} />}
+
+            <ParentSize>
+                {({ width }) => (
+                    <DataGrid
+                        rows={rows}
+                        columns={[
+                            {
+                                field: "ticketNum",
+                                headerName: "Ticket",
+                                width: (width - 10) / 4,
+                                sortable: true,
+                            },
+                            {
+                                field: "category",
+                                headerName: "Category",
+                                width: (width - 10) / 4,
+                                sortable: true,
+                            },
+                            {
+                                field: "prize",
+                                headerName: "Prize",
+                                width: (width - 10) / 4,
+                                sortable: true,
+                            },
+                            {
+                                field: "email",
+                                headerName: "Email",
+                                width: (width - 10) / 4,
+                                sortable: true,
+                            },
+                        ]}
+                        loading={loading}
+                        autoHeight
+                        showCellRightBorder
+                        error={
+                            error ? (
+                                <Typography>
+                                    Error: {JSON.stringify(error)}
+                                </Typography>
+                            ) : undefined
+                        }
+                    />
+                )}
+            </ParentSize>
         </>
     )
 }

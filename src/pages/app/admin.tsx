@@ -1,6 +1,5 @@
 import React from "react"
-import firebase from "gatsby-plugin-firebase"
-import { Container, Typography, Grid } from "@material-ui/core"
+import { Container, Typography, Grid, makeStyles } from "@material-ui/core"
 import { PageProps } from "gatsby"
 
 import SEO from "components/seo"
@@ -13,7 +12,15 @@ import {
     WinnerTable,
 } from "components/Admin"
 
+const useStyles = makeStyles(theme => ({
+    root: {
+        padding: theme.spacing(2),
+        marginBottom: theme.spacing(2),
+    },
+}))
+
 const AdminPage = ({}: PageProps) => {
+    const classes = useStyles()
     const isAdmin = useIsAdmin()
 
     if (!isAdmin) {
@@ -31,7 +38,7 @@ const AdminPage = ({}: PageProps) => {
     return (
         <>
             <SEO title="Admin" />
-            <Container maxWidth="xl">
+            <Container maxWidth="lg" className={classes.root}>
                 <Grid
                     container
                     direction="column"
@@ -51,13 +58,13 @@ const AdminPage = ({}: PageProps) => {
                         justify="center"
                         spacing={2}
                     >
-                        <Grid item xs={12}>
+                        <Grid item xs={12} md={4}>
                             <GrantAdmin />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} md={4}>
                             <GrantTicket />
                         </Grid>
-                        <Grid item xs={12}>
+                        <Grid item xs={12} md={4}>
                             <ChooseWinner />
                         </Grid>
                         <Grid item xs={12}>
