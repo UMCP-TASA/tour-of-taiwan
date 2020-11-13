@@ -41,6 +41,7 @@
     "react-globe": "^5.0.2",
     "react-helmet": "^6.1.0",
     "react-spring": "9.0.0-rc.3",
+    "react-swipeable-views": "^0.13.9",
     "three": "^0.121.1",
     "use-shopping-cart": "^2.1.0"
   },
