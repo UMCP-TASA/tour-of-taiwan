@@ -22,8 +22,7 @@ const SignInPage = ({}: PageProps) => {
     const classes = useStyles()
     const isSignedIn = useIsSignedIn()
     if (isSignedIn) {
-        navigate("/profile")
-        return <SEO title="Sign In" />
+        navigate("/app/profile")
     }
 
     return (

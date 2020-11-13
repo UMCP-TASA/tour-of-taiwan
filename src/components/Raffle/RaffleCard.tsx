@@ -49,7 +49,7 @@ const RaffleCard = ({ isSignedIn = useIsSignedIn(), docs, loading, error }: Prop
                             <Typography align="center">
                                 Please sign in to see your tickets
                             </Typography>
-                            <LinkButton to="/signin">Sign In</LinkButton>
+                            <LinkButton to="/app/signin">Sign In</LinkButton>
                         </>
                     )}
                 </ClientOnly>

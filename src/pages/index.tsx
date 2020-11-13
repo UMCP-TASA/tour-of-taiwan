@@ -8,7 +8,6 @@ import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 
 const IndexPage = ({transitionStatus}: PageProps & TransitionPageProps) => {
-    console.log(transitionStatus)
     return (
         <>
             <SEO title="Home" />

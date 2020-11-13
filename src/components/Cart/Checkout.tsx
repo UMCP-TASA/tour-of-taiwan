@@ -2,9 +2,9 @@ import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { navigate } from "@reach/router"
 import { useShoppingCart } from "use-shopping-cart"
-import { Button, CircularProgress, Typography } from "@material-ui/core"
 
 import { getStripe } from "utils/stripe"
+import { SubmitButton } from "components/Buttons"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 type Item = {
@@ -19,23 +19,15 @@ type Props = {
 const Checkout = ({ handleClose }: Props) => {
     const { cartDetails } = useShoppingCart()
     const isSignedIn = useIsSignedIn()
-    const [disabled, setDisabled] = React.useState(false)
-    const [buttonText, setButtonText] = React.useState<React.ReactNode>(
-        "Checkout"
-    )
-    const [errorMessage, setErrorMessage] = React.useState("")
 
     const handleNotSignedIn = () => {
         handleClose()
-        if (window.location.pathname !== "/signin/") navigate("/signin")
+        if (window.location.pathname !== "/app/signin/") navigate("/app/signin")
     }
 
     const handleClick = async () => {
-        setErrorMessage("")
-        setDisabled(true)
-        setButtonText(<CircularProgress />)
         const stripe = await getStripe()
-        if (!stripe) return
+        if (!stripe) return { message: "Stripe couldn't be initialized" }
 
         const items: Item[] = []
         Object.entries(cartDetails).forEach(([key, value]) =>
@@ -59,39 +51,36 @@ const Checkout = ({ handleClose }: Props) => {
             cancelUrl: `${window.location.origin}/raffle`,
         })
 
+        let message = ""
+
         if (response.data.status == "error") {
-            setErrorMessage(
+            message =
                 "An error occured with creating a checkout session. Please try again"
-            )
         } else {
             const { error } = await stripe.redirectToCheckout({
                 sessionId: response.data.sessionId as string,
             })
 
             if (error) {
-                setErrorMessage("An error occured. Please try again")
+                message = "An error occured. Please try again"
             }
         }
 
-        setDisabled(false)
-        setButtonText("Checkout")
+        return {
+            status: response.data.status,
+            message,
+        }
     }
 
     return (
-        <>
-            {errorMessage !== "" && (
-                <Typography align="center">{errorMessage}</Typography>
-            )}
-            <Button
-                onClick={isSignedIn ? handleClick : handleNotSignedIn}
-                disabled={disabled}
-                fullWidth
-                color="primary"
-                variant="contained"
-            >
-                {isSignedIn ? buttonText : "Please Sign In to Checkout"}
-            </Button>
-        </>
+        <SubmitButton
+            initialText={isSignedIn ? "Checkout" : "Please Sign In to Checkout"}
+            handleClick={handleClick}
+            onClick={isSignedIn ? undefined : handleNotSignedIn}
+            fullWidth
+            color="primary"
+            variant="contained"
+        />
     )
 }
 
