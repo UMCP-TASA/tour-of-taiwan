@@ -1,6 +1,5 @@
 import React from "react"
 import { PageProps } from "gatsby"
-import { navigate } from "@reach/router"
 import firebase from "gatsby-plugin-firebase"
 import {
     Button,
@@ -13,9 +12,9 @@ import {
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 import FAQ from "components/FAQ"
-import { DeleteAccountButton } from "components/Buttons"
-
-import useIsSignedIn from "hooks/useIsSignedIn"
+import { DeleteAccountButton, LinkButton } from "components/Buttons"
+import { isBrowser } from "@utils"
+import useIsAdmin from "hooks/useIsAdmin"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -25,12 +24,7 @@ const useStyles = makeStyles(theme => ({
 
 const ProfilePage = ({}: PageProps) => {
     const classes = useStyles()
-    const isSignedIn = useIsSignedIn()
-
-    if (!isSignedIn) {
-        navigate("/signin")
-        return <SEO title="Profile" />
-    }
+    const isAdmin = useIsAdmin()
 
     return (
         <>
@@ -50,15 +44,35 @@ const ProfilePage = ({}: PageProps) => {
                     </Grid>
 
                     <Grid item>
-                        <ClientOnly>
-                            <Typography align="center">
-                                Welcome,{" "}
-                                <b>
-                                    {firebase.auth().currentUser?.displayName}
-                                </b>
-                            </Typography>
-                        </ClientOnly>
+                        <Typography align="center" gutterBottom>
+                            Welcome,{" "}
+                            <b>
+                                {isBrowser()
+                                    ? firebase.auth().currentUser?.displayName
+                                    : ""}
+                            </b>
+                        </Typography>
+                        <Typography align="center">
+                            UID:{" "}
+                            {isBrowser()
+                                ? firebase.auth().currentUser?.uid
+                                : ""}
+                        </Typography>
                     </Grid>
+
+                    {isAdmin ? (
+                        <Grid item>
+                            <LinkButton
+                                to="/app/admin"
+                                variant="contained"
+                                color="secondary"
+                            >
+                                Go to Admin Panel
+                            </LinkButton>
+                        </Grid>
+                    ) : (
+                        <></>
+                    )}
 
                     <Grid item>
                         <ClientOnly>

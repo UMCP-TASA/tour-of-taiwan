@@ -5,7 +5,7 @@ import { Button, ButtonProps } from "@material-ui/core"
 
 type Props = ButtonProps & {
     to: string,
-    linkProps: Omit<GatsbyLinkProps<{}>, "ref" | "to">
+    linkProps?: Omit<GatsbyLinkProps<{}>, "ref" | "to">
 }
 
 const LinkButton = ({
