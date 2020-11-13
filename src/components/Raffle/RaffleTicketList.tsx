@@ -1,7 +1,9 @@
 import React from "react"
 import { CircularProgress, Typography, List } from "@material-ui/core"
+import { DataGrid, ColDef} from "@material-ui/data-grid"
 
 import RaffleTicket from "./RaffleTicket"
+import RaffleTable from "./RaffleTable"
 import { CollectionQuery } from "./index"
 import { LinkButton } from "components/Buttons"
 
@@ -33,6 +35,7 @@ const RaffleTicketList = ({
                             ))}
                         </List>
                     )}
+                    <RaffleTable />
                 </>
             ) : (
                 <>
