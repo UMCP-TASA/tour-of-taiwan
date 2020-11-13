@@ -1,8 +1,14 @@
 import React from "react"
-import { Grid, Button, makeStyles } from "@material-ui/core"
+import { Grid, Hidden, Button, makeStyles } from "@material-ui/core"
 
 import ListCard from "./ListCard"
 import { SubmitButton, SubmitFunction } from "components/Buttons"
+import {
+    KeyboardArrowUpRounded,
+    KeyboardArrowDownRounded,
+    KeyboardArrowLeftRounded,
+    KeyboardArrowRightRounded,
+} from "@material-ui/icons"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -22,7 +28,10 @@ type Props<T> = {
     titleLeft: string
     titleRight: string
     getID: (item: T) => string
-    handleConfirm?: (left: T[], right: T[]) => SubmitFunction<{ message: string}>
+    handleConfirm?: (
+        left: T[],
+        right: T[]
+    ) => SubmitFunction<{ message: string }>
     icon?: React.ReactNode
 }
 
@@ -105,7 +114,7 @@ const TransferList = <T,>({
             justify="center"
             alignItems="stretch"
         >
-            <Grid item xs={5}>
+            <Grid item xs={12} md={5}>
                 <ListCard
                     title={titleLeft}
                     list={left}
@@ -119,28 +128,48 @@ const TransferList = <T,>({
                 />
             </Grid>
             <Grid item xs={1} container direction="column" justify="center">
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={classes.button}
-                    onClick={handleCheckedRight}
-                    disabled={leftChecked.length === 0}
-                    aria-label="move selected right"
-                >
-                    {">"}
-                </Button>
-                <Button
-                    variant="outlined"
-                    size="small"
-                    className={classes.button}
-                    onClick={handleCheckedLeft}
-                    disabled={rightChecked.length === 0}
-                    aria-label="move selected left"
-                >
-                    {"<"}
-                </Button>
+                <Hidden mdUp>
+                    <Button
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedLeft}
+                        disabled={rightChecked.length === 0}
+                        aria-label="move selected left"
+                    >
+                        <KeyboardArrowUpRounded />
+                    </Button>
+                    <Button
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedRight}
+                        disabled={leftChecked.length === 0}
+                        aria-label="move selected right"
+                    >
+                        <KeyboardArrowDownRounded />
+                    </Button>
+                </Hidden>
+                <Hidden smDown>
+                    <Button
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedRight}
+                        disabled={leftChecked.length === 0}
+                        aria-label="move selected right"
+                    >
+                        <KeyboardArrowRightRounded />
+                    </Button>
+                    <Button
+                        size="small"
+                        className={classes.button}
+                        onClick={handleCheckedLeft}
+                        disabled={rightChecked.length === 0}
+                        aria-label="move selected left"
+                    >
+                        <KeyboardArrowLeftRounded />
+                    </Button>
+                </Hidden>
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={12} md={5}>
                 <ListCard
                     title={titleRight}
                     list={right}
