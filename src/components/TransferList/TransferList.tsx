@@ -1,7 +1,8 @@
 import React from "react"
-import { Grid, Button, makeStyles, CircularProgress } from "@material-ui/core"
+import { Grid, Button, makeStyles } from "@material-ui/core"
 
 import ListCard from "./ListCard"
+import { SubmitButton, SubmitFunction } from "components/Buttons"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -21,8 +22,8 @@ type Props<T> = {
     titleLeft: string
     titleRight: string
     getID: (item: T) => string
-    handleConfirm?: (left: T[], right: T[]) => Promise<void>
-    icon?: React.ReactNode,
+    handleConfirm?: (left: T[], right: T[]) => SubmitFunction<{ message: string}>
+    icon?: React.ReactNode
 }
 
 type ListFunc<T> = (a: T[], b: T[]) => T[]
@@ -96,10 +97,6 @@ const TransferList = <T,>({
         intersection(left, initialLeft).length !== initialLeft.length ||
         intersection(right, initialRight).length !== initialRight.length
 
-    // State for when confirm was clicked
-    const [disabled, setDisabled] = React.useState(false)
-    const [buttonContent, setButtonContent] = React.useState<React.ReactNode>("Confirm Changes")
-
     return (
         <Grid
             container
@@ -158,22 +155,14 @@ const TransferList = <T,>({
             </Grid>
             {handleConfirm && (
                 <Grid item xs={12}>
-                    <Button
+                    <SubmitButton
+                        initialText="Confirm Changes"
+                        handleClick={handleConfirm(left, right)}
                         variant="contained"
                         color="primary"
                         fullWidth
-                        disabled={disabled || !hasChanges}
-                        onClick={() => {
-                            setDisabled(true)
-                            setButtonContent(<CircularProgress />)
-                            handleConfirm(left, right).then(() => {
-                                setDisabled(false)
-                                setButtonContent("Confirm Changes")
-                            })
-                        }}
-                    >
-                        {buttonContent}
-                    </Button>
+                        disabled={!hasChanges}
+                    />
                 </Grid>
             )}
         </Grid>

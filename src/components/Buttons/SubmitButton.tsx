@@ -12,7 +12,7 @@ interface Response {
     message: string
 }
 
-type SubmitFunction<T extends Response> = () => Promise<T>
+export type SubmitFunction<T extends Response> = () => Promise<T>
 
 type Props<T extends Response> = ButtonProps & {
     initialText: string
@@ -29,9 +29,10 @@ const SubmitButton = <T extends Response,>({
     progressProps,
     typographyProps,
     onClick,
+    disabled,
     ...rest
 }: Props<T>) => {
-    const [disabled, setDisabled] = useState(false)
+    const [buttonDisabled, setButtonDisabled] = useState(false)
     const [buttonText, setButtonText] = useState<ReactNode>(initialText)
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -39,7 +40,7 @@ const SubmitButton = <T extends Response,>({
 
     const handleSubmit = async () => {
         setErrorMessage("")
-        setDisabled(true)
+        setButtonDisabled(true)
         setButtonText(<CircularProgress {...progressProps} />)
 
         const response = await handleClick()
@@ -47,7 +48,7 @@ const SubmitButton = <T extends Response,>({
         if(setResponse) setResponse(response)
 
         setErrorMessage(response.message)
-        setDisabled(false)
+        setButtonDisabled(false)
         setButtonText(initialText)
     }
     return (
@@ -60,7 +61,7 @@ const SubmitButton = <T extends Response,>({
             <Button
                 {...rest}
                 onClick={onClick ? onClick : handleSubmit}
-                disabled={disabled}
+                disabled={disabled || buttonDisabled}
             >
                 {buttonText}
             </Button>

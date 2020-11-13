@@ -45,25 +45,28 @@ const PremiumTickets = ({
           }))
         : []
 
-    const handleConfirm = async (
+    const handleConfirm = (
         leftList: TicketItem[],
         rightList: TicketItem[]
-    ) => {
+    ) =>async () => {
         const batch = firebase.firestore().batch()
 
-        leftList.forEach((item) => {
-            if(item.prevState !== LEFT) {
-                batch.update(item.doc.ref, { prize: LEFT})
+        leftList.forEach(item => {
+            if (item.prevState !== LEFT) {
+                batch.update(item.doc.ref, { prize: LEFT })
             }
         })
 
-        rightList.forEach((item) => {
-            if(item.prevState !== RIGHT) {
-                batch.update(item.doc.ref, { prize: RIGHT})
+        rightList.forEach(item => {
+            if (item.prevState !== RIGHT) {
+                batch.update(item.doc.ref, { prize: RIGHT })
             }
         })
 
         await batch.commit()
+        return {
+            message: "",
+        }
     }
 
     return (
@@ -72,9 +75,7 @@ const PremiumTickets = ({
                 <CircularProgress />
             ) : (
                 <TransferList
-                    initialLeft={items.filter(
-                        item => item.prevState === LEFT
-                    )}
+                    initialLeft={items.filter(item => item.prevState === LEFT)}
                     initialRight={items.filter(
                         item => item.prevState === RIGHT
                     )}
