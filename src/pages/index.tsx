@@ -6,6 +6,7 @@ import { animated, useSpring, config } from "react-spring";
 import SEO from "components/seo"
 import ClientOnly from "components/ClientOnly"
 import { LinkButton } from "components/Buttons"
+import useBoop from "hooks/useBoop"
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -67,7 +68,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     button: {
-        background: 'pink',
+        background: 'pink !important',
         fontWeight: 'bold',
         fontSize: '20px',
         marginTop: '4%',
@@ -120,6 +121,7 @@ const IndexPage = () => {
         delay: 2000,
         config: config.slow
     })
+    const [buttonBoop, trigger] = useBoop({ scale: 1.05 });
 
     return (
         <>
@@ -130,7 +132,7 @@ const IndexPage = () => {
                 <animated.div style={buildingProps} className={classes.building}><img src={`/assets/home/building.svg`} style={{width: '100%'}}/></animated.div>
                 <animated.div style={logoAProps}><img src={`/assets/home/logo-a.svg`} className={classes.logoA}/></animated.div>
                 <animated.div style={logoBProps}><img src={`/assets/home/logo-b.svg`} className={classes.logoB}/></animated.div>
-                <animated.div style={buttonProps}><LinkButton to='/cities' className={classes.button}>Begin Tour</LinkButton></animated.div>
+                <animated.div style={{...buttonProps, ...buttonBoop}}><LinkButton to='/cities' className={classes.button} onMouseEnter={trigger}>Begin Tour</LinkButton></animated.div>
             </div>
         </>
     )
