@@ -1,85 +1,70 @@
 import React from "react"
-import { Typography } from "@material-ui/core"
-import { DataGrid, RowsProp, ColDef } from "@material-ui/data-grid"
-import withParentSize, { WithParentSizeProps, 
-    WithParentSizeProvidedProps,
-} from "@visx/responsive/lib/enhancers/withParentSize"
+import { TablePaginationProps } from "@material-ui/core"
+import { Table } from "components/Table"
 
-type Props = WithParentSizeProps & WithParentSizeProvidedProps & {
+type Props = {
     value:
         | firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
         | undefined
     loading?: boolean
     error?: Error
     showEmail?: boolean
+    title: string
+    rowsPerPageOptions: TablePaginationProps["rowsPerPageOptions"]
 }
 
-const ALL_COLUMNS: ColDef[] = [
+const ALL_COLUMNS = [
     {
-        field: "ticketNum",
-        headerName: "Ticket",
-        sortable: true,
+        id: "name",
+        label: "Ticket",
     },
     {
-        field: "category",
-        headerName: "Category",
-        sortable: true,
+        id: "category",
+        label: "Category",
     },
     {
-        field: "prize",
-        headerName: "Prize",
-        sortable: true,
+        id: "prize",
+        label: "Prize",
     },
     {
-        field: "email",
-        headerName: "Email",
-        sortable: true,
+        id: "email",
+        label: "Email",
     },
 ]
 
 const RaffleTable = ({
-    parentWidth = 100,
     value,
     loading,
     error,
     showEmail = false,
+    title,
+    rowsPerPageOptions,
 }: Props) => {
-    const numColumns = showEmail ? ALL_COLUMNS.length : ALL_COLUMNS.length - 1
-    const colWidth = (parentWidth - 10) / numColumns
+    const columns = showEmail
+        ? ALL_COLUMNS
+        : ALL_COLUMNS.slice(0, ALL_COLUMNS.length - 1)
 
-    const columns: ColDef[] = ALL_COLUMNS.map(col => ({
-        ...col,
-        width: colWidth,
-        hide: col.field === "email" && !showEmail,
-    }))
-
-    const rows: RowsProp = value
+    const rows = value
         ? value.docs.map(doc => {
               const data = doc.data()
-              return {
-                  id: doc.id,
-                  ticketNum: doc.id,
+              const main = {
+                  name: doc.id,
                   category: data["category"],
                   prize: data["prize"],
-                  email: data["person"],
+                  winner: data["winner"],
               }
+              return showEmail ? { ...main, email: data["person"] } : main
           })
         : []
 
     return (
-        <DataGrid
+        <Table
             rows={rows}
-            columns={columns}
-            loading={loading}
-            autoHeight
-            showCellRightBorder
-            error={
-                error ? (
-                    <Typography>Error: {JSON.stringify(error)}</Typography>
-                ) : undefined
-            }
+            headers={columns}
+            title={title}
+            rowsPerPageOptions={rowsPerPageOptions}
         />
     )
 }
 
-export default withParentSize<Props>(RaffleTable)
+export default RaffleTable

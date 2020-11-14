@@ -5,7 +5,12 @@
 
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
-import { CircularProgress } from "@material-ui/core"
+import {
+    Card,
+    CardHeader,
+    CardContent,
+    CircularProgress,
+} from "@material-ui/core"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 import { CollectionQuery } from "./index"
@@ -48,7 +53,7 @@ const PremiumTickets = ({
     const handleConfirm = (
         leftList: TicketItem[],
         rightList: TicketItem[]
-    ) =>async () => {
+    ) => async () => {
         const batch = firebase.firestore().batch()
 
         leftList.forEach(item => {
@@ -70,23 +75,31 @@ const PremiumTickets = ({
     }
 
     return (
-        <>
-            {loading ? (
-                <CircularProgress />
-            ) : (
-                <TransferList
-                    initialLeft={items.filter(item => item.prevState === LEFT)}
-                    initialRight={items.filter(
-                        item => item.prevState === RIGHT
-                    )}
-                    titleLeft={`${LEFT} Tickets`}
-                    titleRight={`${RIGHT} Tickets`}
-                    getID={getID}
-                    handleConfirm={handleConfirm}
-                    icon={<ConfirmationNumberSharp />}
-                />
-            )}
-        </>
+        <Card>
+            <CardHeader
+                title="Manage Premium Tickets"
+                titleTypographyProps={{ align: "center" }}
+            />
+            <CardContent>
+                {loading ? (
+                    <CircularProgress />
+                ) : (
+                    <TransferList
+                        initialLeft={items.filter(
+                            item => item.prevState === LEFT
+                        )}
+                        initialRight={items.filter(
+                            item => item.prevState === RIGHT
+                        )}
+                        titleLeft={`${LEFT} Tickets`}
+                        titleRight={`${RIGHT} Tickets`}
+                        getID={getID}
+                        handleConfirm={handleConfirm}
+                        icon={<ConfirmationNumberSharp />}
+                    />
+                )}
+            </CardContent>
+        </Card>
     )
 }
 

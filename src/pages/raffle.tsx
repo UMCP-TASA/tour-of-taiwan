@@ -1,32 +1,35 @@
 import React from "react"
+import firebase from "gatsby-plugin-firebase"
 import { PageProps, graphql } from "gatsby"
 import {
     Container,
     Card,
+    CardHeader,
     CardContent,
+    CircularProgress,
     Grid,
     Typography,
     makeStyles,
-    Paper,
-    Tabs,
-    Tab,
 } from "@material-ui/core"
 import { RafflePageQuery } from "graphql-types"
-import firebase from "gatsby-plugin-firebase"
 import { useCollection } from "react-firebase-hooks/firestore"
 
 import SEO from "components/seo"
 import {
     PremiumTickets,
-    RaffleTicketList,
     StripeItemCard,
-    RaffleTab,
+    RaffleTable,
 } from "components/Raffle"
+import { LinkButton } from "components/Buttons"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
 const useStyles = makeStyles(theme => ({
     root: {
         padding: theme.spacing(2),
+    },
+    center: {
+        display: "grid",
+        placeItems: "center",
     },
 }))
 
@@ -47,15 +50,6 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
             : undefined
     )
 
-    const [curTab, setCurTab] = React.useState(0)
-    const handleChange = (__: any, newValue: number) => {
-        setCurTab(newValue)
-    }
-
-    const basicTickets = value?.docs.filter(
-        doc => doc.get("category") === "Basic"
-    )
-
     const premiumTickets = value?.docs.filter(
         doc => doc.get("category") === "Premium"
     )
@@ -63,12 +57,12 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
     return (
         <>
             <SEO title="Raffle" />
-            <Container maxWidth="xl" className={classes.root}>
+            <Container maxWidth="lg" className={classes.root}>
                 <Grid
                     container
                     alignItems="stretch"
+                    alignContent="stretch"
                     justify="center"
-                    alignContent="center"
                     spacing={2}
                 >
                     {data.prices.edges.map(item => (
@@ -77,50 +71,59 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                         </Grid>
                     ))}
 
-                    <Grid item xs={12} md={12}>
-                        <Card>
-                            <CardContent>
-                                <Tabs
-                                    value={curTab}
-                                    variant="fullWidth"
-                                    indicatorColor="primary"
-                                    textColor="primary"
-                                    onChange={handleChange}
-                                    aria-label="raffle tabs"
-                                >
-                                    <Tab label="All" {...a11yProps(0)} />
-                                    <Tab label="Basic" {...a11yProps(1)} />
-                                    <Tab label="Premium" {...a11yProps(2)} />
-                                </Tabs>
-                                <RaffleTab value={curTab} index={0}>
-                                    <RaffleTicketList
-                                        isSignedIn={isSignedIn}
-                                        docs={value?.docs}
-                                        loading={loading}
-                                        error={error}
+                    <Grid item xs={12}>
+                        {isSignedIn ? (
+                            <>
+                                {error && (
+                                    <Typography>
+                                        Error: {JSON.stringify(error)}
+                                    </Typography>
+                                )}
+                                {loading && <CircularProgress />}
+
+                                {value && (
+                                    <RaffleTable
+                                        title={"Owned Tickets"}
+                                        value={value}
+                                        rowsPerPageOptions={[
+                                            5,
+                                            10,
+                                            20,
+                                            50,
+                                            100,
+                                        ]}
                                     />
-                                </RaffleTab>
-                                <RaffleTab value={curTab} index={1}>
-                                    <RaffleTicketList
-                                        isSignedIn={isSignedIn}
-                                        docs={basicTickets}
-                                        loading={loading}
-                                        error={error}
-                                    />
-                                </RaffleTab>
-                                <RaffleTab value={curTab} index={2}>
-                                    <PremiumTickets
-                                        isSignedIn={isSignedIn}
-                                        docs={premiumTickets}
-                                        loading={loading}
-                                        error={error}
-                                    />
-                                </RaffleTab>
-                            </CardContent>
-                        </Card>
+                                )}
+                            </>
+                        ) : (
+                            <Card>
+                                <CardHeader
+                                    title="Please sign in to see your tickets"
+                                    titleTypographyProps={{ align: "center" }}
+                                />
+                                <CardContent className={classes.center}>
+                                    <LinkButton
+                                        to="/app/signin"
+                                        color="primary"
+                                        variant="contained"
+                                    >
+                                        Sign In
+                                    </LinkButton>
+                                </CardContent>
+                            </Card>
+                        )}
                     </Grid>
 
-                    <Grid item xs={12} md={6}></Grid>
+                    <Grid item xs={12}>
+                        {isSignedIn && (
+                            <PremiumTickets
+                                isSignedIn={isSignedIn}
+                                docs={premiumTickets}
+                                loading={loading}
+                                error={error}
+                            />
+                        )}
+                    </Grid>
                 </Grid>
             </Container>
         </>

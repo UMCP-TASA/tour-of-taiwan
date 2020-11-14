@@ -9,14 +9,18 @@ const WinnerTable = () => {
         firebase.firestore().collection("winners")
     )
 
-
     return (
         <>
             <Typography align="center" variant="h6">
                 Winners
             </Typography>
 
-            <RaffleTable value={value} loading={loading} error={error} showEmail/>
+            <RaffleTable
+                value={value}
+                loading={loading}
+                error={error}
+                showEmail
+            />
         </>
     )
 }

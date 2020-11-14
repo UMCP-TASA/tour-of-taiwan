@@ -35,7 +35,6 @@ const RaffleTicketList = ({
                             ))}
                         </List>
                     )}
-                    <RaffleTable />
                 </>
             ) : (
                 <>
