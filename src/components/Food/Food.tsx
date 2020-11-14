@@ -2,7 +2,6 @@ import React from "react"
 import { FoodFragment } from "graphql-types"
 import CardContent from '@material-ui/core/CardContent'; 
 import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import { Grid, makeStyles, Card, Paper } from "@material-ui/core"
 
 type Props = { 
