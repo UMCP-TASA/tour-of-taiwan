@@ -1867,8 +1867,6 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2031,8 +2029,6 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
-  port?: Maybe<Scalars['Int']>;
-  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2235,8 +2231,6 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
-  | 'port'
-  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2329,8 +2323,6 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
-  port?: Maybe<IntQueryOperatorInput>;
-  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3319,6 +3311,7 @@ export type StripePriceFieldsEnum =
   | 'product___livemode'
   | 'product___name'
   | 'product___type'
+  | 'product___unit_label'
   | 'product___updated'
   | 'product___localFiles'
   | 'product___localFiles___sourceInstanceName'
@@ -3424,6 +3417,7 @@ export type StripePriceProduct = {
   livemode?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  unit_label?: Maybe<Scalars['String']>;
   updated?: Maybe<Scalars['Int']>;
   localFiles?: Maybe<Array<Maybe<File>>>;
 };
@@ -3438,6 +3432,7 @@ export type StripePriceProductFilterInput = {
   livemode?: Maybe<BooleanQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   type?: Maybe<StringQueryOperatorInput>;
+  unit_label?: Maybe<StringQueryOperatorInput>;
   updated?: Maybe<IntQueryOperatorInput>;
   localFiles?: Maybe<FileFilterListInput>;
 };
@@ -3463,9 +3458,9 @@ export type WebPOptions = {
 export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
 
 export type StripeItemFragment = (
-  Pick<StripePrice, 'id' | 'active' | 'unit_amount' | 'currency'>
+  Pick<StripePrice, 'id' | 'unit_amount' | 'currency'>
   & { product?: Maybe<(
-    Pick<StripePriceProduct, 'id' | 'description' | 'name' | 'images'>
+    Pick<StripePriceProduct, 'id' | 'active' | 'description' | 'name' | 'images'>
     & { localFiles?: Maybe<Array<Maybe<ImageFragment>>> }
   )> }
 );
