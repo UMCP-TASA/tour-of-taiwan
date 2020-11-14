@@ -1867,6 +1867,8 @@ export type QueryAllDirectoryArgs = {
 export type QuerySiteArgs = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -2029,6 +2031,8 @@ export type QueryAllSitePluginArgs = {
 export type Site = Node & {
   buildTime?: Maybe<Scalars['Date']>;
   siteMetadata?: Maybe<SiteSiteMetadata>;
+  port?: Maybe<Scalars['Int']>;
+  host?: Maybe<Scalars['String']>;
   polyfill?: Maybe<Scalars['Boolean']>;
   pathPrefix?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
@@ -2231,6 +2235,8 @@ export type SiteFieldsEnum =
   | 'siteMetadata___title'
   | 'siteMetadata___description'
   | 'siteMetadata___author'
+  | 'port'
+  | 'host'
   | 'polyfill'
   | 'pathPrefix'
   | 'id'
@@ -2323,6 +2329,8 @@ export type SiteFieldsEnum =
 export type SiteFilterInput = {
   buildTime?: Maybe<DateQueryOperatorInput>;
   siteMetadata?: Maybe<SiteSiteMetadataFilterInput>;
+  port?: Maybe<IntQueryOperatorInput>;
+  host?: Maybe<StringQueryOperatorInput>;
   polyfill?: Maybe<BooleanQueryOperatorInput>;
   pathPrefix?: Maybe<StringQueryOperatorInput>;
   id?: Maybe<StringQueryOperatorInput>;
@@ -3467,13 +3475,15 @@ export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>> }> };
 
+export type CityFragment = (
+  Pick<MarkdownRemark, 'id' | 'html'>
+  & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+);
+
 export type CitiesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CitiesPageQuery = { cities: { nodes: Array<(
-      Pick<MarkdownRemark, 'id' | 'html'>
-      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
-    )> } };
+export type CitiesPageQuery = { hualien?: Maybe<CityFragment>, taipei?: Maybe<CityFragment>, tainan?: Maybe<CityFragment>, shifen?: Maybe<CityFragment>, kaohsiung?: Maybe<CityFragment>, taichung?: Maybe<CityFragment> };
 
 export type FoodPageQueryVariables = Exact<{ [key: string]: never; }>;
 
