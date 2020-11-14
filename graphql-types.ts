@@ -3276,13 +3276,15 @@ export type SeoQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type SeoQuery = { site?: Maybe<{ siteMetadata?: Maybe<Pick<SiteSiteMetadata, 'title' | 'description'>> }> };
 
+export type CityFragment = (
+  Pick<MarkdownRemark, 'id' | 'html'>
+  & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+);
+
 export type CitiesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CitiesPageQuery = { cities: { nodes: Array<(
-      Pick<MarkdownRemark, 'id' | 'html'>
-      & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
-    )> } };
+export type CitiesPageQuery = { hualien?: Maybe<CityFragment>, taipei?: Maybe<CityFragment>, tainan?: Maybe<CityFragment>, shifen?: Maybe<CityFragment>, kaohsiung?: Maybe<CityFragment>, taichung?: Maybe<CityFragment> };
 
 export type FoodPageQueryVariables = Exact<{ [key: string]: never; }>;
 
