@@ -1,6 +1,6 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
 import { PageProps, graphql } from "gatsby"
+import { makeStyles } from "@material-ui/core/styles"
 import { CitiesPageQuery, CityFragment } from "graphql-types"
 import { IconButton, Drawer, List, ListItem } from "@material-ui/core"
 import CloseIcon from '@material-ui/icons/Close';
@@ -13,6 +13,15 @@ import { City } from "components/City"
 const drawerWidth = 350
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        height: "100%",
+        width: "100%",
+        position: "absolute",
+        backgroundImage: 'url(/assets/taiwan.png)',
+        backgroundSize: "100% 100%",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+    },
     drawerPaper: { 
         width: drawerWidth, 
         zIndex: theme.zIndex.appBar - 1,
@@ -57,8 +66,8 @@ const useStyles = makeStyles((theme) => ({
 
 const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
-    const [cityIndex, setCityIndex] = React.useState(0);
+    const [open, setOpen] = React.useState(true);
+    const [cityIndex, setCityIndex] = React.useState(1);
     const [city, setCity] = React.useState(data.taipei);
 
     const handleDrawerOpen = (data : CityFragment | null | undefined, num : number) => {
@@ -86,18 +95,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             {/* className={clsx(classes.content, {
                     [classes.contentShift]: open,
                 })}   transition dont work?? */}
-            <div
-                style={{
-                    height: "100%",
-                    width: "100%",
-                    position: "absolute",
-                    backgroundImage: 'url("/assets/taiwan.png")',
-                    backgroundSize: "100% 100%",
-                    backgroundRepeat: "no-repeat",
-                    backgroundPosition: "center",
-                }}
-                
-            >
+            <div className={classes.container}>
                 {markers.map (({ name, marginSide, marginTop, data, index}) => (
                     <IconButton key={name} style={{left: marginSide, top: marginTop, position: "fixed"}} onClick={() => handleDrawerOpen(data, index)}>
                         <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
