@@ -10,7 +10,7 @@ type Props = {
     error?: Error
     showEmail?: boolean
     title: string
-    rowsPerPageOptions: TablePaginationProps["rowsPerPageOptions"]
+    rowsPerPageOptions?: TablePaginationProps["rowsPerPageOptions"]
 }
 
 const ALL_COLUMNS = [
