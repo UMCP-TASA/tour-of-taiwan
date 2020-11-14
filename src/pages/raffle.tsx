@@ -46,6 +46,8 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
             : undefined
     )
 
+    const { premium, basic } = data
+
     const premiumTickets = value?.docs.filter(
         doc => doc.get("category") === "Premium"
     )
@@ -74,11 +76,24 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                 justify="center"
                                 spacing={2}
                             >
-                                {data.prices.edges.map(item => (
-                                    <Grid item xs={12} sm={6} md={3} key={item.node.id}>
-                                        <StripeItemCard item={item.node} />
+                                {premium && (
+                                    <Grid item xs={12} sm={6} md={3}>
+                                        <StripeItemCard
+                                            title="Premium Tickets"
+                                            data={premium.nodes}
+                                            description={"Description"}
+                                        />
                                     </Grid>
-                                ))}
+                                )}
+                                {basic && (
+                                    <Grid item xs={12} sm={6} md={3}>
+                                        <StripeItemCard
+                                            title="Basic Tickets"
+                                            data={basic.nodes}
+                                            description={"Description"}
+                                        />
+                                    </Grid>
+                                )}
                             </Grid>
                         </Card>
                     </Grid>
@@ -146,11 +161,25 @@ export default RafflePage
 
 export const query = graphql`
     query RafflePage {
-        prices: allStripePrice {
-            edges {
-                node {
-                    ...StripeItem
-                }
+        premium: allStripePrice(
+            filter: {
+                product: { name: { regex: "/Premium/" }, active: { eq: true } }
+            }
+            sort: { fields: unit_amount }
+        ) {
+            nodes {
+                ...StripeItem
+            }
+        }
+
+        basic: allStripePrice(
+            filter: {
+                product: { name: { regex: "/Basic/" }, active: { eq: true } }
+            }
+            sort: { fields: unit_amount }
+        ) {
+            nodes {
+                ...StripeItem
             }
         }
     }
