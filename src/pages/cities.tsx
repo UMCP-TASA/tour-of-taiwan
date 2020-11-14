@@ -11,13 +11,14 @@ import SEO from "components/seo"
 import { City } from "components/City"
 
 const drawerWidth = 350
+const maxCities = 6
 
 const useStyles = makeStyles((theme) => ({
     container: {
         height: "100%",
         width: "100%",
         position: "absolute",
-        backgroundImage: 'url(/assets/taiwan.png)',
+        backgroundImage: 'url(/assets/cities/taiwan.png)',
         backgroundSize: "100% 100%",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -72,7 +73,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
 
     const handleDrawerOpen = (data : CityFragment | null | undefined, num : number) => {
         setOpen(true);
-        num >= 6 ? setCityIndex(0) : setCityIndex(num);
+        num >= maxCities ? setCityIndex(0) : setCityIndex(num);
         setCity(data);
     };
 
