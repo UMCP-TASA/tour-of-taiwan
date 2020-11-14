@@ -16,7 +16,6 @@ const styles = {
       padding: 15,
       minHeight: 100,
       color: '#fff',
-      
     },
   };
 

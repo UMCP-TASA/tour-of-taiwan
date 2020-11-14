@@ -31,7 +31,6 @@ export default function Food({food} : Props) {
         <Grid
             container
             direction="column">
-            spacing={4}
             <Grid item>
                 <Typography gutterBottom variant="h5" component="h2" align='center' color='textPrimary'>
                     Swipe To Explore!
@@ -52,13 +51,12 @@ export default function Food({food} : Props) {
                         <Paper elevation={2}> 
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2" align='center' color='textPrimary'>
-                                    HUALIEN
+                                    {food.frontmatter.name}
                                 </Typography>
                                 <Typography variant="body2" component="p" color='textPrimary'>
-                                    info info info description
-                                    <br></br>infoasdfo description
+                                    
                                 </Typography> 
-                                <Button variant="outlined" color="primary" href="">Youtube</Button>
+                                <iframe src={food.frontmatter.video} title="See How To Make It On Youtube!"></iframe>
                             </CardContent>
                         </Paper>
                     </Grid>
