@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-export { default as RaffleCard } from "./RaffleCard"
-export { default as StripeItemCard } from "./StripeItemCard"
-=======
 export { default as RaffleCard } from "./RaffleCard"
 export { default as RaffleTicket } from "./RaffleTicket"
 export { default as StripeItemCard } from "./StripeItemCard"
@@ -17,4 +13,3 @@ export type CollectionQuery = {
     loading: boolean,
     error?: Error, 
 }
->>>>>>> main
