@@ -69,14 +69,6 @@ const StripeItemCard = ({ title, description, data }: Props) => {
         ...rest,
         ...product,
     }))
-    // const prices: Item[] = data.map(({ id, product, unit_amount, currency }) => ({
-    //     id,
-    //     unit_amount,
-    //     currency,
-    //     name: product?.name,
-    //     description: product?.description,
-    //     image: product?.images &&  product?.images[0] ?  product?.images[0] : ""
-    // }))
 
     const foundItem = findItem(items, selectedId)
     const totalPrice = formatCurrencyString({
