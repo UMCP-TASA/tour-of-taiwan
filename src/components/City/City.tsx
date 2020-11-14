@@ -23,6 +23,15 @@ export default function City({city} : Props) {
     if (!city.frontmatter.video) {
         throw new Error("Frontmatter does not exist");
     }
+
+    function getEmbedUrl(url: string) {
+        var reg = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
+        var match = reg.exec(url);
+        if (match != null) {
+            return 'http://www.youtube.com/embed/' + match[1];
+        }
+        return 'https://www.youtube.com/embed/A9fdHs1uxGo' //random taiwan vid that should never show up
+    }
         
     return (
         <List> 
@@ -37,7 +46,14 @@ export default function City({city} : Props) {
             </ListItem>
             <Divider/>
             <ListItem>
-                <iframe src={city.frontmatter.video} width="100%" height="100%"/>
+                <iframe
+                    src={getEmbedUrl(city.frontmatter.video)}
+                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                    frameBorder="0"
+                    allowFullScreen
+                    width="100%" 
+                    height="100%"
+                />
             </ListItem>
             <Divider/>
         </List>
