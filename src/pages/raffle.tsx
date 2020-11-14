@@ -15,11 +15,7 @@ import { RafflePageQuery } from "graphql-types"
 import { useCollection } from "react-firebase-hooks/firestore"
 
 import SEO from "components/seo"
-import {
-    PremiumTickets,
-    StripeItemCard,
-    RaffleTable,
-} from "components/Raffle"
+import { PremiumTickets, StripeItemCard, RaffleTable } from "components/Raffle"
 import { LinkButton } from "components/Buttons"
 import useIsSignedIn from "hooks/useIsSignedIn"
 
@@ -65,11 +61,27 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                     justify="center"
                     spacing={2}
                 >
-                    {data.prices.edges.map(item => (
-                        <Grid item xs={6} md={4} key={item.node.id}>
-                            <StripeItemCard item={item.node} />
-                        </Grid>
-                    ))}
+                    <Grid item xs={12}>
+                        <Card className={classes.root}>
+                            <CardHeader
+                                title={"Purchase Tickets"}
+                                titleTypographyProps={{ align: "center" }}
+                            />
+                            <Grid
+                                container
+                                alignItems="stretch"
+                                alignContent="stretch"
+                                justify="center"
+                                spacing={2}
+                            >
+                                {data.prices.edges.map(item => (
+                                    <Grid item xs={12} sm={6} md={3} key={item.node.id}>
+                                        <StripeItemCard item={item.node} />
+                                    </Grid>
+                                ))}
+                            </Grid>
+                        </Card>
+                    </Grid>
 
                     <Grid item xs={12}>
                         {isSignedIn ? (
