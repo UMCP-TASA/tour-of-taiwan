@@ -3134,6 +3134,7 @@ export type StripePriceFieldsEnum =
   | 'product___livemode'
   | 'product___name'
   | 'product___type'
+  | 'product___unit_label'
   | 'product___updated'
   | 'product___localFiles'
   | 'product___localFiles___sourceInstanceName'
@@ -3238,6 +3239,7 @@ export type StripePriceProduct = {
   livemode?: Maybe<Scalars['Boolean']>;
   name?: Maybe<Scalars['String']>;
   type?: Maybe<Scalars['String']>;
+  unit_label?: Maybe<Scalars['String']>;
   updated?: Maybe<Scalars['Int']>;
   localFiles?: Maybe<Array<Maybe<File>>>;
 };
@@ -3252,6 +3254,7 @@ export type StripePriceProductFilterInput = {
   livemode?: Maybe<BooleanQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
   type?: Maybe<StringQueryOperatorInput>;
+  unit_label?: Maybe<StringQueryOperatorInput>;
   updated?: Maybe<IntQueryOperatorInput>;
   localFiles?: Maybe<FileFilterListInput>;
 };
