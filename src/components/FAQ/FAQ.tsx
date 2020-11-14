@@ -37,19 +37,30 @@ const FAQ = () => (
                         Google's Firebase which is used as our authentication
                         server and database
                     </li>
+                    <li>Stripe which we use to process payments</li>
                 </ul>
             </Typography>
         </FAQItem>
 
         <FAQItem id="faq-question-data" question="What data do you store?">
-            <Typography>
-                We use Google's Firebase to authenticate and store user
-                information. The only two pieces of identifiable information we
-                store are your email address and display name. You either
-                provide us with a display name when creating an account through
-                email or Firebase grabs it from whatever service you signed in
-                with. You can delete your account at any time!
-            </Typography>
+            <>
+                <Typography>
+                    We use Google's Firebase to authenticate and store user
+                    information. The only two pieces of identifiable information
+                    we store are your email address and display name. You either
+                    provide us with a display name when creating an account
+                    through email or Firebase grabs it from whatever service you
+                    signed in with. You can delete your account at any time!
+                </Typography>
+                <Typography>
+                    We also use Stripe to handle payments. Stripe stores your
+                    basic credit card info such as last four digits, expiration
+                    date, type, and issuer. Stripe also stores your email you
+                    used to sign up in order to send a receipt email. Currently
+                    we don't have a method of deleting these records along with
+                    your account, but that is in the works!
+                </Typography>
+            </>
         </FAQItem>
 
         <FAQItem
