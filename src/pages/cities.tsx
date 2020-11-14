@@ -10,7 +10,7 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import SEO from "components/seo"
 import { City } from "components/City"
 
-const drawerWidth = 350
+const drawerWidth = '40%'
 const maxCities = 6
 
 const useStyles = makeStyles((theme) => ({
@@ -18,14 +18,16 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         width: "100%",
         position: "absolute",
-        backgroundImage: 'url(/assets/cities/taiwan.png)',
-        backgroundSize: "100% 100%",
+        top: '0',
+        backgroundImage: 'url(/assets/cities/sea.svg)',
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
+        backgroundSize: "cover",
     },
     drawerPaper: { 
         width: drawerWidth, 
         zIndex: theme.zIndex.appBar - 1,
+        background: 'transparent',
+        borderLeft: 'none'
     },
     hide: { display: 'none', },
     drawerHeader: {
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        marginRight: -drawerWidth,
+        marginRight: '-40%', //drawerWidth
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -61,6 +63,13 @@ const useStyles = makeStyles((theme) => ({
     },
     toolbar: {
         ...theme.mixins.toolbar,
+    },
+    taiwanMap: {
+        width: '25%',
+        height: '70%',
+        margin: '0 auto',
+        marginTop: '15vh',
+        position: 'relative',
     }
 }))
 
@@ -82,12 +91,12 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     };
 
     const markers = [
-        {name: "Taipei", marginSide: "56.8%", marginTop: "16.5%", data: data.taipei, index: 1},
-        {name: "Tainan", marginSide: "38%", marginTop: "69.5%", data: data.tainan, index: 2},
-        {name: "Shifen", marginSide: "59.5%", marginTop: "16%", data: data.shifen, index: 3},
-        {name: "Taichung", marginSide: "44%", marginTop: "39%", data: data.taichung, index: 4},
-        {name: "Kaohsiung", marginSide: "39.5%", marginTop: "79%", data: data.kaohsiung, index: 5},
-        {name: "Hualien", marginSide: "56%", marginTop: "50%", data: data.hualien, index: 6},
+        {name: "Taipei", marginSide: "62.8%", marginTop: "5%", data: data.taipei, index: 1},
+        {name: "Taichung", marginSide: "22%", marginTop: "30%", data: data.taichung, index: 2},
+        {name: "Tainan", marginSide: "10%", marginTop: "65%", data: data.tainan, index: 3},
+        {name: "Kaohsiung", marginSide: "20%", marginTop: "75%", data: data.kaohsiung, index: 4},
+        {name: "Hualien", marginSide: "70%", marginTop: "30%", data: data.hualien, index: 5},
+        {name: "Shifen", marginSide: "77%", marginTop: "4%", data: data.shifen, index: 6},
     ];
 
     return (
@@ -97,11 +106,14 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                     [classes.contentShift]: open,
                 })}   transition dont work?? */}
             <div className={classes.container}>
-                {markers.map (({ name, marginSide, marginTop, data, index}) => (
-                    <IconButton key={name} style={{left: marginSide, top: marginTop, position: "fixed"}} onClick={() => handleDrawerOpen(data, index)}>
-                        <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
-                    </IconButton>
-                ))}
+                <div className={classes.taiwanMap} style={{marginLeft: open ? '25%' : 'auto'}}>
+                    <img src={`/assets/cities/taiwanmap.png`} style={{width: '100%', height: "100%"}}/>
+                    {markers.map (({ name, marginSide, marginTop, data, index}) => (
+                        <IconButton key={name} style={{left: marginSide, top: marginTop, position: "absolute"}} onClick={() => handleDrawerOpen(data, index)}>
+                            <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
+                        </IconButton>
+                    ))}
+                </div>
             </div>
 
             <Drawer className={classes.drawer} anchor="right" variant="persistent" open={open} classes={{paper: classes.drawerPaper}}>
@@ -115,7 +127,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                 <List>
                         <ListItem style={{display: "block", textAlign: "center"}}>
                         <text style={{textAlign: "center"}}>
-                            Move to {markers[cityIndex].name}
+                            Next City: {markers[cityIndex].name}
                         </text>
                         <IconButton onClick={() => handleDrawerOpen(markers[cityIndex].data, markers[cityIndex].index)}>
                             <ChevronRightIcon/>
@@ -126,6 +138,8 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
         </>
     )
 }
+
+//style={{marginLeft: open ? drawerWidth : 'auto'}}
 
 export default CitiesPage
 

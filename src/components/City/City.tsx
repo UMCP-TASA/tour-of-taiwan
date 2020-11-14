@@ -34,28 +34,18 @@ export default function City({city} : Props) {
     }
         
     return (
-        <List> 
-            <ListItem style={{display: "block"}}>
-                <h1 style={{textAlign: "center"}}>
-                    {city.frontmatter.name}
-                </h1>
-            </ListItem>
-            <Divider/>
-            <ListItem alignItems="flex-start">
-                <img src={city.frontmatter.imgsrc} width="100%" height="100%"/>
-            </ListItem>
-            <Divider/>
-            <ListItem>
-                <iframe
-                    src={getEmbedUrl(city.frontmatter.video)}
-                    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                    frameBorder="0"
-                    allowFullScreen
-                    width="100%" 
-                    height="100%"
-                />
-            </ListItem>
-            <Divider/>
-        </List>
+        <div style={{position: 'relative', margin: '0px 20px', marginTop: '5%', boxShadow: 'rgba(0, 0, 0, .2) 0px 0px 5px 2px', padding: '5px', backgroundColor: 'rgba(0,0,0,.1)', borderRadius: '7px'}}>
+            <img src={city.frontmatter.imgsrc} style={{borderRadius: '7px', width: '100%', height: '30vh', objectFit: 'cover'}}/>
+            <h1 style={{position: 'absolute', top: '15vh', left: '50%', transform: 'translate(-50%, -50%)', background: 'rgba(255,255,255,.9)', borderRadius: '7px', padding: '0px 5px'}}>
+                {city.frontmatter.name}
+            </h1>
+            <iframe
+                src={getEmbedUrl(city.frontmatter.video)}
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                frameBorder="0"
+                allowFullScreen
+                style={{borderRadius: '7px', width: '100%', height: '35vh'}}
+            />
+        </div>
     )
 }
