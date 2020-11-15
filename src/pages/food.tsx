@@ -20,6 +20,18 @@ const useStyles = makeStyles(theme => ({
 
 const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
     const classes = useStyles()
+    const [index, setIndex] = React.useState(0)
+    const handleNext = () => {
+        setIndex((prevIndex) => prevIndex + 1)
+    }
+
+    const handleBack = () => {
+        setIndex((prevIndex) => prevIndex - 1)
+    }
+
+    const handleChange = (newIndex: number) => {
+        setIndex(newIndex)
+    }
     const food_lst = [{ data: data.tanghulu }, { data: data.tanghulu }]
     return (
         <>
@@ -37,9 +49,9 @@ const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
                         borderRadius: "20px",
                     }}
                 >
-                    <SwipeableViews enableMouseEvents>
+                    <SwipeableViews enableMouseEvents index={index} onChangeIndex={handleChange}>
                         {food_lst.map(({ data }) => (
-                            <Food food={data} />
+                            <Food food={data} key={data?.id}/>
                         ))}
                     </SwipeableViews>
                 </div>
