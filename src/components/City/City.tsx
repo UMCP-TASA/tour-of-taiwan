@@ -1,6 +1,5 @@
 import React from "react"
 import { CityFragment } from "graphql-types"
-import { List, ListItem, Divider } from "@material-ui/core"
 
 type Props = {
     city: CityFragment | null | undefined

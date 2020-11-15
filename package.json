@@ -9,7 +9,6 @@
     "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "@stripe/stripe-js": "^1.11.0",
-    "@visx/responsive": "^1.1.0",
     "dotenv": "^8.2.0",
     "firebase": "^7.24.0",
     "gatsby": "^2.26.0",
@@ -40,11 +39,9 @@
     "react-dom": "^16.14.0",
     "react-firebase-hooks": "^2.2.0",
     "react-firebaseui": "^4.1.0",
-    "react-globe": "^5.0.2",
     "react-helmet": "^6.1.0",
     "react-spring": "9.0.0-rc.3",
     "react-swipeable-views": "^0.13.9",
-    "three": "^0.121.1",
     "use-shopping-cart": "^2.2.0"
   },
   "devDependencies": {

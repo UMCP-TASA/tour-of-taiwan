@@ -5,10 +5,10 @@ import { CitiesPageQuery, CityFragment } from "graphql-types"
 import { IconButton, Drawer, List, ListItem } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import LocationCityIcon from "@material-ui/icons/LocationCity"
 
 import SEO from "components/seo"
 import { City } from "components/City"
+import Image from "components/Image"
 
 const drawerWidth = "40%"
 const maxCities = 6
@@ -22,6 +22,10 @@ const useStyles = makeStyles(theme => ({
         backgroundImage: "url(/assets/cities/sea.svg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+    },
+    map: {
+        height: "100%",
+        width: "100%",
     },
     drawerPaper: {
         width: drawerWidth,
@@ -145,17 +149,16 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     return (
         <>
             <SEO title="Cities" />
-            {/* className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}   transition dont work?? */}
             <div className={classes.container}>
                 <div
                     className={classes.taiwanMap}
                     style={{ marginLeft: open ? "25%" : "auto" }}
                 >
-                    <img
-                        src={`/assets/cities/taiwanmap.png`}
-                        style={{ width: "100%", height: "100%" }}
+                    <Image
+                        className={classes.map}
+                        image={data.map}
+                        loading="eager"
+                        durationFadeIn={100}
                     />
                     {markers.map(
                         ({
@@ -167,6 +170,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                             icon,
                         }) => (
                             <div
+                                key={name}
                                 style={{
                                     left: marginSide,
                                     top: marginTop,
@@ -174,7 +178,6 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                                 }}
                             >
                                 <IconButton
-                                    key={name}
                                     onClick={() =>
                                         handleDrawerOpen(data, index)
                                     }
@@ -247,8 +250,6 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     )
 }
 
-//style={{marginLeft: open ? drawerWidth : 'auto'}}
-
 export default CitiesPage
 
 export const query = graphql`
@@ -262,6 +263,9 @@ export const query = graphql`
         html
     }
     query CitiesPage {
+        map: file(relativePath: { eq: "taiwanmap.png" }) {
+            ...Image
+        }
         hualien: markdownRemark(
             frontmatter: { name: { eq: "Hualien" }, category: { eq: "city" } }
         ) {
