@@ -1,6 +1,6 @@
 import React from "react"
 import { CityFragment } from "graphql-types"
-import { List, ListItem, Divider } from "@material-ui/core"
+import { getEmbedUrl } from "@utils"
 
 type Props = {
     city: CityFragment | null | undefined
@@ -21,15 +21,6 @@ export default function City({ city }: Props) {
 
     if (!city.frontmatter.video) {
         throw new Error("Frontmatter does not exist")
-    }
-
-    function getEmbedUrl(url: string) {
-        var reg = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g
-        var match = reg.exec(url)
-        if (match != null) {
-            return "https://www.youtube.com/embed/" + match[1]
-        }
-        return "https://www.youtube.com/embed/A9fdHs1uxGo" //random taiwan vid that should never show up
     }
 
     return (

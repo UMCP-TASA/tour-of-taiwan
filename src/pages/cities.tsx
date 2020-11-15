@@ -5,15 +5,17 @@ import { CitiesPageQuery, CityFragment } from "graphql-types"
 import { IconButton, Drawer, List, ListItem, Button } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
-import LocationCityIcon from "@material-ui/icons/LocationCity"
 
 import SEO from "components/seo"
 import { City } from "components/City"
+import Image from "components/Image"
 import useBoop from "hooks/useBoop"
 import { animated, useSpring } from "react-spring"
 
 const drawerWidth = "40%"
 const maxCities = 6
+
+const getSvgPath = (file: string) => `/svg/cities/${file}`
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -21,9 +23,13 @@ const useStyles = makeStyles(theme => ({
         width: "100%",
         position: "absolute",
         top: "0",
-        backgroundImage: "url(/assets/cities/sea.svg)",
+        backgroundImage: "url(/svg/cities/sea.svg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+    },
+    map: {
+        height: "100%",
+        width: "100%",
     },
     drawerPaper: {
         width: drawerWidth,
@@ -99,7 +105,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "1%",
             data: data.taipei,
             index: 1,
-            icon: "/assets/cities/taipeiIcon.svg",
+            icon: getSvgPath("taipeiIcon.svg"),
         },
         {
             name: "Taichung",
@@ -107,7 +113,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "26%",
             data: data.taichung,
             index: 2,
-            icon: "/assets/cities/taichungIcon.svg",
+            icon: getSvgPath("taichungIcon.svg"),
         },
         {
             name: "Tainan",
@@ -115,7 +121,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "55%",
             data: data.tainan,
             index: 3,
-            icon: "/assets/cities/tainanIcon.svg",
+            icon: getSvgPath("tainanIcon.svg"),
         },
         {
             name: "Kaohsiung",
@@ -123,7 +129,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "65%",
             data: data.kaohsiung,
             index: 4,
-            icon: "/assets/cities/kaoshiungIcon.svg",
+            icon: getSvgPath("kaoshiungIcon.svg"),
         },
         {
             name: "Hualien",
@@ -131,7 +137,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "35%",
             data: data.hualien,
             index: 5,
-            icon: "/assets/cities/hualienIcon.svg",
+            icon: getSvgPath("hualienIcon.svg"),
         },
         {
             name: "Shifen",
@@ -139,13 +145,14 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "-3%",
             data: data.shifen,
             index: 6,
-            icon: "/assets/cities/shifenIcon.svg",
+            icon: getSvgPath("shifenIcon.svg"),
         },
     ]
     let i;
-    let cityBoops = {}
+    let cityBoops: ReturnType<typeof useBoop>[] = []
     for (i=0;i<maxCities;i++) {
-        cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
+        cityBoops.push(useBoop({ scale: 1.05, rotation: 10 }))
+        //cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
     }
 
     const [nextAnimation, nextTrigger] = useBoop({ x: 3 })
@@ -157,17 +164,17 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     return (
         <>
             <SEO title="Cities" />
-            {/* className={clsx(classes.content, {
-                    [classes.contentShift]: open,
-                })}   transition dont work?? */}
             <div className={classes.container}>
                 <div
                     className={classes.taiwanMap}
                 >
+                    
                     <animated.div style={{...taiwanAnimation,...{position: "relative", width: '100%', height: '100%'}}}>
-                    <img
-                        src={`/assets/cities/taiwanmap.png`}
-                        style={{ width: "100%", height: "100%" }}
+                    <Image
+                        className={classes.map}
+                        image={data.map}
+                        loading="eager"
+                        durationFadeIn={100}
                     />
                     {markers.map(
                         ({
@@ -179,6 +186,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                             icon,
                         }) => (
                             <div
+                                key={name}
                                 style={{
                                     left: marginSide,
                                     top: marginTop,
@@ -186,7 +194,6 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                                 }}
                             >
                                 <IconButton
-                                    key={name}
                                     onClick={() =>
                                         handleDrawerOpen(data, index)
                                     }
@@ -199,14 +206,14 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                                             padding: "3px",
                                             borderRadius: "30px",
                                         },
-                                        ...cityBoops[`${index}`][0]}
+                                        ...cityBoops[index - 1][0]}
                                         }
                                         className={
                                             data == city && open
                                                 ? classes.styleCityClicked
                                                 : classes.styleCity
                                         }
-                                        onMouseEnter={cityBoops[`${index}`][1]}
+                                        onMouseEnter={cityBoops[index - 1][1]}
                                     />
                                     {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
                                 </IconButton>
@@ -270,8 +277,6 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     )
 }
 
-//style={{marginLeft: open ? drawerWidth : 'auto'}}
-
 export default CitiesPage
 
 export const query = graphql`
@@ -285,6 +290,9 @@ export const query = graphql`
         html
     }
     query CitiesPage {
+        map: file(relativePath: { eq: "taiwanmap.png" }) {
+            ...Image
+        }
         hualien: markdownRemark(
             frontmatter: { name: { eq: "Hualien" }, category: { eq: "city" } }
         ) {

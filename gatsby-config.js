@@ -23,6 +23,13 @@ module.exports = {
         {
             resolve: "gatsby-source-filesystem",
             options: {
+                name: "static",
+                path: `${__dirname}/static/assets`,
+            },
+        },
+        {
+            resolve: "gatsby-source-filesystem",
+            options: {
                 name: "cities",
                 path: `${__dirname}/content/cities/`,
             },
@@ -32,6 +39,14 @@ module.exports = {
             options: {
                 name: "food",
                 path: `${__dirname}/content/food/`,
+            },
+        },
+        {
+            resolve: "gatsby-plugin-react-svg",
+            options: {
+                rule: {
+                    include: /assets/,
+                },
             },
         },
         {
@@ -65,6 +80,7 @@ module.exports = {
                 downloadFiles: true,
             },
         },
+        `gatsby-plugin-optimize-svgs`,
         `gatsby-plugin-material-ui`,
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
@@ -81,6 +97,7 @@ module.exports = {
                         resolve: "gatsby-remark-images",
                         options: {
                             maxWidth: 672,
+                            withWebp: true,
                         },
                     },
                     "gatsby-remark-copy-linked-files",

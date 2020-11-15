@@ -1,6 +1,6 @@
 import React from "react"
 import { graphql } from "gatsby"
-import Img, { FluidObject } from "gatsby-image"
+import Img, { FluidObject, GatsbyImageOptionalProps } from "gatsby-image"
 
 import { ImageFragment } from "graphql-types"
 
@@ -17,16 +17,16 @@ import { ImageFragment } from "graphql-types"
  * ^ I removed the static query but this comment helps explain what those are
  */
 
-type Props = {
-    image: ImageFragment
+type Props = GatsbyImageOptionalProps & {
+    image: ImageFragment | null | undefined
 }
 
-const Image = ({ image }: Props) => {
+const Image = ({ image, ...rest }: Props) => {
     if (!image?.childImageSharp?.fluid) {
         return <div>Picture not found</div>
     }
 
-    return <Img fluid={image.childImageSharp.fluid as FluidObject} />
+    return <Img {...rest} fluid={image.childImageSharp.fluid as FluidObject} />
 }
 
 export default Image
@@ -35,7 +35,7 @@ export const imageFragment = graphql`
     fragment Image on File {
         childImageSharp {
             fluid(quality: 100, pngQuality: 100, maxHeight: 1000) {
-                ...GatsbyImageSharpFluid_withWebp
+                ...GatsbyImageSharpFluid_withWebp_tracedSVG
             }
         }
     }

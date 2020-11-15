@@ -708,8 +708,8 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___id'
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___name'
-  | 'childMarkdownRemark___frontmatter___imgsrc'
   | 'childMarkdownRemark___frontmatter___category'
+  | 'childMarkdownRemark___frontmatter___imgsrc'
   | 'childMarkdownRemark___frontmatter___video'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
@@ -1522,8 +1522,8 @@ export type MarkdownRemarkFieldsEnum =
   | 'id'
   | 'frontmatter___title'
   | 'frontmatter___name'
-  | 'frontmatter___imgsrc'
   | 'frontmatter___category'
+  | 'frontmatter___imgsrc'
   | 'frontmatter___video'
   | 'excerpt'
   | 'rawMarkdownBody'
@@ -1647,16 +1647,16 @@ export type MarkdownRemarkFilterInput = {
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  imgsrc?: Maybe<Scalars['String']>;
   category?: Maybe<Scalars['String']>;
+  imgsrc?: Maybe<Scalars['String']>;
   video?: Maybe<Scalars['String']>;
 };
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
-  imgsrc?: Maybe<StringQueryOperatorInput>;
   category?: Maybe<StringQueryOperatorInput>;
+  imgsrc?: Maybe<StringQueryOperatorInput>;
   video?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -2550,13 +2550,13 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___failOnError'
   | 'pluginCreator___pluginOptions___staticFolderName'
   | 'pluginCreator___pluginOptions___maxWidth'
+  | 'pluginCreator___pluginOptions___withWebp'
   | 'pluginCreator___pluginOptions___linkImagesToOriginal'
   | 'pluginCreator___pluginOptions___showCaptions'
   | 'pluginCreator___pluginOptions___markdownCaptions'
   | 'pluginCreator___pluginOptions___sizeByPixelDensity'
   | 'pluginCreator___pluginOptions___backgroundColor'
   | 'pluginCreator___pluginOptions___quality'
-  | 'pluginCreator___pluginOptions___withWebp'
   | 'pluginCreator___pluginOptions___tracedSVG'
   | 'pluginCreator___pluginOptions___loading'
   | 'pluginCreator___pluginOptions___disableBgImageOnAlpha'
@@ -2767,13 +2767,13 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___plugins___version'
   | 'pluginOptions___plugins___pluginOptions___staticFolderName'
   | 'pluginOptions___plugins___pluginOptions___maxWidth'
+  | 'pluginOptions___plugins___pluginOptions___withWebp'
   | 'pluginOptions___plugins___pluginOptions___linkImagesToOriginal'
   | 'pluginOptions___plugins___pluginOptions___showCaptions'
   | 'pluginOptions___plugins___pluginOptions___markdownCaptions'
   | 'pluginOptions___plugins___pluginOptions___sizeByPixelDensity'
   | 'pluginOptions___plugins___pluginOptions___backgroundColor'
   | 'pluginOptions___plugins___pluginOptions___quality'
-  | 'pluginOptions___plugins___pluginOptions___withWebp'
   | 'pluginOptions___plugins___pluginOptions___tracedSVG'
   | 'pluginOptions___plugins___pluginOptions___loading'
   | 'pluginOptions___plugins___pluginOptions___disableBgImageOnAlpha'
@@ -2808,13 +2808,13 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___failOnError'
   | 'pluginOptions___staticFolderName'
   | 'pluginOptions___maxWidth'
+  | 'pluginOptions___withWebp'
   | 'pluginOptions___linkImagesToOriginal'
   | 'pluginOptions___showCaptions'
   | 'pluginOptions___markdownCaptions'
   | 'pluginOptions___sizeByPixelDensity'
   | 'pluginOptions___backgroundColor'
   | 'pluginOptions___quality'
-  | 'pluginOptions___withWebp'
   | 'pluginOptions___tracedSVG'
   | 'pluginOptions___loading'
   | 'pluginOptions___disableBgImageOnAlpha'
@@ -2963,13 +2963,13 @@ export type SitePluginPluginOptions = {
   failOnError?: Maybe<Scalars['Boolean']>;
   staticFolderName?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
+  withWebp?: Maybe<Scalars['Boolean']>;
   linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
   showCaptions?: Maybe<Scalars['Boolean']>;
   markdownCaptions?: Maybe<Scalars['Boolean']>;
   sizeByPixelDensity?: Maybe<Scalars['Boolean']>;
   backgroundColor?: Maybe<Scalars['String']>;
   quality?: Maybe<Scalars['Int']>;
-  withWebp?: Maybe<Scalars['Boolean']>;
   tracedSVG?: Maybe<Scalars['Boolean']>;
   loading?: Maybe<Scalars['String']>;
   disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
@@ -3039,13 +3039,13 @@ export type SitePluginPluginOptionsFilterInput = {
   failOnError?: Maybe<BooleanQueryOperatorInput>;
   staticFolderName?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
+  withWebp?: Maybe<BooleanQueryOperatorInput>;
   linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
   showCaptions?: Maybe<BooleanQueryOperatorInput>;
   markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
   sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>;
   backgroundColor?: Maybe<StringQueryOperatorInput>;
   quality?: Maybe<IntQueryOperatorInput>;
-  withWebp?: Maybe<BooleanQueryOperatorInput>;
   tracedSVG?: Maybe<BooleanQueryOperatorInput>;
   loading?: Maybe<StringQueryOperatorInput>;
   disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
@@ -3097,13 +3097,13 @@ export type SitePluginPluginOptionsPluginsFilterListInput = {
 export type SitePluginPluginOptionsPluginsPluginOptions = {
   staticFolderName?: Maybe<Scalars['String']>;
   maxWidth?: Maybe<Scalars['Int']>;
+  withWebp?: Maybe<Scalars['Boolean']>;
   linkImagesToOriginal?: Maybe<Scalars['Boolean']>;
   showCaptions?: Maybe<Scalars['Boolean']>;
   markdownCaptions?: Maybe<Scalars['Boolean']>;
   sizeByPixelDensity?: Maybe<Scalars['Boolean']>;
   backgroundColor?: Maybe<Scalars['String']>;
   quality?: Maybe<Scalars['Int']>;
-  withWebp?: Maybe<Scalars['Boolean']>;
   tracedSVG?: Maybe<Scalars['Boolean']>;
   loading?: Maybe<Scalars['String']>;
   disableBgImageOnAlpha?: Maybe<Scalars['Boolean']>;
@@ -3115,13 +3115,13 @@ export type SitePluginPluginOptionsPluginsPluginOptions = {
 export type SitePluginPluginOptionsPluginsPluginOptionsFilterInput = {
   staticFolderName?: Maybe<StringQueryOperatorInput>;
   maxWidth?: Maybe<IntQueryOperatorInput>;
+  withWebp?: Maybe<BooleanQueryOperatorInput>;
   linkImagesToOriginal?: Maybe<BooleanQueryOperatorInput>;
   showCaptions?: Maybe<BooleanQueryOperatorInput>;
   markdownCaptions?: Maybe<BooleanQueryOperatorInput>;
   sizeByPixelDensity?: Maybe<BooleanQueryOperatorInput>;
   backgroundColor?: Maybe<StringQueryOperatorInput>;
   quality?: Maybe<IntQueryOperatorInput>;
-  withWebp?: Maybe<BooleanQueryOperatorInput>;
   tracedSVG?: Maybe<BooleanQueryOperatorInput>;
   loading?: Maybe<StringQueryOperatorInput>;
   disableBgImageOnAlpha?: Maybe<BooleanQueryOperatorInput>;
@@ -3455,7 +3455,7 @@ export type WebPOptions = {
   quality?: Maybe<Scalars['Int']>;
 };
 
-export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
+export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebp_TracedSvgFragment> }> };
 
 export type LogoQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -3483,22 +3483,29 @@ export type CityFragment = (
 export type CitiesPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type CitiesPageQuery = { hualien?: Maybe<CityFragment>, taipei?: Maybe<CityFragment>, tainan?: Maybe<CityFragment>, shifen?: Maybe<CityFragment>, kaohsiung?: Maybe<CityFragment>, taichung?: Maybe<CityFragment> };
+export type CitiesPageQuery = { map?: Maybe<ImageFragment>, hualien?: Maybe<CityFragment>, taipei?: Maybe<CityFragment>, tainan?: Maybe<CityFragment>, shifen?: Maybe<CityFragment>, kaohsiung?: Maybe<CityFragment>, taichung?: Maybe<CityFragment> };
 
 export type FoodFragment = (
   Pick<MarkdownRemark, 'id' | 'html'>
   & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+  & MarkdownImgPathFragment
 );
+
+export type FoodImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
 
 export type FoodPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FoodPageQuery = { tanghulu?: Maybe<FoodFragment> };
+export type FoodPageQuery = { food: { nodes: Array<FoodFragment> }, images: { edges: Array<{ node: FoodImageFragment }> } };
 
 export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RafflePageQuery = { premium: { nodes: Array<StripeItemFragment> }, basic: { nodes: Array<StripeItemFragment> } };
+
+export type ImageWithPathFragment = Pick<File, 'absolutePath'>;
+
+export type MarkdownImgPathFragment = { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'imgsrc'>> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

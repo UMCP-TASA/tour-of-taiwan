@@ -129,7 +129,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(0, 4)
                                                                 .map(prize => (
-                                                                    <li>
+                                                                    <li key={prize}>
                                                                         {prize}
                                                                     </li>
                                                                 ))}
@@ -140,7 +140,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(4)
                                                                 .map(prize => (
-                                                                    <li>
+                                                                    <li key={prize}>
                                                                         {prize}
                                                                     </li>
                                                                 ))}
@@ -176,11 +176,12 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                 Premium tickets are special
                                                 tickets that you can choose to
                                                 enter into either the Airpods
-                                                raffle <b>OR</b> the Switch
-                                                raffle. Tickets are
-                                                automatically put into the
-                                                Switch raffle pool, but they can
-                                                be changed at any time!
+                                                raffle <b>OR</b> the Switch raffle.
+                                                Tickets are put into the Switch
+                                                raffle pool by default, but you
+                                                can change which prize your
+                                                tickets go towards by signing
+                                                in!
                                             </Typography>
                                         </StripeItemCard>
                                     </Grid>
@@ -213,6 +214,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                         <RaffleTable
                                             title={"Owned Tickets"}
                                             value={value}
+                                            
                                             rowsPerPageOptions={[
                                                 5,
                                                 10,
