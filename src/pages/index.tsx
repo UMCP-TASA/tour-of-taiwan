@@ -93,7 +93,7 @@ const IndexPage = () => {
     })
 
     const logoAProps = useSpring({
-        to: { opacity: 1, marginTop: "25vh" },
+        to: { opacity: 1, marginTop: "20vh" },
         from: { opacity: 0.5, marginTop: "-10vh" },
         delay: 600,
     })
