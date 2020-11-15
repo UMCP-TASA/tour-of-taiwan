@@ -28,7 +28,7 @@ export default function City({city} : Props) {
         var reg = /(?:http?s?:\/\/)?(?:www\.)?(?:youtube\.com|youtu\.be)\/(?:watch\?v=)?(.+)/g;
         var match = reg.exec(url);
         if (match != null) {
-            return 'http://www.youtube.com/embed/' + match[1];
+            return 'https://www.youtube.com/embed/' + match[1];
         }
         return 'https://www.youtube.com/embed/A9fdHs1uxGo' //random taiwan vid that should never show up
     }
