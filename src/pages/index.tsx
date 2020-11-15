@@ -64,10 +64,12 @@ const useStyles = makeStyles(theme => ({
         position: "absolute",
         right: "2%",
         [theme.breakpoints.down("sm")]: {
-            width: "55%",
-            right: "5%",
             bottom: "5%",
         },
+        [theme.breakpoints.down("xs")]: {
+            width: "55%",
+            right: "5%",
+        }
     },
     button: {
         // background: 'pink !important',
@@ -92,9 +94,10 @@ const IndexPage = () => {
         config: config.slow,
     })
 
+    const logoABigScreen = useMediaQuery("(min-width:1500px)")
     const logoAProps = useSpring({
-        to: { opacity: 1, marginTop: "20vh" },
-        from: { opacity: 0.5, marginTop: "-10vh" },
+        to: { opacity: 1, marginTop: logoABigScreen ? '20vh' : "100px" },
+        from: { opacity: 0.5, marginTop: logoABigScreen ? '-10vh' :"-100px" },
         delay: 600,
     })
 
