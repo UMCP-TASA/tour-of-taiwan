@@ -1,7 +1,7 @@
 ---
 name: Bubble Tea
 category: food
-imgsrc: assets/tanghulu.jpg
+imgsrc: assets/bubbletea.jpg
 video: https://youtu.be/uebOYShE9Ek
 ---
 

@@ -1,8 +1,8 @@
 ---
-name: Wonton
+name: Wontons
 category: food
-imgsrc: assets/tanghulu.jpg
-video: https://youtu.be/1sn03_UYC0g
+imgsrc: assets/wonton.jpg
+video: null
 ---
 
 A chinese dumpling filled with spiced minced pork; usually served in soup. 

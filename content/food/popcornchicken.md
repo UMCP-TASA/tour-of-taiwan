@@ -1,7 +1,7 @@
 ---
 name: Popcorn Chicken
 category: food
-imgsrc: assets/tanghulu.jpg
+imgsrc: assets/popcornchicken.jpg
 video: https://youtu.be/1sn03_UYC0g
 ---
 
