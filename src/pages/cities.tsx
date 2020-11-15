@@ -56,17 +56,17 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 0,
     },
     styleCity: {
-        color: "grey",
     },
     styleCityClicked: {
-        color: "red",
+        background: 'rgb(236, 252, 240)',
+        boxShadow: 'rgba(0, 0, 0, .2) 0px 0px 5px 2px'
     },
     toolbar: {
         ...theme.mixins.toolbar,
     },
     taiwanMap: {
-        width: '25%',
-        height: '70%',
+        width: '20%',
+        height: '75%',
         margin: '0 auto',
         marginTop: '15vh',
         position: 'relative',
@@ -91,12 +91,12 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     };
 
     const markers = [
-        {name: "Taipei", marginSide: "62.8%", marginTop: "5%", data: data.taipei, index: 1},
-        {name: "Taichung", marginSide: "22%", marginTop: "30%", data: data.taichung, index: 2},
-        {name: "Tainan", marginSide: "10%", marginTop: "65%", data: data.tainan, index: 3},
-        {name: "Kaohsiung", marginSide: "20%", marginTop: "75%", data: data.kaohsiung, index: 4},
-        {name: "Hualien", marginSide: "70%", marginTop: "30%", data: data.hualien, index: 5},
-        {name: "Shifen", marginSide: "77%", marginTop: "4%", data: data.shifen, index: 6},
+        {name: "Taipei", marginSide: "50%", marginTop: "1%", data: data.taipei, index: 1, icon: '/assets/cities/taipeiIcon.svg'},
+        {name: "Taichung", marginSide: "20%", marginTop: "26%", data: data.taichung, index: 2, icon: '/assets/cities/taichungIcon.svg'},
+        {name: "Tainan", marginSide: "6%", marginTop: "55%", data: data.tainan, index: 3, icon: '/assets/cities/tainanIcon.svg'},
+        {name: "Kaohsiung", marginSide: "22%", marginTop: "65%", data: data.kaohsiung, index: 4, icon: '/assets/cities/kaoshiungIcon.svg'},
+        {name: "Hualien", marginSide: "59%", marginTop: "35%", data: data.hualien, index: 5, icon: '/assets/cities/hualienIcon.svg'},
+        {name: "Shifen", marginSide: "68%", marginTop: "-3%", data: data.shifen, index: 6, icon: '/assets/cities/shifenIcon.svg'},
     ];
 
     return (
@@ -108,10 +108,14 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             <div className={classes.container}>
                 <div className={classes.taiwanMap} style={{marginLeft: open ? '25%' : 'auto'}}>
                     <img src={`/assets/cities/taiwanmap.png`} style={{width: '100%', height: "100%"}}/>
-                    {markers.map (({ name, marginSide, marginTop, data, index}) => (
-                        <IconButton key={name} style={{left: marginSide, top: marginTop, position: "absolute"}} onClick={() => handleDrawerOpen(data, index)}>
-                            <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
-                        </IconButton>
+                    {markers.map (({ name, marginSide, marginTop, data, index, icon}) => (
+                        <div style={{left: marginSide, top: marginTop, position: "absolute"}}>
+                            <IconButton key={name} onClick={() => handleDrawerOpen(data, index)}>
+                                <img src={icon} style={{width: '60px', height: '60px', padding: '3px', borderRadius: '30px'}} className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
+                                {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
+                            </IconButton>
+                            <div style={{color: 'white', position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)', fontWeight: 'bold', fontSize: '12px'}}>{name}</div>
+                        </div>
                     ))}
                 </div>
             </div>
@@ -126,9 +130,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                 <City city={city}/>
                 <List>
                         <ListItem style={{display: "block", textAlign: "center"}}>
-                        <text style={{textAlign: "center"}}>
-                            Next City: {markers[cityIndex].name}
-                        </text>
+                        Next City: {markers[cityIndex].name}
                         <IconButton onClick={() => handleDrawerOpen(markers[cityIndex].data, markers[cityIndex].index)}>
                             <ChevronRightIcon/>
                         </IconButton>
