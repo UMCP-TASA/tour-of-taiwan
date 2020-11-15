@@ -15,7 +15,7 @@ function useBoop({
     tension: 300,
     friction: 10,
   },
-}) {
+}): [{}, () => void] {
   const prefersReducedMotion = usePrefersReducedMotion();
   const [isBooped, setIsBooped] = React.useState(false);
   const style = useSpring({

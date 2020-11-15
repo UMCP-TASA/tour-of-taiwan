@@ -68,7 +68,7 @@ const useStyles = makeStyles(theme => ({
         },
     },
     button: {
-        background: 'pink !important',
+        // background: 'pink !important',
         fontWeight: 'bold',
         fontSize: '20px',
         marginTop: '4%',
@@ -132,7 +132,7 @@ const IndexPage = () => {
                 <animated.div style={buildingProps} className={classes.building}><img src={`/assets/home/building.svg`} style={{width: '100%'}}/></animated.div>
                 <animated.div style={logoAProps}><img src={`/assets/home/logo-a.svg`} className={classes.logoA}/></animated.div>
                 <animated.div style={logoBProps}><img src={`/assets/home/logo-b.svg`} className={classes.logoB}/></animated.div>
-                <animated.div style={{...buttonProps, ...buttonBoop}}><LinkButton to='/cities' className={classes.button} onMouseEnter={trigger}>Begin Tour</LinkButton></animated.div>
+                <animated.div style={{...buttonProps, ...buttonBoop}}><LinkButton to='/cities' className={classes.button} onMouseEnter={trigger} variant="contained" color="primary">Begin Tour</LinkButton></animated.div>
             </div>
         </>
     )

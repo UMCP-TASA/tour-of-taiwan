@@ -3465,6 +3465,11 @@ export type WebPOptions = {
 
 export type ImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
 
+export type LogoQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type LogoQuery = { file?: Maybe<{ childImageSharp?: Maybe<{ fixed?: Maybe<GatsbyImageSharpFixed_WithWebpFragment> }> }> };
+
 export type StripeItemFragment = (
   Pick<StripePrice, 'id' | 'unit_amount' | 'currency'>
   & { product?: Maybe<(
