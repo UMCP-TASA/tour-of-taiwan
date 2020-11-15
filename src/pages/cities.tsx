@@ -3,136 +3,242 @@ import { PageProps, graphql } from "gatsby"
 import { makeStyles } from "@material-ui/core/styles"
 import { CitiesPageQuery, CityFragment } from "graphql-types"
 import { IconButton, Drawer, List, ListItem } from "@material-ui/core"
-import CloseIcon from '@material-ui/icons/Close';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import LocationCityIcon from '@material-ui/icons/LocationCity';
+import CloseIcon from "@material-ui/icons/Close"
+import ChevronRightIcon from "@material-ui/icons/ChevronRight"
+import LocationCityIcon from "@material-ui/icons/LocationCity"
 
 import SEO from "components/seo"
 import { City } from "components/City"
 
-const drawerWidth = '40%'
+const drawerWidth = "40%"
 const maxCities = 6
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
     container: {
         height: "100%",
         width: "100%",
         position: "absolute",
-        top: '0',
-        backgroundImage: 'url(/assets/cities/sea.svg)',
+        top: "0",
+        backgroundImage: "url(/assets/cities/sea.svg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
-    drawerPaper: { 
-        width: drawerWidth, 
+    drawerPaper: {
+        width: drawerWidth,
         zIndex: theme.zIndex.appBar - 1,
-        background: 'transparent',
-        borderLeft: 'none'
+        background: "transparent",
+        borderLeft: "none",
     },
-    hide: { display: 'none', },
+    hide: { display: "none" },
     drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
+        display: "flex",
+        alignItems: "center",
         padding: theme.spacing(0, 1),
         ...theme.mixins.toolbar,
-        justifyContent: 'flex-start',
+        justifyContent: "flex-start",
     },
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
     },
     content: {
-        transition: theme.transitions.create('margin', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.leavingScreen,
+        transition: theme.transitions.create("margin", {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
         }),
-        marginRight: '-40%', //drawerWidth
+        marginRight: "-40%", //drawerWidth
     },
     contentShift: {
-        transition: theme.transitions.create('margin', {
+        transition: theme.transitions.create("margin", {
             easing: theme.transitions.easing.easeOut,
             duration: theme.transitions.duration.enteringScreen,
         }),
         marginRight: 0,
     },
-    styleCity: {
-    },
+    styleCity: {},
     styleCityClicked: {
-        background: 'rgb(236, 252, 240)',
-        boxShadow: 'rgba(0, 0, 0, .2) 0px 0px 5px 2px'
+        background: "rgb(236, 252, 240)",
+        boxShadow: "rgba(0, 0, 0, .2) 0px 0px 5px 2px",
     },
     toolbar: {
         ...theme.mixins.toolbar,
     },
     taiwanMap: {
-        width: '20%',
-        height: '75%',
-        margin: '0 auto',
-        marginTop: '15vh',
-        position: 'relative',
-    }
+        width: "20%",
+        height: "75%",
+        margin: "0 auto",
+        marginTop: "15vh",
+        position: "relative",
+    },
 }))
 
-
 const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
-    const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    const [cityIndex, setCityIndex] = React.useState(1);
-    const [city, setCity] = React.useState(data.taipei);
+    const classes = useStyles()
+    const [open, setOpen] = React.useState(true)
+    const [cityIndex, setCityIndex] = React.useState(1)
+    const [city, setCity] = React.useState(data.taipei)
 
-    const handleDrawerOpen = (data : CityFragment | null | undefined, num : number) => {
-        setOpen(true);
-        num >= maxCities ? setCityIndex(0) : setCityIndex(num);
-        setCity(data);
-    };
+    const handleDrawerOpen = (
+        data: CityFragment | null | undefined,
+        num: number
+    ) => {
+        setOpen(true)
+        num >= maxCities ? setCityIndex(0) : setCityIndex(num)
+        setCity(data)
+    }
 
     const handleDrawerClose = () => {
-        setOpen(false);
-    };
+        setOpen(false)
+    }
 
     const markers = [
-        {name: "Taipei", marginSide: "50%", marginTop: "1%", data: data.taipei, index: 1, icon: '/assets/cities/taipeiIcon.svg'},
-        {name: "Taichung", marginSide: "20%", marginTop: "26%", data: data.taichung, index: 2, icon: '/assets/cities/taichungIcon.svg'},
-        {name: "Tainan", marginSide: "6%", marginTop: "55%", data: data.tainan, index: 3, icon: '/assets/cities/tainanIcon.svg'},
-        {name: "Kaohsiung", marginSide: "22%", marginTop: "65%", data: data.kaohsiung, index: 4, icon: '/assets/cities/kaoshiungIcon.svg'},
-        {name: "Hualien", marginSide: "59%", marginTop: "35%", data: data.hualien, index: 5, icon: '/assets/cities/hualienIcon.svg'},
-        {name: "Shifen", marginSide: "68%", marginTop: "-3%", data: data.shifen, index: 6, icon: '/assets/cities/shifenIcon.svg'},
-    ];
+        {
+            name: "Taipei",
+            marginSide: "50%",
+            marginTop: "1%",
+            data: data.taipei,
+            index: 1,
+            icon: "/assets/cities/taipeiIcon.svg",
+        },
+        {
+            name: "Taichung",
+            marginSide: "20%",
+            marginTop: "26%",
+            data: data.taichung,
+            index: 2,
+            icon: "/assets/cities/taichungIcon.svg",
+        },
+        {
+            name: "Tainan",
+            marginSide: "6%",
+            marginTop: "55%",
+            data: data.tainan,
+            index: 3,
+            icon: "/assets/cities/tainanIcon.svg",
+        },
+        {
+            name: "Kaohsiung",
+            marginSide: "22%",
+            marginTop: "65%",
+            data: data.kaohsiung,
+            index: 4,
+            icon: "/assets/cities/kaoshiungIcon.svg",
+        },
+        {
+            name: "Hualien",
+            marginSide: "59%",
+            marginTop: "35%",
+            data: data.hualien,
+            index: 5,
+            icon: "/assets/cities/hualienIcon.svg",
+        },
+        {
+            name: "Shifen",
+            marginSide: "68%",
+            marginTop: "-3%",
+            data: data.shifen,
+            index: 6,
+            icon: "/assets/cities/shifenIcon.svg",
+        },
+    ]
 
     return (
         <>
-            <SEO title = "Cities" />
+            <SEO title="Cities" />
             {/* className={clsx(classes.content, {
                     [classes.contentShift]: open,
                 })}   transition dont work?? */}
             <div className={classes.container}>
-                <div className={classes.taiwanMap} style={{marginLeft: open ? '25%' : 'auto'}}>
-                    <img src={`/assets/cities/taiwanmap.png`} style={{width: '100%', height: "100%"}}/>
-                    {markers.map (({ name, marginSide, marginTop, data, index, icon}) => (
-                        <div style={{left: marginSide, top: marginTop, position: "absolute"}}>
-                            <IconButton key={name} onClick={() => handleDrawerOpen(data, index)}>
-                                <img src={icon} style={{width: '60px', height: '60px', padding: '3px', borderRadius: '30px'}} className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
-                                {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
-                            </IconButton>
-                            <div style={{color: 'white', position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)', fontWeight: 'bold', fontSize: '12px'}}>{name}</div>
-                        </div>
-                    ))}
+                <div
+                    className={classes.taiwanMap}
+                    style={{ marginLeft: open ? "25%" : "auto" }}
+                >
+                    <img
+                        src={`/assets/cities/taiwanmap.png`}
+                        style={{ width: "100%", height: "100%" }}
+                    />
+                    {markers.map(
+                        ({
+                            name,
+                            marginSide,
+                            marginTop,
+                            data,
+                            index,
+                            icon,
+                        }) => (
+                            <div
+                                style={{
+                                    left: marginSide,
+                                    top: marginTop,
+                                    position: "absolute",
+                                }}
+                            >
+                                <IconButton
+                                    key={name}
+                                    onClick={() =>
+                                        handleDrawerOpen(data, index)
+                                    }
+                                >
+                                    <img
+                                        src={icon}
+                                        style={{
+                                            width: "60px",
+                                            height: "60px",
+                                            padding: "3px",
+                                            borderRadius: "30px",
+                                        }}
+                                        className={
+                                            data == city && open
+                                                ? classes.styleCityClicked
+                                                : classes.styleCity
+                                        }
+                                    />
+                                    {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
+                                </IconButton>
+                                <div
+                                    style={{
+                                        color: "white",
+                                        position: "absolute",
+                                        left: "50%",
+                                        transform: "translate(-50%, -50%)",
+                                        fontWeight: "bold",
+                                        fontSize: "12px",
+                                    }}
+                                >
+                                    {name}
+                                </div>
+                            </div>
+                        )
+                    )}
                 </div>
             </div>
 
-            <Drawer className={classes.drawer} anchor="right" variant="persistent" open={open} classes={{paper: classes.drawerPaper}}>
-                <div className={classes.toolbar}/>
+            <Drawer
+                className={classes.drawer}
+                anchor="right"
+                variant="persistent"
+                open={open}
+                classes={{ paper: classes.drawerPaper }}
+            >
+                <div className={classes.toolbar} />
                 <div className={classes.drawerHeader}>
                     <IconButton onClick={handleDrawerClose}>
-                        <CloseIcon/>
+                        <CloseIcon />
                     </IconButton>
                 </div>
-                <City city={city}/>
+                <City city={city} />
                 <List>
-                        <ListItem style={{display: "block", textAlign: "center"}}>
+                    <ListItem style={{ display: "block", textAlign: "center" }}>
                         Next City: {markers[cityIndex].name}
-                        <IconButton onClick={() => handleDrawerOpen(markers[cityIndex].data, markers[cityIndex].index)}>
-                            <ChevronRightIcon/>
+                        <IconButton
+                            onClick={() =>
+                                handleDrawerOpen(
+                                    markers[cityIndex].data,
+                                    markers[cityIndex].index
+                                )
+                            }
+                        >
+                            <ChevronRightIcon />
                         </IconButton>
                     </ListItem>
                 </List>
@@ -146,33 +252,45 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
 export default CitiesPage
 
 export const query = graphql`
-fragment City on MarkdownRemark {
-    id
-    frontmatter {
-      name
-      imgsrc
-      video
+    fragment City on MarkdownRemark {
+        id
+        frontmatter {
+            name
+            imgsrc
+            video
+        }
+        html
     }
-    html
-  }
     query CitiesPage {
-        hualien: markdownRemark(frontmatter: {name: {eq: "Hualien"}, category: {eq: "city"}}) {
+        hualien: markdownRemark(
+            frontmatter: { name: { eq: "Hualien" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
-          taipei: markdownRemark(frontmatter: {name: {eq: "Taipei"}, category: {eq: "city"}}) {
+        }
+        taipei: markdownRemark(
+            frontmatter: { name: { eq: "Taipei" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
-          tainan: markdownRemark(frontmatter: {name: {eq: "Tainan"}, category: {eq: "city"}}) {
+        }
+        tainan: markdownRemark(
+            frontmatter: { name: { eq: "Tainan" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
-          shifen: markdownRemark(frontmatter: {name: {eq: "Shifen"}, category: {eq: "city"}}) {
+        }
+        shifen: markdownRemark(
+            frontmatter: { name: { eq: "Shifen" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
-          kaohsiung: markdownRemark(frontmatter: {name: {eq: "Kaohsiung"}, category: {eq: "city"}}) {
+        }
+        kaohsiung: markdownRemark(
+            frontmatter: { name: { eq: "Kaohsiung" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
-          taichung: markdownRemark(frontmatter: {name: {eq: "Taichung"}, category: {eq: "city"}}) {
+        }
+        taichung: markdownRemark(
+            frontmatter: { name: { eq: "Taichung" }, category: { eq: "city" } }
+        ) {
             ...City
-          }
+        }
     }
 `

@@ -21,7 +21,12 @@ type Props = CollectionQuery & {
     isSignedIn?: boolean
 }
 
-const RaffleCard = ({ isSignedIn = useIsSignedIn(), docs, loading, error }: Props) => {
+const RaffleCard = ({
+    isSignedIn = useIsSignedIn(),
+    docs,
+    loading,
+    error,
+}: Props) => {
     return (
         <Card>
             <CardHeader title="Tickets" />

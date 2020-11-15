@@ -4,19 +4,24 @@ import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core"
 import { ConfirmationNumberSharp } from "@material-ui/icons"
 
 type Props = {
-    doc: firebase.firestore.QueryDocumentSnapshot<firebase.firestore.DocumentData>
+    doc: firebase.firestore.QueryDocumentSnapshot<
+        firebase.firestore.DocumentData
+    >
 }
 
 /**
  * Just a placeholder for now
- * @param param0 
+ * @param param0
  */
-const RaffleTicket = ({doc}: Props) => (
+const RaffleTicket = ({ doc }: Props) => (
     <ListItem>
         <ListItemIcon>
-            <ConfirmationNumberSharp /> 
+            <ConfirmationNumberSharp />
         </ListItemIcon>
-        <ListItemText primary={doc.id} secondary={`Category: ${doc.get("category")}`}/>
+        <ListItemText
+            primary={doc.id}
+            secondary={`Category: ${doc.get("category")}`}
+        />
     </ListItem>
 )
 

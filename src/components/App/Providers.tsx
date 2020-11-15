@@ -42,9 +42,7 @@ const Providers = ({ children }: Props) => {
                 currency="USD"
                 language="EN"
             >
-                <NotificationProvider>
-                    {children}
-                </NotificationProvider>
+                <NotificationProvider>{children}</NotificationProvider>
             </CartProvider>
         </ThemeProvider>
     )

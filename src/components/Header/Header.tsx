@@ -18,7 +18,7 @@ import { Link } from "gatsby"
 const useStyles = makeStyles(theme => ({
     link: {
         textDecoration: "none",
-        color: "inherit"
+        color: "inherit",
     },
     headerProfile: {
         marginLeft: theme.spacing(2),

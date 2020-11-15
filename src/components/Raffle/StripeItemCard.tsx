@@ -19,7 +19,7 @@ import Image from "components/Image"
 
 const useStyles = makeStyles(theme => ({
     content: {
-        padding: theme.spacing(2)
+        padding: theme.spacing(2),
     },
 }))
 
@@ -79,11 +79,7 @@ const StripeItemCard = ({ title, data, children }: Props) => {
 
     return (
         <Card>
-            <Grid
-                container
-                alignItems="stretch"
-                justify="space-between"
-            >
+            <Grid container alignItems="stretch" justify="space-between">
                 <Grid item xs={12} md={5}>
                     {localFiles && localFiles[0] && (
                         <Image image={localFiles[0]} />

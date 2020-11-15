@@ -39,6 +39,10 @@ export default function Logo() {
     if (!image) throw new Error("Image doesn't exist.")
 
     return (
-        <Img className={classes.root} alt="Tour of taiwan logo" fixed={image as FixedObject} />
+        <Img
+            className={classes.root}
+            alt="Tour of taiwan logo"
+            fixed={image as FixedObject}
+        />
     )
 }
