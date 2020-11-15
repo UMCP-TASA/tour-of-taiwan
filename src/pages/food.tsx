@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { PageProps, graphql } from "gatsby"
 import {
     Button,
@@ -26,6 +26,7 @@ const useStyles = makeStyles(theme => ({
         top: "0",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
+        textAlign: "center",
     },
     center: {
         display: "grid",
@@ -129,21 +130,6 @@ const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
                     </Hidden>
                 </Grid>
             </div>
-
-            {/* <div
-                    style={{
-                        width: "80%",
-                        height: "80vh",
-                        backgroundColor: "#fff",
-                        boxShadow: "rgba(0, 0, 0, .2) 0px 0px 5px 2px",
-                        marginLeft: "50%",
-                        marginTop: "7%",
-                        transform: "translate(-50%)",
-                        borderRadius: "20px",
-                    }}
-                > */}
-
-            {/* </div> */}
         </>
     )
 }

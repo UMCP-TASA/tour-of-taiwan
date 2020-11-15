@@ -5,4 +5,4 @@ category: city
 video: https://youtu.be/98cTfiavWNA
 ---
 
-A description for Taipei
+Taipei is the booming capital of Taiwan and is famous for its night markets, the Taipei 101, the Chiang Kai-Shek memorial, and its three major temples— each filled with rich history and culture.

@@ -5,4 +5,4 @@ category: city
 video: https://youtu.be/0uBM3kXt-dY
 ---
 
-A description for Taichung. Please remember to change the video and image!
+Taichung is the second largest city in Taiwan and is famous for the Taichung Park, many museums and temples, and most importantly, the creation of bubble tea. Taichung also has its own fair share of night markets. 
