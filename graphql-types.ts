@@ -3496,6 +3496,7 @@ export type CitiesPageQuery = { map?: Maybe<ImageFragment>, hualien?: Maybe<City
 export type FoodFragment = (
   Pick<MarkdownRemark, 'id' | 'html'>
   & { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'name' | 'imgsrc' | 'video'>> }
+  & MarkdownImgPathFragment
 );
 
 export type FoodImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<GatsbyImageSharpFluid_WithWebpFragment> }> };
@@ -3511,6 +3512,8 @@ export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
 export type RafflePageQuery = { premium: { nodes: Array<StripeItemFragment> }, basic: { nodes: Array<StripeItemFragment> } };
 
 export type ImageWithPathFragment = Pick<File, 'absolutePath'>;
+
+export type MarkdownImgPathFragment = { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'imgsrc'>> };
 
 export type GatsbyImageSharpFixedFragment = Pick<ImageSharpFixed, 'base64' | 'width' | 'height' | 'src' | 'srcSet'>;
 

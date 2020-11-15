@@ -1,6 +1,13 @@
 import React from "react"
 import { PageProps, graphql } from "gatsby"
-import { Button, Grid, Hidden, IconButton, makeStyles } from "@material-ui/core"
+import {
+    Button,
+    Grid,
+    Hidden,
+    IconButton,
+    makeStyles,
+    Typography,
+} from "@material-ui/core"
 import { ArrowBackIosRounded, ArrowForwardIosRounded } from "@material-ui/icons"
 
 import SwipeableViews from "react-swipeable-views"
@@ -28,6 +35,10 @@ const useStyles = makeStyles(theme => ({
         [theme.breakpoints.up("md")]: {
             height: "80vh",
         },
+    },
+    view: {
+        display: "grid",
+        placeItems: "center",
     },
 }))
 
@@ -70,11 +81,12 @@ const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
 
                     <Grid item xs={12} md={10}>
                         <SwipeableViews
+                            className={classes.view}
                             enableMouseEvents
                             index={index}
                             onChangeIndex={handleChange}
                         >
-                            {food_lst.map((data) => (
+                            {food_lst.map(data => (
                                 <Food food={data} key={data?.id} />
                             ))}
                         </SwipeableViews>
@@ -140,6 +152,7 @@ export default FoodPage
 
 export const query = graphql`
     fragment Food on MarkdownRemark {
+        ...MarkdownImgPath
         id
         frontmatter {
             name
@@ -156,19 +169,23 @@ export const query = graphql`
             }
         }
     }
-    
+
     query FoodPage {
-        food: allMarkdownRemark(filter: {frontmatter: {category: {eq: "food"}}}) {
-          nodes {
-            ...Food
-          }
-        }
-        images: allFile(filter: {absolutePath: {regex: "/static\/assets/"}}) {
-          edges {
-            node {
-              ...FoodImage
+        food: allMarkdownRemark(
+            filter: { frontmatter: { category: { eq: "food" } } }
+        ) {
+            nodes {
+                ...Food
             }
-          }
         }
-      }
+        images: allFile(
+            filter: { absolutePath: { regex: "/static/assets/" } }
+        ) {
+            edges {
+                node {
+                    ...FoodImage
+                }
+            }
+        }
+    }
 `

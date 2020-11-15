@@ -1,21 +1,21 @@
 import React from "react"
 import { FoodFragment } from "graphql-types"
-import {
-    Grid,
-    makeStyles,
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    Paper,
-} from "@material-ui/core"
+import { Grid, makeStyles, Card, Hidden, Typography } from "@material-ui/core"
 
 import { getEmbedUrl } from "@utils"
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        [theme.breakpoints.up("md")]: {
+            height: "70vh",
+        },
+    },
+    content: {
+        height: "100%",
+    },
     body: {
-        overflow: "scroll"
-    }
+        // overflow: "scroll",
+    },
 }))
 
 type Props = {
@@ -42,8 +42,27 @@ export default function Food({ food }: Props) {
     }
 
     return (
-        <Card>
-            <Grid container justify="space-between" alignItems="stretch">
+        <Card className={classes.root}>
+            <Grid
+                container
+                className={classes.content}
+                justify="space-between"
+                alignItems="stretch"
+            >
+                <Hidden mdUp>
+                    <Grid item xs={12}>
+                        <Typography
+                            gutterBottom
+                            variant="h3"
+                            component="h2"
+                            align="center"
+                            color="textPrimary"
+                            style={{ fontWeight: "bold", padding: "10px 0px" }}
+                        >
+                            {food.frontmatter.name}
+                        </Typography>
+                    </Grid>
+                </Hidden>
                 <Grid item xs={12} md={6}>
                     <img
                         src={food.frontmatter.imgsrc}
@@ -57,16 +76,18 @@ export default function Food({ food }: Props) {
                     />
                 </Grid>
                 <Grid item xs={12} md={6} style={{ padding: "10px" }}>
-                    <Typography
-                        gutterBottom
-                        variant="h3"
-                        component="h2"
-                        align="center"
-                        color="textPrimary"
-                        style={{ fontWeight: "bold", padding: "10px 0px" }}
-                    >
-                        {food.frontmatter.name}
-                    </Typography>
+                    <Hidden smDown>
+                        <Typography
+                            gutterBottom
+                            variant="h3"
+                            component="h2"
+                            align="center"
+                            color="textPrimary"
+                            style={{ fontWeight: "bold", padding: "10px 0px" }}
+                        >
+                            {food.frontmatter.name}
+                        </Typography>
+                    </Hidden>
                     <iframe
                         src={getEmbedUrl(food.frontmatter.video)}
                         allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
@@ -80,7 +101,10 @@ export default function Food({ food }: Props) {
                     />
 
                     {food.html && (
-                        <div className={classes.body} dangerouslySetInnerHTML={{ __html: food.html }} />
+                        <div
+                            className={classes.body}
+                            dangerouslySetInnerHTML={{ __html: food.html }}
+                        />
                     )}
                 </Grid>
             </Grid>

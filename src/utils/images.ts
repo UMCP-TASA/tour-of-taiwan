@@ -1,12 +1,19 @@
 import { graphql } from "gatsby"
-import { ImageWithPathFragment } from "graphql-types"
+import { ImageWithPathFragment, MarkdownImgPathFragment } from "graphql-types"
 
-export const imageWithPath = graphql`
+export const pathFragments = graphql`
     fragment ImageWithPath on File {
         absolutePath
     }
+    fragment MarkdownImgPath on MarkdownRemark {
+        frontmatter {
+            imgsrc
+        }
+    }
 `
-
-export function connectWithImage<T>(nodes: T[], images: ImageWithPathFragment[]) {
-
+export function connectWithImage<T extends MarkdownImgPathFragment>(
+    nodes: (T | null | undefined)[],
+    images: ImageWithPathFragment[]
+) {
+    
 }
