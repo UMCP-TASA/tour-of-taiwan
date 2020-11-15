@@ -17,7 +17,7 @@ const AnimatedButton = animated(IconButton)
 
 /**
  * Could be expanded to include more options than just transform
- * @param param0 
+ * @param param0
  */
 const AnimatedIconButton = ({ from, to, children, ...rest }: Props) => {
     const [hover, setHover] = React.useState(false)

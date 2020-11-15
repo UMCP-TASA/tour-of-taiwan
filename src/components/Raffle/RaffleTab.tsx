@@ -2,7 +2,7 @@ import React from "react"
 
 type Props = {
     children: React.ReactNode
-    className?: string,
+    className?: string
     index: number
     value: number
 }

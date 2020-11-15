@@ -16,13 +16,13 @@ export type SubmitFunction<T extends Response> = () => Promise<T>
 
 type Props<T extends Response> = ButtonProps & {
     initialText: string
-    handleClick: SubmitFunction<T>,
-    setResponse?: (response: T) => void,
+    handleClick: SubmitFunction<T>
+    setResponse?: (response: T) => void
     progressProps?: CircularProgressProps
     typographyProps?: TypographyProps
 }
 
-const SubmitButton = <T extends Response,>({
+const SubmitButton = <T extends Response>({
     initialText,
     handleClick,
     setResponse,
@@ -45,7 +45,7 @@ const SubmitButton = <T extends Response,>({
 
         const response = await handleClick()
 
-        if(setResponse) setResponse(response)
+        if (setResponse) setResponse(response)
 
         setErrorMessage(response.message)
         setButtonDisabled(false)
