@@ -16,6 +16,10 @@ import Cart from "components/Cart"
 import { Link } from "gatsby"
 
 const useStyles = makeStyles(theme => ({
+    link: {
+        textDecoration: "none",
+        color: "inherit",
+    },
     headerProfile: {
         marginLeft: theme.spacing(2),
     },
@@ -31,10 +35,16 @@ const Header = ({}: Props) => {
                 <Toolbar>
                     <Grid container alignItems="center" justify="space-between">
                         <Grid item>
-                            <Grid container alignItems="center">
-                                <Logo fill="black" size="50px" />
-                                <Typography>Tour of Taiwan</Typography>
-                            </Grid>
+                            <Link to="/" className={classes.link}>
+                                <Grid container alignItems="center" spacing={1}>
+                                    <Grid item>
+                                        <Logo />
+                                    </Grid>
+                                    <Grid item>
+                                        <Typography>Tour of Taiwan</Typography>
+                                    </Grid>
+                                </Grid>
+                            </Link>
                         </Grid>
 
                         <Hidden smDown>

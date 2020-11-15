@@ -31,7 +31,7 @@ const useToolbarStyles = makeStyles(theme => ({
 }))
 
 type Props = {
-    numSelected: number,
+    numSelected: number
     title: string
 }
 

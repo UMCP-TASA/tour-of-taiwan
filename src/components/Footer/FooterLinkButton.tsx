@@ -33,7 +33,7 @@ const FooterLinkButton = ({ to, Icon, name }: Props) => {
                 justify="center"
                 direction="column"
             >
-                <Icon color={isActive ? "primary" : "inherit"}/>
+                <Icon color={isActive ? "primary" : "inherit"} />
                 <Typography
                     variant="subtitle2"
                     align="center"

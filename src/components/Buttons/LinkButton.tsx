@@ -4,16 +4,11 @@ import { Link, GatsbyLinkProps } from "gatsby"
 import { Button, ButtonProps } from "@material-ui/core"
 
 type Props = ButtonProps & {
-    to: string,
+    to: string
     linkProps?: Omit<GatsbyLinkProps<{}>, "ref" | "to">
 }
 
-const LinkButton = ({
-    to,
-    linkProps,
-    children,
-    ...rest
-}: Props) => (
+const LinkButton = ({ to, linkProps, children, ...rest }: Props) => (
     <Link to={to} {...linkProps} style={{ textDecoration: "none" }}>
         <Button {...rest}>{children}</Button>
     </Link>
