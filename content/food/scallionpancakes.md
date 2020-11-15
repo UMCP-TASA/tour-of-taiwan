@@ -2,7 +2,7 @@
 name: Scallion Pancakes
 category: food
 imgsrc: assets/scallionpancake.jpg
-video: null
+video: https://www.youtube.com/watch?v=2tnetQMX8m8
 ---
 
 A thin crepe-like savory pancake with an egg cooked into it and rolled together with the filling of your choice.
