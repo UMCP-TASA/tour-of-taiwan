@@ -42,6 +42,14 @@ module.exports = {
             },
         },
         {
+            resolve: "gatsby-plugin-react-svg",
+            options: {
+                rule: {
+                    include: /assets/,
+                },
+            },
+        },
+        {
             resolve: `gatsby-alias-imports`,
             options: {
                 aliases: {
@@ -72,6 +80,7 @@ module.exports = {
                 downloadFiles: true,
             },
         },
+        `gatsby-plugin-optimize-svgs`,
         `gatsby-plugin-material-ui`,
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,
