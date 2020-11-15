@@ -1,6 +1,6 @@
 ---
 name: Hualien
-imgsrc: assets/hualien.jpg
+imgsrc: assets/hualien.JPG
 category: city
 video: https://youtu.be/Ggldh5EfbJI
 ---
