@@ -212,7 +212,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
 
                                     {value && (
                                         <RaffleTable
-                                            title={"Owned Tickets"}
+                                            title={"Your Tickets"}
                                             value={value}
                                             
                                             rowsPerPageOptions={[

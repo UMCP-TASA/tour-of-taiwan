@@ -3504,14 +3504,17 @@ export type FoodImageFragment = { childImageSharp?: Maybe<{ fluid?: Maybe<Gatsby
 export type FoodPageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FoodPageQuery = { food: { nodes: Array<FoodFragment> }, images: { edges: Array<{ node: FoodImageFragment }> } };
+export type FoodPageQuery = { food: { nodes: Array<FoodFragment> }, images: { nodes: Array<(
+      ImageFragment
+      & ImageWithPathFragment
+    )> } };
 
 export type RafflePageQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type RafflePageQuery = { premium: { nodes: Array<StripeItemFragment> }, basic: { nodes: Array<StripeItemFragment> } };
 
-export type ImageWithPathFragment = Pick<File, 'absolutePath'>;
+export type ImageWithPathFragment = Pick<File, 'relativePath'>;
 
 export type MarkdownImgPathFragment = { frontmatter?: Maybe<Pick<MarkdownRemarkFrontmatter, 'imgsrc'>> };
 

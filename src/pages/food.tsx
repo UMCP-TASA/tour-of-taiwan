@@ -17,6 +17,7 @@ import FoodBackground from "assets/food/foodBackground.svg"
 import { FoodPageQuery, FoodFragment } from "graphql-types"
 import { Food } from "components/Food"
 import SEO from "components/seo"
+import { connectWithImage } from "utils/images"
 
 const useStyles = makeStyles(theme => ({
     background: {
@@ -29,17 +30,27 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center",
     },
     center: {
-        display: "grid",
-        placeItems: "center",
+        // display: "grid",
+        // placeItems: "center",
+        // margin: "auto",
         padding: theme.spacing(2),
 
         [theme.breakpoints.up("md")]: {
-            height: "80vh",
+            height: "90vh",
         },
+
+        [theme.breakpoints.between("md", "lg")]: {
+            paddingTop: theme.spacing(4),
+        },
+
+        [theme.breakpoints.up("xl")]: {
+            display: "grid",
+            placeItems: "center"
+        }
     },
     view: {
-        display: "grid",
-        placeItems: "center",
+        // display: "grid",
+        // placeItems: "center",
     },
 }))
 
@@ -57,7 +68,9 @@ const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
     const handleChange = (newIndex: number) => {
         setIndex(newIndex)
     }
-    const food_lst = data.food.nodes
+
+    const food_lst = connectWithImage(data.food.nodes, data.images.nodes)
+
     return (
         <>
             <SEO title="Food" />
@@ -87,8 +100,8 @@ const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
                             index={index}
                             onChangeIndex={handleChange}
                         >
-                            {food_lst.map(data => (
-                                <Food food={data} key={data?.id} />
+                            {food_lst.map(({ data, image }) => (
+                                <Food food={data} image={image} key={data?.id} />
                             ))}
                         </SwipeableViews>
                     </Grid>
@@ -167,10 +180,9 @@ export const query = graphql`
         images: allFile(
             filter: { absolutePath: { regex: "/static/assets/" } }
         ) {
-            edges {
-                node {
-                    ...FoodImage
-                }
+            nodes {
+                ...Image
+                ...ImageWithPath
             }
         }
     }
