@@ -8,8 +8,8 @@ video: null
 A traditional Taiwanese cuisine dessert made of taro, where they can be made by mixing mashed taro with water and sweet potato flour or potato flour
 
 **Ingredients**
-- Taro (2.857), and 35g of flour for each 100g of taro
-- Sweet Potato (2.857), and 35g of flour for each 100g of sweet potato
+- Taro, 35g of flour for each 100g of taro
+- Sweet Potato, 35g of flour for each 100g of sweet potato
 
 **Steps**
 1. Cut the tuber into small cubes and then steam for 20 minutes until soft.
