@@ -1,7 +1,7 @@
 ---
 name: Scallion Pancakes
 category: food
-imgsrc: assets/tanghulu.jpg
+imgsrc: assets/scallionpancake.jpg
 video: null
 ---
 

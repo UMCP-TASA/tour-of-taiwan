@@ -1,7 +1,7 @@
 ---
 name: Taro Balls
 category: food
-imgsrc: assets/tanghulu.jpg
+imgsrc: assets/taroballs.jpg
 video: null
 ---
 

@@ -1,7 +1,7 @@
 ---
 name: Wontons
 category: food
-imgsrc: assets/tanghulu.jpg
+imgsrc: assets/wonton.jpg
 video: null
 ---
 
