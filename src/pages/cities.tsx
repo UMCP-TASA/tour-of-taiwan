@@ -175,6 +175,9 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                         image={data.map}
                         loading="eager"
                         durationFadeIn={100}
+                        imgStyle={{
+                            objectFit: "fill",
+                        }}
                     />
                     {markers.map(
                         ({
