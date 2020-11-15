@@ -163,7 +163,7 @@ export const query = graphql`
             ...Food
           }
         }
-        images: allFile(filter: {absolutePath: {regex: "static/assets/"}}) {
+        images: allFile(filter: {absolutePath: {regex: "/static\/assets/"}}) {
           edges {
             node {
               ...FoodImage

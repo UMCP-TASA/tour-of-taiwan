@@ -4,13 +4,15 @@ import useMediaQuery from "@material-ui/core/useMediaQuery"
 import { animated, useSpring, config } from "react-spring"
 
 import SEO from "components/seo"
-import ClientOnly from "components/ClientOnly"
 import { LinkButton } from "components/Buttons"
 import useBoop from "hooks/useBoop"
 
+const getSvgPath = (file: string) => `/svg/home/${file}`
+
 const useStyles = makeStyles(theme => ({
     container: {
-        backgroundImage: "url(/assets/home/sky.svg)",
+        //backgroundImage: "url(/svg/home/sky.svg)",
+        backgroundImage: `url(${getSvgPath("sky.svg")})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
         height: "100vh",
@@ -132,13 +134,13 @@ const IndexPage = () => {
                     className={classes.mountain}
                 >
                     <img
-                        src={`/assets/home/mountain.svg`}
+                        src={getSvgPath("mountain.svg")}
                         style={{ minHeight: "450px", objectFit: "cover" }}
                     />
                 </animated.div>
                 <animated.div style={tp101Props} className={classes.tp101}>
                     <img
-                        src={`/assets/home/tp101.svg`}
+                        src={getSvgPath("tp101.svg")}
                         style={{ height: "100%" }}
                     />
                 </animated.div>
@@ -147,19 +149,19 @@ const IndexPage = () => {
                     className={classes.building}
                 >
                     <img
-                        src={`/assets/home/building.svg`}
+                        src={getSvgPath("building.svg")}
                         style={{ width: "100%" }}
                     />
                 </animated.div>
                 <animated.div style={logoAProps}>
                     <img
-                        src={`/assets/home/logo-a.svg`}
+                        src={getSvgPath("logo-a.svg")}
                         className={classes.logoA}
                     />
                 </animated.div>
                 <animated.div style={logoBProps}>
                     <img
-                        src={`/assets/home/logo-b.svg`}
+                        src={getSvgPath("logo-b.svg")}
                         className={classes.logoB}
                     />
                 </animated.div>

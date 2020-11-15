@@ -13,13 +13,15 @@ import Image from "components/Image"
 const drawerWidth = "40%"
 const maxCities = 6
 
+const getSvgPath = (file: string) => `/svg/cities/${file}`
+
 const useStyles = makeStyles(theme => ({
     container: {
         height: "100%",
         width: "100%",
         position: "absolute",
         top: "0",
-        backgroundImage: "url(/assets/cities/sea.svg)",
+        backgroundImage: "url(/svg/cities/sea.svg)",
         backgroundRepeat: "no-repeat",
         backgroundSize: "cover",
     },
@@ -102,7 +104,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "1%",
             data: data.taipei,
             index: 1,
-            icon: "/assets/cities/taipeiIcon.svg",
+            icon: getSvgPath("taipeiIcon.svg"),
         },
         {
             name: "Taichung",
@@ -110,7 +112,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "26%",
             data: data.taichung,
             index: 2,
-            icon: "/assets/cities/taichungIcon.svg",
+            icon: getSvgPath("taichungIcon.svg"),
         },
         {
             name: "Tainan",
@@ -118,7 +120,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "55%",
             data: data.tainan,
             index: 3,
-            icon: "/assets/cities/tainanIcon.svg",
+            icon: getSvgPath("tainanIcon.svg"),
         },
         {
             name: "Kaohsiung",
@@ -126,7 +128,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "65%",
             data: data.kaohsiung,
             index: 4,
-            icon: "/assets/cities/kaoshiungIcon.svg",
+            icon: getSvgPath("kaoshiungIcon.svg"),
         },
         {
             name: "Hualien",
@@ -134,7 +136,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "35%",
             data: data.hualien,
             index: 5,
-            icon: "/assets/cities/hualienIcon.svg",
+            icon: getSvgPath("hualienIcon.svg"),
         },
         {
             name: "Shifen",
@@ -142,7 +144,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             marginTop: "-3%",
             data: data.shifen,
             index: 6,
-            icon: "/assets/cities/shifenIcon.svg",
+            icon: getSvgPath("shifenIcon.svg"),
         },
     ]
 
