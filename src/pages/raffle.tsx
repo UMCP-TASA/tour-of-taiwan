@@ -129,7 +129,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(0, 4)
                                                                 .map(prize => (
-                                                                    <li>
+                                                                    <li key={prize}>
                                                                         {prize}
                                                                     </li>
                                                                 ))}
@@ -140,7 +140,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(4)
                                                                 .map(prize => (
-                                                                    <li>
+                                                                    <li key={prize}>
                                                                         {prize}
                                                                     </li>
                                                                 ))}

@@ -149,9 +149,10 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
         },
     ]
     let i;
-    let cityBoops: ReturnType<useBoop>[] = {}
+    let cityBoops: ReturnType<typeof useBoop>[] = []
     for (i=0;i<maxCities;i++) {
-        cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
+        cityBoops.push(useBoop({ scale: 1.05, rotation: 10 }))
+        //cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
     }
 
     const [nextAnimation, nextTrigger] = useBoop({ x: 3 })
@@ -205,14 +206,14 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                                             padding: "3px",
                                             borderRadius: "30px",
                                         },
-                                        ...cityBoops[`${index}`][0]}
+                                        ...cityBoops[index - 1][0]}
                                         }
                                         className={
                                             data == city && open
                                                 ? classes.styleCityClicked
                                                 : classes.styleCity
                                         }
-                                        onMouseEnter={cityBoops[`${index}`][1]}
+                                        onMouseEnter={cityBoops[index - 1][1]}
                                     />
                                     {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
                                 </IconButton>
