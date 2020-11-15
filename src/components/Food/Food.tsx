@@ -55,7 +55,7 @@ export default function Food({ food }: Props) {
                     }}
                 />
             </Grid>
-            <Grid item xs={6} style={{ padding: "10px" }}>
+            <Grid item xs={6} style={{ padding: "10px", textAlign: "left" }}>
                 <Typography
                     gutterBottom
                     variant="h3"
