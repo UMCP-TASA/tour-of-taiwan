@@ -37,8 +37,19 @@ export default function Food({ food }: Props) {
         throw new Error("Frontmatter does not exist")
     }
 
-    if (!food.frontmatter.video) {
-        throw new Error("Frontmatter does not exist")
+    let video = null
+    if (food.frontmatter.video) {
+        video = <iframe
+            src={getEmbedUrl(food.frontmatter.video)}
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            frameBorder="0"
+            allowFullScreen
+            style={{
+                borderRadius: "7px",
+                width: "100%",
+                height: "35vh",
+            }}
+        />
     }
 
     return (
@@ -48,6 +59,7 @@ export default function Food({ food }: Props) {
                 className={classes.content}
                 justify="space-between"
                 alignItems="stretch"
+                style={{overflowY: 'scroll'}}
             >
                 <Hidden mdUp>
                     <Grid item xs={12}>
@@ -57,7 +69,7 @@ export default function Food({ food }: Props) {
                             component="h2"
                             align="center"
                             color="textPrimary"
-                            style={{ fontWeight: "bold", padding: "10px 0px" }}
+                            style={{ fontWeight: "bold"}}
                         >
                             {food.frontmatter.name}
                         </Typography>
@@ -88,18 +100,7 @@ export default function Food({ food }: Props) {
                             {food.frontmatter.name}
                         </Typography>
                     </Hidden>
-                    <iframe
-                        src={getEmbedUrl(food.frontmatter.video)}
-                        allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                        frameBorder="0"
-                        allowFullScreen
-                        style={{
-                            borderRadius: "7px",
-                            width: "100%",
-                            height: "35vh",
-                        }}
-                    />
-
+                    {video}
                     {food.html && (
                         <div
                             className={classes.body}

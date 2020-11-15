@@ -2,7 +2,7 @@
 name: Taro Balls
 category: food
 imgsrc: assets/tanghulu.jpg
-video: https://youtu.be/1sn03_UYC0g
+video: null
 ---
 
 A traditional Taiwanese cuisine dessert made of taro, where they can be made by mixing mashed taro with water and sweet potato flour or potato flour
