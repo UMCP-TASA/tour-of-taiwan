@@ -19,8 +19,17 @@ export default function City({ city }: Props) {
         throw new Error("Frontmatter does not exist")
     }
 
-    if (!city.frontmatter.video) {
-        throw new Error("Frontmatter does not exist")
+    let video = null
+    if (city.frontmatter.video) {
+        video = (
+            <iframe
+                src={getEmbedUrl(city.frontmatter.video)}
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                frameBorder="0"
+                allowFullScreen
+                style={{ borderRadius: "7px", width: "100%", height: "35vh" }}
+            />
+        )
     }
 
     return (
@@ -50,7 +59,8 @@ export default function City({ city }: Props) {
                     top: "15vh",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    textAlign: 'center'
+                    textAlign: 'center',
+                    width: '80%'
                 }}
             >
                 <h1 style={{background: "rgba(255,255,255,.9)", borderRadius: "7px", padding: "0px 5px", width: 'fit-content', margin: '0 auto'}}>
@@ -58,13 +68,7 @@ export default function City({ city }: Props) {
                 </h1>
                 <div style={{background: "rgba(255,255,255,.9)", borderRadius: "7px", padding: "0px 5px"}}dangerouslySetInnerHTML={{ __html: city.html }} />
             </div>
-            <iframe
-                src={getEmbedUrl(city.frontmatter.video)}
-                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                frameBorder="0"
-                allowFullScreen
-                style={{ borderRadius: "7px", width: "100%", height: "35vh" }}
-            />
+            {video}
         </div>
     )
 }
