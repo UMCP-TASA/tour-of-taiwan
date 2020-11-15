@@ -10,7 +10,7 @@ import LocationCityIcon from '@material-ui/icons/LocationCity';
 import SEO from "components/seo"
 import { City } from "components/City"
 
-const drawerWidth = 350
+const drawerWidth = '40%'
 const maxCities = 6
 
 const useStyles = makeStyles((theme) => ({
@@ -18,14 +18,16 @@ const useStyles = makeStyles((theme) => ({
         height: "100%",
         width: "100%",
         position: "absolute",
-        backgroundImage: 'url(/assets/cities/taiwan.png)',
-        backgroundSize: "100% 100%",
+        top: '0',
+        backgroundImage: 'url(/assets/cities/sea.svg)',
         backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
+        backgroundSize: "cover",
     },
     drawerPaper: { 
         width: drawerWidth, 
         zIndex: theme.zIndex.appBar - 1,
+        background: 'transparent',
+        borderLeft: 'none'
     },
     hide: { display: 'none', },
     drawerHeader: {
@@ -44,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
           easing: theme.transitions.easing.sharp,
           duration: theme.transitions.duration.leavingScreen,
         }),
-        marginRight: -drawerWidth,
+        marginRight: '-40%', //drawerWidth
     },
     contentShift: {
         transition: theme.transitions.create('margin', {
@@ -54,13 +56,20 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 0,
     },
     styleCity: {
-        color: "grey",
     },
     styleCityClicked: {
-        color: "red",
+        background: 'rgb(236, 252, 240)',
+        boxShadow: 'rgba(0, 0, 0, .2) 0px 0px 5px 2px'
     },
     toolbar: {
         ...theme.mixins.toolbar,
+    },
+    taiwanMap: {
+        width: '20%',
+        height: '75%',
+        margin: '0 auto',
+        marginTop: '15vh',
+        position: 'relative',
     }
 }))
 
@@ -82,12 +91,12 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     };
 
     const markers = [
-        {name: "Taipei", marginSide: "56.8%", marginTop: "16.5%", data: data.taipei, index: 1},
-        {name: "Tainan", marginSide: "38%", marginTop: "69.5%", data: data.tainan, index: 2},
-        {name: "Shifen", marginSide: "59.5%", marginTop: "16%", data: data.shifen, index: 3},
-        {name: "Taichung", marginSide: "44%", marginTop: "39%", data: data.taichung, index: 4},
-        {name: "Kaohsiung", marginSide: "39.5%", marginTop: "79%", data: data.kaohsiung, index: 5},
-        {name: "Hualien", marginSide: "56%", marginTop: "50%", data: data.hualien, index: 6},
+        {name: "Taipei", marginSide: "50%", marginTop: "1%", data: data.taipei, index: 1, icon: '/assets/cities/taipeiIcon.svg'},
+        {name: "Taichung", marginSide: "20%", marginTop: "26%", data: data.taichung, index: 2, icon: '/assets/cities/taichungIcon.svg'},
+        {name: "Tainan", marginSide: "6%", marginTop: "55%", data: data.tainan, index: 3, icon: '/assets/cities/tainanIcon.svg'},
+        {name: "Kaohsiung", marginSide: "22%", marginTop: "65%", data: data.kaohsiung, index: 4, icon: '/assets/cities/kaoshiungIcon.svg'},
+        {name: "Hualien", marginSide: "59%", marginTop: "35%", data: data.hualien, index: 5, icon: '/assets/cities/hualienIcon.svg'},
+        {name: "Shifen", marginSide: "68%", marginTop: "-3%", data: data.shifen, index: 6, icon: '/assets/cities/shifenIcon.svg'},
     ];
 
     return (
@@ -97,11 +106,18 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                     [classes.contentShift]: open,
                 })}   transition dont work?? */}
             <div className={classes.container}>
-                {markers.map (({ name, marginSide, marginTop, data, index}) => (
-                    <IconButton key={name} style={{left: marginSide, top: marginTop, position: "fixed"}} onClick={() => handleDrawerOpen(data, index)}>
-                        <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
-                    </IconButton>
-                ))}
+                <div className={classes.taiwanMap} style={{marginLeft: open ? '25%' : 'auto'}}>
+                    <img src={`/assets/cities/taiwanmap.png`} style={{width: '100%', height: "100%"}}/>
+                    {markers.map (({ name, marginSide, marginTop, data, index, icon}) => (
+                        <div style={{left: marginSide, top: marginTop, position: "absolute"}}>
+                            <IconButton key={name} onClick={() => handleDrawerOpen(data, index)}>
+                                <img src={icon} style={{width: '60px', height: '60px', padding: '3px', borderRadius: '30px'}} className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/>
+                                {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
+                            </IconButton>
+                            <div style={{color: 'white', position: 'absolute', left: '50%', transform: 'translate(-50%, -50%)', fontWeight: 'bold', fontSize: '12px'}}>{name}</div>
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <Drawer className={classes.drawer} anchor="right" variant="persistent" open={open} classes={{paper: classes.drawerPaper}}>
@@ -114,9 +130,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                 <City city={city}/>
                 <List>
                         <ListItem style={{display: "block", textAlign: "center"}}>
-                        <text style={{textAlign: "center"}}>
-                            Move to {markers[cityIndex].name}
-                        </text>
+                        Next City: {markers[cityIndex].name}
                         <IconButton onClick={() => handleDrawerOpen(markers[cityIndex].data, markers[cityIndex].index)}>
                             <ChevronRightIcon/>
                         </IconButton>
@@ -126,6 +140,8 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
         </>
     )
 }
+
+//style={{marginLeft: open ? drawerWidth : 'auto'}}
 
 export default CitiesPage
 
