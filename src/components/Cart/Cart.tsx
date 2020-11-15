@@ -13,6 +13,8 @@ import {
 import { ShoppingCartOutlined, ArrowForward } from "@material-ui/icons"
 import { useShoppingCart } from "use-shopping-cart"
 import { AnimatedIconButton } from "components/Buttons"
+import { animated } from "react-spring"
+import useBoop from "hooks/useBoop"
 
 import Checkout from "./Checkout"
 import CartItem from "./CartItem"
@@ -48,19 +50,32 @@ type Props = {
     className?: string
 }
 
+const AnimatedBoopButton = animated(IconButton)
+
 const Cart = ({ className }: Props) => {
     const classes = useStyles()
     const { cartCount, cartDetails, formattedTotalPrice } = useShoppingCart()
     const [open, setOpen] = React.useState(false)
     const handleClose = () => setOpen(false)
+    const [buttonBoop, trigger] = useBoop({ scale: 1.05 })
+
+    React.useEffect(() => {
+        if (cartCount > 0) {
+            trigger()
+        }
+    }, [cartCount, trigger])
 
     return (
         <>
-            <IconButton className={className} onClick={() => setOpen(true)}>
+            <AnimatedBoopButton
+                className={className}
+                onClick={() => setOpen(true)}
+                style={buttonBoop}
+            >
                 <Badge badgeContent={cartCount} color="primary">
                     <ShoppingCartOutlined />
                 </Badge>
-            </IconButton>
+            </AnimatedBoopButton>
 
             <Drawer open={open} anchor="right" onClose={handleClose}>
                 <Grid

@@ -87,7 +87,7 @@ export default function EnhancedTable<T extends Row>({
     const [orderBy, setOrderBy] = React.useState("calories")
     const [selected, setSelected] = React.useState<string[]>([])
     const [page, setPage] = React.useState(0)
-    const [rowsPerPage, setRowsPerPage] = React.useState(10)
+    const [rowsPerPage, setRowsPerPage] = React.useState(5)
 
     const handleRequestSort = (property: string) => {
         const isAsc = orderBy === property && order === "asc"

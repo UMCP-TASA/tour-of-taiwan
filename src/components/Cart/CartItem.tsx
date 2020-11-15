@@ -40,6 +40,7 @@ const CartItem = ({ item }: Props) => {
             className={classes.root}
             justify="space-between"
             alignItems="stretch"
+            spacing={1}
         >
             <Grid item xs={3}>
                 <img
@@ -62,7 +63,7 @@ const CartItem = ({ item }: Props) => {
 
                 <Grid item>
                     <ButtonGroup
-                        color="primary"
+                        color="secondary"
                         aria-label="set-product-quantity"
                     >
                         <Button onClick={() => decrementItem(item.sku)}>
