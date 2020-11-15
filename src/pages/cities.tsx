@@ -2,13 +2,15 @@ import React from "react"
 import { PageProps, graphql } from "gatsby"
 import { makeStyles } from "@material-ui/core/styles"
 import { CitiesPageQuery, CityFragment } from "graphql-types"
-import { IconButton, Drawer, List, ListItem } from "@material-ui/core"
+import { IconButton, Drawer, List, ListItem, Button } from "@material-ui/core"
 import CloseIcon from "@material-ui/icons/Close"
 import ChevronRightIcon from "@material-ui/icons/ChevronRight"
 import LocationCityIcon from "@material-ui/icons/LocationCity"
 
 import SEO from "components/seo"
 import { City } from "components/City"
+import useBoop from "hooks/useBoop"
+import { animated, useSpring } from "react-spring"
 
 const drawerWidth = "40%"
 const maxCities = 6
@@ -68,7 +70,6 @@ const useStyles = makeStyles(theme => ({
         height: "75%",
         margin: "0 auto",
         marginTop: "15vh",
-        position: "relative",
     },
 }))
 
@@ -141,6 +142,17 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             icon: "/assets/cities/shifenIcon.svg",
         },
     ]
+    let i;
+    let cityBoops = {}
+    for (i=0;i<maxCities;i++) {
+        cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
+    }
+
+    const [nextAnimation, nextTrigger] = useBoop({ x: 3 })
+    const [closeAnimation, closeTrigger] = useBoop({ scale: 1.1 })
+
+    const taiwanAnimation = useSpring({marginLeft: open ? '-60%' : '0%'})
+
 
     return (
         <>
@@ -151,8 +163,8 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             <div className={classes.container}>
                 <div
                     className={classes.taiwanMap}
-                    style={{ marginLeft: open ? "25%" : "auto" }}
                 >
+                    <animated.div style={{...taiwanAnimation,...{position: "relative", width: '100%', height: '100%'}}}>
                     <img
                         src={`/assets/cities/taiwanmap.png`}
                         style={{ width: "100%", height: "100%" }}
@@ -179,19 +191,22 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                                         handleDrawerOpen(data, index)
                                     }
                                 >
-                                    <img
+                                    <animated.img
                                         src={icon}
-                                        style={{
+                                        style={{...{
                                             width: "60px",
                                             height: "60px",
                                             padding: "3px",
                                             borderRadius: "30px",
-                                        }}
+                                        },
+                                        ...cityBoops[`${index}`][0]}
+                                        }
                                         className={
                                             data == city && open
                                                 ? classes.styleCityClicked
                                                 : classes.styleCity
                                         }
+                                        onMouseEnter={cityBoops[`${index}`][1]}
                                     />
                                     {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
                                 </IconButton>
@@ -210,6 +225,7 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                             </div>
                         )
                     )}
+                    </animated.div>
                 </div>
             </div>
 
@@ -222,24 +238,31 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             >
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <CloseIcon />
+                    <IconButton onClick={handleDrawerClose} onMouseEnter={closeTrigger}>
+                        <animated.span style={{...closeAnimation, ...{height: '24px'}}}>
+                            <CloseIcon />
+                        </animated.span>
                     </IconButton>
                 </div>
                 <City city={city} />
                 <List>
                     <ListItem style={{ display: "block", textAlign: "center" }}>
-                        Next City: {markers[cityIndex].name}
-                        <IconButton
+                        <Button
                             onClick={() =>
                                 handleDrawerOpen(
                                     markers[cityIndex].data,
                                     markers[cityIndex].index
                                 )
                             }
+                            onMouseEnter={nextTrigger}
+                            variant="contained"
+                            color="primary"
                         >
-                            <ChevronRightIcon />
-                        </IconButton>
+                            Next City: {markers[cityIndex].name}
+                            <animated.span style={{...nextAnimation, ...{height: '24px', marginLeft: '2px'}}}>
+                                <ChevronRightIcon/>
+                            </animated.span>
+                        </Button>
                     </ListItem>
                 </List>
             </Drawer>

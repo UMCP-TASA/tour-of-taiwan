@@ -53,19 +53,20 @@ export default function City({ city }: Props) {
                     objectFit: "cover",
                 }}
             />
-            <h1
+            <div 
                 style={{
                     position: "absolute",
                     top: "15vh",
                     left: "50%",
                     transform: "translate(-50%, -50%)",
-                    background: "rgba(255,255,255,.9)",
-                    borderRadius: "7px",
-                    padding: "0px 5px",
+                    textAlign: 'center'
                 }}
             >
-                {city.frontmatter.name}
-            </h1>
+                <h1 style={{background: "rgba(255,255,255,.9)", borderRadius: "7px", padding: "0px 5px", width: 'fit-content', margin: '0 auto'}}>
+                    {city.frontmatter.name}
+                </h1>
+                <div style={{background: "rgba(255,255,255,.9)", borderRadius: "7px", padding: "0px 5px"}}dangerouslySetInnerHTML={{ __html: city.html }} />
+            </div>
             <iframe
                 src={getEmbedUrl(city.frontmatter.video)}
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
