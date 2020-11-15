@@ -80,7 +80,7 @@ module.exports = {
                 downloadFiles: true,
             },
         },
-        `gatsby-plugin-optimize-svgs`,
+        //`gatsby-plugin-optimize-svgs`,
         `gatsby-plugin-material-ui`,
         `gatsby-transformer-sharp`,
         `gatsby-plugin-sharp`,

@@ -22,6 +22,17 @@ const useStyles = makeStyles(theme => ({
         textAlign: "center",
         overflow: "hidden",
     },
+    logoContainer: {
+        position: "absolute",
+        height: "100vh",
+        width: "100%",
+        textAlign: "center",
+        top: "0",
+        zIndex: 3,
+        [theme.breakpoints.down("sm")]: {
+            top: "100px"  
+        },
+    },
     logoA: {
         width: "350px",
         zIndex: 3,
@@ -97,7 +108,7 @@ const IndexPage = () => {
     const logoABigScreen = useMediaQuery("(min-width:1500px)")
     const logoAProps = useSpring({
         to: { opacity: 1, marginTop: logoABigScreen ? '20vh' : "100px" },
-        from: { opacity: 0.5, marginTop: logoABigScreen ? '-10vh' :"-100px" },
+        from: { opacity: 0.5, marginTop: logoABigScreen ? '-10vh' : "-100px" },
         delay: 600,
     })
 
@@ -156,7 +167,8 @@ const IndexPage = () => {
                         style={{ width: "100%" }}
                     />
                 </animated.div>
-                <animated.div style={logoAProps}>
+                <div className={classes.logoContainer}>
+                <animated.div  style={logoAProps}>
                     <img
                         src={getSvgPath("logo-a.svg")}
                         className={classes.logoA}
@@ -179,6 +191,8 @@ const IndexPage = () => {
                         Begin Tour
                     </LinkButton>
                 </animated.div>
+                </div>
+               
             </div>
         </>
     )

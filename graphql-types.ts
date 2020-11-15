@@ -708,8 +708,8 @@ export type FileFieldsEnum =
   | 'childMarkdownRemark___id'
   | 'childMarkdownRemark___frontmatter___title'
   | 'childMarkdownRemark___frontmatter___name'
-  | 'childMarkdownRemark___frontmatter___category'
   | 'childMarkdownRemark___frontmatter___imgsrc'
+  | 'childMarkdownRemark___frontmatter___category'
   | 'childMarkdownRemark___frontmatter___video'
   | 'childMarkdownRemark___excerpt'
   | 'childMarkdownRemark___rawMarkdownBody'
@@ -1522,8 +1522,8 @@ export type MarkdownRemarkFieldsEnum =
   | 'id'
   | 'frontmatter___title'
   | 'frontmatter___name'
-  | 'frontmatter___category'
   | 'frontmatter___imgsrc'
+  | 'frontmatter___category'
   | 'frontmatter___video'
   | 'excerpt'
   | 'rawMarkdownBody'
@@ -1647,16 +1647,16 @@ export type MarkdownRemarkFilterInput = {
 export type MarkdownRemarkFrontmatter = {
   title?: Maybe<Scalars['String']>;
   name?: Maybe<Scalars['String']>;
-  category?: Maybe<Scalars['String']>;
   imgsrc?: Maybe<Scalars['String']>;
+  category?: Maybe<Scalars['String']>;
   video?: Maybe<Scalars['String']>;
 };
 
 export type MarkdownRemarkFrontmatterFilterInput = {
   title?: Maybe<StringQueryOperatorInput>;
   name?: Maybe<StringQueryOperatorInput>;
-  category?: Maybe<StringQueryOperatorInput>;
   imgsrc?: Maybe<StringQueryOperatorInput>;
+  category?: Maybe<StringQueryOperatorInput>;
   video?: Maybe<StringQueryOperatorInput>;
 };
 
@@ -2549,6 +2549,9 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___credentials___storageBucket'
   | 'pluginCreator___pluginOptions___credentials___messagingSenderId'
   | 'pluginCreator___pluginOptions___credentials___appId'
+  | 'pluginCreator___pluginOptions___objects'
+  | 'pluginCreator___pluginOptions___secretKey'
+  | 'pluginCreator___pluginOptions___downloadFiles'
   | 'pluginCreator___pluginOptions___base64Width'
   | 'pluginCreator___pluginOptions___stripMetadata'
   | 'pluginCreator___pluginOptions___defaultQuality'
@@ -2580,9 +2583,6 @@ export type SitePageFieldsEnum =
   | 'pluginCreator___pluginOptions___theme_color_in_head'
   | 'pluginCreator___pluginOptions___cacheDigest'
   | 'pluginCreator___pluginOptions___pathCheck'
-  | 'pluginCreator___pluginOptions___objects'
-  | 'pluginCreator___pluginOptions___secretKey'
-  | 'pluginCreator___pluginOptions___downloadFiles'
   | 'pluginCreator___nodeAPIs'
   | 'pluginCreator___browserAPIs'
   | 'pluginCreator___ssrAPIs'
@@ -2807,6 +2807,9 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___credentials___storageBucket'
   | 'pluginOptions___credentials___messagingSenderId'
   | 'pluginOptions___credentials___appId'
+  | 'pluginOptions___objects'
+  | 'pluginOptions___secretKey'
+  | 'pluginOptions___downloadFiles'
   | 'pluginOptions___base64Width'
   | 'pluginOptions___stripMetadata'
   | 'pluginOptions___defaultQuality'
@@ -2838,9 +2841,6 @@ export type SitePluginFieldsEnum =
   | 'pluginOptions___theme_color_in_head'
   | 'pluginOptions___cacheDigest'
   | 'pluginOptions___pathCheck'
-  | 'pluginOptions___objects'
-  | 'pluginOptions___secretKey'
-  | 'pluginOptions___downloadFiles'
   | 'nodeAPIs'
   | 'browserAPIs'
   | 'ssrAPIs'
@@ -2962,6 +2962,9 @@ export type SitePluginPluginOptions = {
   path?: Maybe<Scalars['String']>;
   aliases?: Maybe<SitePluginPluginOptionsAliases>;
   credentials?: Maybe<SitePluginPluginOptionsCredentials>;
+  objects?: Maybe<Array<Maybe<Scalars['String']>>>;
+  secretKey?: Maybe<Scalars['String']>;
+  downloadFiles?: Maybe<Scalars['Boolean']>;
   base64Width?: Maybe<Scalars['Int']>;
   stripMetadata?: Maybe<Scalars['Boolean']>;
   defaultQuality?: Maybe<Scalars['Int']>;
@@ -2993,9 +2996,6 @@ export type SitePluginPluginOptions = {
   theme_color_in_head?: Maybe<Scalars['Boolean']>;
   cacheDigest?: Maybe<Scalars['String']>;
   pathCheck?: Maybe<Scalars['Boolean']>;
-  objects?: Maybe<Array<Maybe<Scalars['String']>>>;
-  secretKey?: Maybe<Scalars['String']>;
-  downloadFiles?: Maybe<Scalars['Boolean']>;
 };
 
 export type SitePluginPluginOptionsAliases = {
@@ -3038,6 +3038,9 @@ export type SitePluginPluginOptionsFilterInput = {
   path?: Maybe<StringQueryOperatorInput>;
   aliases?: Maybe<SitePluginPluginOptionsAliasesFilterInput>;
   credentials?: Maybe<SitePluginPluginOptionsCredentialsFilterInput>;
+  objects?: Maybe<StringQueryOperatorInput>;
+  secretKey?: Maybe<StringQueryOperatorInput>;
+  downloadFiles?: Maybe<BooleanQueryOperatorInput>;
   base64Width?: Maybe<IntQueryOperatorInput>;
   stripMetadata?: Maybe<BooleanQueryOperatorInput>;
   defaultQuality?: Maybe<IntQueryOperatorInput>;
@@ -3069,9 +3072,6 @@ export type SitePluginPluginOptionsFilterInput = {
   theme_color_in_head?: Maybe<BooleanQueryOperatorInput>;
   cacheDigest?: Maybe<StringQueryOperatorInput>;
   pathCheck?: Maybe<BooleanQueryOperatorInput>;
-  objects?: Maybe<StringQueryOperatorInput>;
-  secretKey?: Maybe<StringQueryOperatorInput>;
-  downloadFiles?: Maybe<BooleanQueryOperatorInput>;
 };
 
 export type SitePluginPluginOptionsPlugins = {
