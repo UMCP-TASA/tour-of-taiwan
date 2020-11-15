@@ -8,30 +8,35 @@ import SEO from "components/seo"
 
 
 const useStyles = makeStyles(theme => ({
-    root: {},
-}))
-
-const styles = {
-    slide: {
-      padding: 15,
-      minHeight: 100,
-      color: '#fff',
+    container: {
+        height: "100%",
+        width: "100%",
+        position: "absolute",
+        top: '0',
+        backgroundImage: 'url(/assets/foodBackground.svg)',
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
     },
-  };
+}))
 
 const FoodPage = ({ data }: PageProps<FoodPageQuery>) => {
     const classes = useStyles()
     const food_lst = [
+        {data: data.tanghulu},
         {data: data.tanghulu}
     ];
     return (
         <>
             <SEO title="Food" />
-            <SwipeableViews enableMouseEvents>
-                {food_lst.map(({data}) => (
-                    <Food food={data} />
-                ))}
-            </SwipeableViews>
+            <div className={classes.container}>
+                <div style={{width: '80%',height: '80vh', backgroundColor: '#fff', boxShadow: 'rgba(0, 0, 0, .2) 0px 0px 5px 2px', marginLeft: '50%', marginTop: '7%', transform: 'translate(-50%)', borderRadius: '20px'}}>
+                    <SwipeableViews enableMouseEvents>
+                        {food_lst.map(({data}) => (
+                            <Food food={data}/>
+                        ))}
+                    </SwipeableViews>
+                </div>
+            </div>
         </>
     )
 }
