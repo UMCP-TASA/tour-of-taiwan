@@ -11,7 +11,7 @@
 import { loadStripe, Stripe } from "@stripe/stripe-js"
 
 const PUBLIC_KEY =
-    "pk_test_51HgZMoI2gbJ3CgDUd3CAdpNV3gBitKroNg848YgaO56GpDR9v5ZaR8DxQTRujRZtVdmORwMOHFzShrCK6mEm1tDO00tpzNYAVr"
+    "pk_live_51HgZMoI2gbJ3CgDUKHBAXw8fF1rswiAYpKMAlZ77nYuLP2fD92hDw2QWwfew8Lth21IokrxXpDbgOKcxXmOtKyHg00DzayJqeP"
 
 let stripePromise: Promise<Stripe | null>
 export const getStripe = () => {
