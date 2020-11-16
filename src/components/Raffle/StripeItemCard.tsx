@@ -74,7 +74,7 @@ const StripeItemCard = ({ title, data, children }: Props) => {
                 foundItem?.images && foundItem?.images[0]
                     ? foundItem?.images[0]
                     : "",
-        })
+        }, quantity)
     }
 
     return (
