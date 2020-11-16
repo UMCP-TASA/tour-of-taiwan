@@ -7,6 +7,7 @@ import Image from "components/Image"
 
 const useStyles = makeStyles(theme => ({
     root: {
+        overflowY: "scroll",
         [theme.breakpoints.up("md")]: {
             height: "70vh",
         },

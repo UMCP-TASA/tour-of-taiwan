@@ -198,7 +198,6 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                         alignItems="stretch"
                         alignContent="stretch"
                         justify="space-between"
-                        direction="column"
                     >
                         <Grid item xs={12}>
                             {isSignedIn ? (
