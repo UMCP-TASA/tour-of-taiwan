@@ -2,7 +2,7 @@
 name: Wontons
 category: food
 imgsrc: assets/wonton.jpg
-video: https://www.youtube.com/watch?v=PtAYTixoXFc&feature=youtu.be&fbclid=IwAR1g5a1mfh_UQWQV_ex3MtJM8a2_TUCRIQRiOf18u5iGZmBSmITF15YYiGA
+video: https://youtu.be/PtAYTixoXFc
 ---
 
 A chinese dumpling filled with spiced minced pork; usually served in soup. 
