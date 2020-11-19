@@ -1,7 +1,6 @@
 import React from "react"
 import firebase from "gatsby-plugin-firebase"
 import { useCollection } from "react-firebase-hooks/firestore"
-import { Grid } from "@material-ui/core"
 import { DocType } from "components/Raffle"
 import { Table } from "components/Table"
 
@@ -15,19 +14,12 @@ const originHeaders = [
         label: "Basic",
     },
     {
+        id: "premium",
+        label: "Premium",
+    },
+    {
         id: "total",
         label: "Total",
-    },
-]
-
-const METRIC = [
-    {
-        id: "name",
-        label: "Name",
-    },
-    {
-        id: "amount",
-        label: "Metric",
     },
 ]
 
@@ -35,6 +27,8 @@ const MetricTable = () => {
     const [value, loading, error] = useCollection(
         firebase.firestore().collection("raffle")
     )
+
+    console.log(value)
 
     const allTickets: DocType[] = value ? value.docs : []
     const basicTickets = allTickets.filter(
