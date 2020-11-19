@@ -7,6 +7,10 @@ export { default as RaffleTab } from "./RaffleTab"
 export { default as RaffleTicketList } from "./RaffleTicketList"
 export { default as RaffleTable } from "./RaffleTable"
 
+export type QueryType = firebase.firestore.QuerySnapshot<
+    firebase.firestore.DocumentData
+>
+
 export type DocType = firebase.firestore.QueryDocumentSnapshot<
     firebase.firestore.DocumentData
 >

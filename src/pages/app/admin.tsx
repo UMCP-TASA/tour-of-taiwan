@@ -9,6 +9,7 @@ import {
     ChooseWinner,
     GrantAdmin,
     GrantTicket,
+    MetricTable,
     WinnerTable,
 } from "components/Admin"
 
@@ -68,10 +69,13 @@ const AdminPage = ({}: PageProps) => {
                             <ChooseWinner />
                         </Grid>
                         <Grid item xs={12}>
+                            <MetricTable />
+                        </Grid>
+                        <Grid item xs={12}>
                             <WinnerTable />
                         </Grid>
                     </Grid>
-                </Grid>
+                </Grid> 
             </Container>
         </>
     )
