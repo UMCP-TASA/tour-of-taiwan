@@ -28,8 +28,6 @@ const MetricTable = () => {
         firebase.firestore().collection("raffle")
     )
 
-    console.log(value)
-
     const allTickets: DocType[] = value ? value.docs : []
     const basicTickets = allTickets.filter(
         doc => doc.get("category") === "Basic"

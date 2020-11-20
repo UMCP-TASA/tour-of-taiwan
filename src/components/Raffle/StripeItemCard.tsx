@@ -3,10 +3,6 @@ import { graphql } from "gatsby"
 import {
     Button,
     Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardHeader,
     Typography,
     TextField,
     makeStyles,

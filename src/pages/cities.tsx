@@ -13,6 +13,7 @@ import useBoop from "hooks/useBoop"
 import { animated, useSpring } from "react-spring"
 
 const drawerWidth = "40%"
+const fullDrawerWidth = "100%"
 const maxCities = 6
 
 const getSvgPath = (file: string) => `/svg/cities/${file}`
@@ -36,6 +37,10 @@ const useStyles = makeStyles(theme => ({
         zIndex: theme.zIndex.appBar - 1,
         background: "transparent",
         borderLeft: "none",
+
+        [theme.breakpoints.down("sm")]: {
+            width: fullDrawerWidth,
+        },
     },
     hide: { display: "none" },
     drawerHeader: {
@@ -48,6 +53,10 @@ const useStyles = makeStyles(theme => ({
     drawer: {
         width: drawerWidth,
         flexShrink: 0,
+
+        [theme.breakpoints.down("sm")]: {
+            width: fullDrawerWidth,
+        },
     },
     content: {
         transition: theme.transitions.create("margin", {
@@ -148,9 +157,9 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             icon: getSvgPath("shifenIcon.svg"),
         },
     ]
-    let i;
+    let i
     let cityBoops: ReturnType<typeof useBoop>[] = []
-    for (i=0;i<maxCities;i++) {
+    for (i = 0; i < maxCities; i++) {
         cityBoops.push(useBoop({ scale: 1.05, rotation: 10 }))
         //cityBoops[`${i+1}`] = useBoop({ scale: 1.05, rotation: 10 })
     }
@@ -158,83 +167,90 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
     const [nextAnimation, nextTrigger] = useBoop({ x: 3 })
     const [closeAnimation, closeTrigger] = useBoop({ scale: 1.1 })
 
-    const taiwanAnimation = useSpring({marginLeft: open ? '-60%' : '0%'})
-
+    const taiwanAnimation = useSpring({ marginLeft: open ? "-60%" : "0%" })
 
     return (
         <>
             <SEO title="Cities" />
             <div className={classes.container}>
-                <div
-                    className={classes.taiwanMap}
-                >
-                    
-                    <animated.div style={{...taiwanAnimation,...{position: "relative", width: '100%', height: '100%'}}}>
-                    <Image
-                        className={classes.map}
-                        image={data.map}
-                        loading="eager"
-                        durationFadeIn={100}
-                        imgStyle={{
-                            objectFit: "fill",
+                <div className={classes.taiwanMap}>
+                    <animated.div
+                        style={{
+                            ...taiwanAnimation,
+                            ...{
+                                position: "relative",
+                                width: "100%",
+                                height: "100%",
+                            },
                         }}
-                    />
-                    {markers.map(
-                        ({
-                            name,
-                            marginSide,
-                            marginTop,
-                            data,
-                            index,
-                            icon,
-                        }) => (
-                            <div
-                                key={name}
-                                style={{
-                                    left: marginSide,
-                                    top: marginTop,
-                                    position: "absolute",
-                                }}
-                            >
-                                <IconButton
-                                    onClick={() =>
-                                        handleDrawerOpen(data, index)
-                                    }
-                                >
-                                    <animated.img
-                                        src={icon}
-                                        style={{...{
-                                            width: "60px",
-                                            height: "60px",
-                                            padding: "3px",
-                                            borderRadius: "30px",
-                                        },
-                                        ...cityBoops[index - 1][0]}
-                                        }
-                                        className={
-                                            data == city && open
-                                                ? classes.styleCityClicked
-                                                : classes.styleCity
-                                        }
-                                        onMouseEnter={cityBoops[index - 1][1]}
-                                    />
-                                    {/* <LocationCityIcon className={((data == city) && open ? classes.styleCityClicked : classes.styleCity)}/> */}
-                                </IconButton>
+                    >
+                        <Image
+                            className={classes.map}
+                            image={data.map}
+                            loading="eager"
+                            durationFadeIn={100}
+                            imgStyle={{
+                                objectFit: "fill",
+                            }}
+                        />
+                        {markers.map(
+                            ({
+                                name,
+                                marginSide,
+                                marginTop,
+                                data,
+                                index,
+                                icon,
+                            }) => (
                                 <div
+                                    key={name}
                                     style={{
-                                        color: "white",
+                                        left: marginSide,
+                                        top: marginTop,
                                         position: "absolute",
-                                        left: "50%",
-                                        transform: "translate(-50%, -50%)",
-                                        fontWeight: "bold",
-                                        fontSize: "12px",
                                     }}
                                 >
-                                    {name}
+                                    <IconButton
+                                        onClick={() =>
+                                            handleDrawerOpen(data, index)
+                                        }
+                                    >
+                                        <animated.img
+                                            src={icon}
+                                            style={{
+                                                ...{
+                                                    width: "60px",
+                                                    height: "60px",
+                                                    padding: "3px",
+                                                    borderRadius: "30px",
+                                                },
+                                                ...cityBoops[index - 1][0],
+                                            }}
+                                            className={
+                                                data == city && open
+                                                    ? classes.styleCityClicked
+                                                    : classes.styleCity
+                                            }
+                                            onMouseEnter={
+                                                cityBoops[index - 1][1]
+                                            }
+                                        />
+                                    </IconButton>
+                                    <div
+                                        style={{
+                                            color: "white",
+                                            position: "absolute",
+                                            left: "50%",
+                                            transform: "translate(-50%, -50%)",
+                                            fontWeight: "bold",
+                                            fontSize: "12px",
+                                        }}
+                                    >
+                                        {name}
+                                    </div>
                                 </div>
-                            </div>
-                        )
-                    )}
+                            )
+                        )}
                     </animated.div>
                 </div>
             </div>
@@ -248,8 +264,13 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
             >
                 <div className={classes.toolbar} />
                 <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose} onMouseEnter={closeTrigger}>
-                        <animated.span style={{...closeAnimation, ...{height: '24px'}}}>
+                    <IconButton
+                        onClick={handleDrawerClose}
+                        onMouseEnter={closeTrigger}
+                    >
+                        <animated.span
+                            style={{ ...closeAnimation, ...{ height: "24px" } }}
+                        >
                             <CloseIcon />
                         </animated.span>
                     </IconButton>
@@ -269,8 +290,13 @@ const CitiesPage = ({ data }: PageProps<CitiesPageQuery>) => {
                             color="primary"
                         >
                             Next City: {markers[cityIndex].name}
-                            <animated.span style={{...nextAnimation, ...{height: '24px', marginLeft: '2px'}}}>
-                                <ChevronRightIcon/>
+                            <animated.span
+                                style={{
+                                    ...nextAnimation,
+                                    ...{ height: "24px", marginLeft: "2px" },
+                                }}
+                            >
+                                <ChevronRightIcon />
                             </animated.span>
                         </Button>
                     </ListItem>
