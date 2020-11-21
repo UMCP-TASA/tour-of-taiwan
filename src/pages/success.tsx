@@ -1,30 +1,56 @@
 import React from "react"
 import { graphql, PageProps } from "gatsby"
-import { Grid, Container, Typography } from "@material-ui/core"
+import { Grid, Container, Typography, makeStyles } from "@material-ui/core"
 import { useShoppingCart } from "use-shopping-cart"
 import { LinkButton } from "components/Buttons"
 
+import SeaBackground from "assets/backgrounds/seaBackground.svg"
 import SEO from "components/seo"
+import Sparkle from "components/Sparkle"
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        display: "grid",
+        placeItems: "center",
+        height: "80vh",
+        zIndex: 1,
+    },
+    background: {
+        height: "100%",
+        width: "100%",
+        position: "absolute",
+        top: "0",
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",
+        textAlign: "center",
+        pointerEvents: "none",
+        zIndex: -1,
+    },
+}))
 
 const SuccessPage = ({}: PageProps) => {
+    const classes = useStyles()
     const { clearCart } = useShoppingCart()
 
     React.useEffect(() => {
         clearCart()
     }, [])
+
     return (
         <>
             <SEO title="Success" />
-            <Container maxWidth="lg">
+            <SeaBackground className={classes.background} />
+            <Container maxWidth="lg" className={classes.root}>
                 <Grid
                     container
                     alignItems="center"
+                    justify="center"
                     direction="column"
                     spacing={4}
                 >
                     <Grid item>
                         <Typography variant="h1" align="center">
-                            Successfully purchased tickets!
+                            <Sparkle>Successfully purchased tickets!</Sparkle>
                         </Typography>
                     </Grid>
 
@@ -37,7 +63,12 @@ const SuccessPage = ({}: PageProps) => {
                     </Grid>
 
                     <Grid item>
-                        <LinkButton to="/raffle" fullWidth>
+                        <LinkButton
+                            to="/raffle"
+                            variant="contained"
+                            fullWidth
+                            color="primary"
+                        >
                             Return to Dashboard
                         </LinkButton>
                     </Grid>
