@@ -1,16 +1,13 @@
 import React from "react"
-import { TablePaginationProps } from "@material-ui/core"
-import { Table } from "components/Table"
+import { Table, TableProps } from "components/Table"
+import { DocType } from "components/Raffle"
 
-type Props = {
-    value:
-        | firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>
-        | undefined
+type Props = TableProps & {
+    tickets: DocType[]
     loading?: boolean
     error?: Error
     showEmail?: boolean
     title: string
-    rowsPerPageOptions?: TablePaginationProps["rowsPerPageOptions"]
 }
 
 const ALL_COLUMNS = [
@@ -33,38 +30,29 @@ const ALL_COLUMNS = [
 ]
 
 const RaffleTable = ({
-    value,
+    tickets,
     loading,
     error,
     showEmail = false,
     title,
-    rowsPerPageOptions,
+    ...rest
 }: Props) => {
     const columns = showEmail
         ? ALL_COLUMNS
         : ALL_COLUMNS.slice(0, ALL_COLUMNS.length - 1)
 
-    const rows = value
-        ? value.docs.map(doc => {
-              const data = doc.data()
-              const main = {
-                  name: doc.id,
-                  category: data["category"],
-                  prize: data["prize"],
-                  winner: data["winner"],
-              }
-              return showEmail ? { ...main, email: data["person"] } : main
-          })
-        : []
+    const rows = tickets.map(doc => {
+        const data = doc.data()
+        const main = {
+            name: doc.id,
+            category: data["category"],
+            prize: data["prize"],
+            winner: data["winner"],
+        }
+        return showEmail ? { ...main, email: data["person"] } : main
+    })
 
-    return (
-        <Table
-            rows={rows}
-            headers={columns}
-            title={title}
-            rowsPerPageOptions={rowsPerPageOptions}
-        />
-    )
+    return <Table rows={rows} headers={columns} title={title} {...rest} />
 }
 
 export default RaffleTable

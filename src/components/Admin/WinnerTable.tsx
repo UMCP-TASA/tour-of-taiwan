@@ -8,7 +8,13 @@ const WinnerTable = () => {
         firebase.firestore().collection("winners")
     )
 
-    return <RaffleTable value={value} showEmail title="Winners" />
+    return (
+        <RaffleTable
+            tickets={value ? value.docs : []}
+            showEmail
+            title="Winners"
+        />
+    )
 }
 
 export default WinnerTable

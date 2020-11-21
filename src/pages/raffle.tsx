@@ -19,6 +19,7 @@ import SEO from "components/seo"
 import { PremiumTickets, StripeItemCard, RaffleTable } from "components/Raffle"
 import { LinkButton } from "components/Buttons"
 import useIsSignedIn from "hooks/useIsSignedIn"
+import RaffleWinner from "components/Raffle/RaffleWinner"
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -70,10 +71,15 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
         doc => doc.get("category") === "Premium"
     )
 
+    const winningTickets = value
+        ? value.docs.filter(doc => doc.get("winner"))
+        : []
+
     return (
         <>
             <SEO title="Raffle" />
             <Container maxWidth="xl" className={classes.root}>
+                <RaffleWinner winningTickets={winningTickets} />
                 <Grid
                     container
                     alignItems="stretch"
@@ -129,7 +135,11 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(0, 4)
                                                                 .map(prize => (
-                                                                    <li key={prize}>
+                                                                    <li
+                                                                        key={
+                                                                            prize
+                                                                        }
+                                                                    >
                                                                         {prize}
                                                                     </li>
                                                                 ))}
@@ -140,7 +150,11 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                             {basicPrizes
                                                                 .slice(4)
                                                                 .map(prize => (
-                                                                    <li key={prize}>
+                                                                    <li
+                                                                        key={
+                                                                            prize
+                                                                        }
+                                                                    >
                                                                         {prize}
                                                                     </li>
                                                                 ))}
@@ -176,12 +190,12 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                                 Premium tickets are special
                                                 tickets that you can choose to
                                                 enter into either the Airpods
-                                                raffle <b>OR</b> the Switch raffle.
-                                                Tickets are put into the Switch
-                                                raffle pool by default, but you
-                                                can change which prize your
-                                                tickets go towards by signing
-                                                in!
+                                                raffle <b>OR</b> the Switch
+                                                raffle. Tickets are put into the
+                                                Switch raffle pool by default,
+                                                but you can change which prize
+                                                your tickets go towards by
+                                                signing in!
                                             </Typography>
                                         </StripeItemCard>
                                     </Grid>
@@ -212,8 +226,7 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                     {value && (
                                         <RaffleTable
                                             title={"Your Tickets"}
-                                            value={value}
-                                            
+                                            tickets={value.docs}
                                             rowsPerPageOptions={[
                                                 5,
                                                 10,
@@ -244,6 +257,17 @@ const RafflePage = ({ data }: PageProps<RafflePageQuery>) => {
                                 </Card>
                             )}
                         </Grid>
+
+                        {winningTickets.length > 0 && (
+                            <Grid item xs={12}>
+                                <RaffleTable
+                                    title={"⭐ Winning Tickets ⭐"}
+                                    tickets={winningTickets}
+                                    rowsPerPageOptions={[]}
+                                    initialRowsPerPage={winningTickets.length}
+                                />
+                            </Grid>
+                        )}
 
                         <Grid item xs={12}>
                             {isSignedIn && (

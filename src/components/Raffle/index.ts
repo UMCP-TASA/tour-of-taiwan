@@ -14,6 +14,7 @@ export type QueryType = firebase.firestore.QuerySnapshot<
 export type DocType = firebase.firestore.QueryDocumentSnapshot<
     firebase.firestore.DocumentData
 >
+
 export type CollectionQuery = {
     docs: DocType[] | undefined
     loading: boolean

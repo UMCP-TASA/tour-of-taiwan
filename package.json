@@ -38,6 +38,7 @@
     "netlify-cms-app": "^2.13.3",
     "patch-package": "^6.2.2",
     "react": "^16.14.0",
+    "react-confetti": "^6.0.0",
     "react-dom": "^16.14.0",
     "react-firebase-hooks": "^2.2.0",
     "react-firebaseui": "^4.1.0",

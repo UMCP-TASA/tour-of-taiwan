@@ -12,7 +12,7 @@ import { ArrowBackIosRounded, ArrowForwardIosRounded } from "@material-ui/icons"
 
 import SwipeableViews from "react-swipeable-views"
 
-import FoodBackground from "assets/food/foodBackground.svg"
+import FoodBackground from "assets/backgrounds/foodBackground.svg"
 
 import { FoodPageQuery, FoodFragment } from "graphql-types"
 import { Food } from "components/Food"

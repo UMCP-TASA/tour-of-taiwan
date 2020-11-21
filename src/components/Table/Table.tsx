@@ -69,12 +69,15 @@ interface Row {
     winner?: boolean
 }
 
-type Props<T> = {
+export type TableProps = {
+    rowsPerPageOptions?: TablePaginationProps["rowsPerPageOptions"]
+    initialRowsPerPage?: number
+}
+
+type Props<T> = TableProps & {
     rows: T[]
     headers: HeadCell[]
     title: string
-    rowsPerPageOptions?: TablePaginationProps["rowsPerPageOptions"]
-    initialRowsPerPage?: number,
 }
 
 export default function EnhancedTable<T extends Row>({
@@ -90,6 +93,10 @@ export default function EnhancedTable<T extends Row>({
     const [selected, setSelected] = React.useState<string[]>([])
     const [page, setPage] = React.useState(0)
     const [rowsPerPage, setRowsPerPage] = React.useState(initialRowsPerPage)
+
+    React.useEffect(() => setRowsPerPage(initialRowsPerPage), [
+        initialRowsPerPage,
+    ])
 
     const handleRequestSort = (property: string) => {
         const isAsc = orderBy === property && order === "asc"
